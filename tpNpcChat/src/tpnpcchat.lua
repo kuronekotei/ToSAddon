@@ -24,6 +24,7 @@ function TPNPCCHAT_ON_INIT(addon, frame)
 		_G["NOTICE_ON_MSG"] = TPNPCCHAT_HOOK_NOTICE_ON_MSG;
 	end
 	TPNPCCHAT_LOAD_SETTING();
+	TPNPCCHAT_SAVE_SETTING();
 end
 
 --	再読込しても、この関数(の効果)は更新されない(DIALOG_SHOW_DIALOG_TEXTになってるため)
