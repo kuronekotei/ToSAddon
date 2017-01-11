@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 日本語 -->
+<uiframe name="tpchatsys2" x="0" y="0" width="600" height="370">
+	<frame title="tpChatSys2" layout_gravity="left top" margin="0 370 0 0"/>
+	<draw drawframe="true" drawnotitlebar="false" drawtitlebar="false" blend="95"/>
+	<input hittest="true" movable="true" moveintitlebar="false" hittestframe="false"/>
+	<option visible="true" hideable="true" useimageitem="true" closebutton="false" savelayout="true"/>
+	<skin frameskin="chat_window"/>
+	<layer layerlevel="1"/>
+	<controls>
+		<groupbox name="chatlist" rect="0 0 594 364" margin="3 3 3 3" layout_gravity="left top"
+			autoresize="0 1" border="0 0 0 0" draw="true" skin="chat_window" visiblevector="false"
+			hittest="true" scrollbar="true" leftscroll="true"  hittestbox="false"
+			ScrollScp="TPCHATSYS_ON_SCROLL"/>
+	</controls>
+</uiframe>
