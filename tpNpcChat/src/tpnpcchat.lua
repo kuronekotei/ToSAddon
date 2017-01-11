@@ -18,6 +18,7 @@ function TPNPCCHAT_ON_INIT(addon, frame)
 		_G["TPNPCCHAT_OLD_DIALOG_SHOW_DIALOG_TEXT"] = DIALOG_SHOW_DIALOG_TEXT;
 		_G["DIALOG_SHOW_DIALOG_TEXT"] = TPNPCCHAT_HOOK_DIALOG_SHOW_DIALOG_TEXT;
 	end
+	--	既存の「NOTICE_ON_MSG」を置き換える(addon.ipf\notice)
 	if(_G["TPNPCCHAT_OLD_NOTICE_ON_MSG"]==nil) then
 		--	待避する関数がすでにいたら、やらない　(2度置き換えると無限ループ)
 		_G["TPNPCCHAT_OLD_NOTICE_ON_MSG"] = NOTICE_ON_MSG;
@@ -72,36 +73,36 @@ function TPNPCCHAT_NEW_NOTICE_ON_MSG(frame, msg, argStr, argNum)
 		return;
 	end
 
-	fontSize = math.floor(fontSize *1.6);	--	設定されたフォントの1.6倍のサイズにする　(整数とする)
+	local iconSize = math.floor(fontSize *1.6);	--	設定されたフォントの1.6倍のサイズにする　(整数とする)
 
 	if (msg == "NOTICE_Dm_!") and s1.isShowExc then
 		if (dispMode ==1) then
-			CHAT_SYSTEM("{img NOTICE_Dm_! "         ..fontSize.." "..fontSize.."}{/}{/}{#FF2000}" .. argStr.."{/}{nl}");
+			CHAT_SYSTEM("{img NOTICE_Dm_! "         ..iconSize.." "..iconSize.."}{/}{/}{#FF2000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		else
-			CHAT_SYSTEM("{img NOTICE_Dm_! "         ..fontSize.." "..fontSize.."}{/}{/}{#E00000}" .. argStr.."{/}{nl}");
+			CHAT_SYSTEM("{img NOTICE_Dm_! "         ..iconSize.." "..iconSize.."}{/}{/}{#E00000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		end
 	elseif (msg == "NOTICE_Dm_scroll") and s1.isShowScr then
 		if (dispMode ==1) then
-			CHAT_SYSTEM("{img NOTICE_Dm_scroll "    ..fontSize.." "..fontSize.."}{/}{/}{#E04000}" .. argStr.."{/}{nl}");
+			CHAT_SYSTEM("{img NOTICE_Dm_scroll "    ..iconSize.." "..iconSize.."}{/}{/}{#E04000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		else
-			CHAT_SYSTEM("{img NOTICE_Dm_scroll "    ..fontSize.." "..fontSize.."}{/}{/}{#602000}" .. argStr.."{/}{nl}");
+			CHAT_SYSTEM("{img NOTICE_Dm_scroll "    ..iconSize.." "..iconSize.."}{/}{/}{#602000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		end
 	elseif (msg == "NOTICE_Dm_Clear") and s1.isShowClr then
 		if (dispMode ==1) then
-			CHAT_SYSTEM("{img NOTICE_Dm_Clear "     ..fontSize.." "..fontSize.."}{/}{/}{#00A0FF}" .. argStr.."{/}{nl}");
+			CHAT_SYSTEM("{img NOTICE_Dm_Clear "     ..iconSize.." "..iconSize.."}{/}{/}{#00A0FF}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		else
-			CHAT_SYSTEM("{img NOTICE_Dm_Clear "     ..fontSize.." "..fontSize.."}{/}{/}{#0000FF}" .. argStr.."{/}{nl}");
+			CHAT_SYSTEM("{img NOTICE_Dm_Clear "     ..iconSize.." "..iconSize.."}{/}{/}{#0000FF}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		end
 	elseif (msg == "NOTICE_Dm_GetItem") and s1.isShowGet then
 		if (dispMode ==1) then
-			CHAT_SYSTEM("{img NOTICE_Dm_GetItem "   ..fontSize.." "..fontSize.."}{/}{/}{#00A0FF}" .. argStr.."{/}{nl}");
+			CHAT_SYSTEM("{img NOTICE_Dm_GetItem "   ..iconSize.." "..iconSize.."}{/}{/}{#00A0FF}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		else
-			CHAT_SYSTEM("{img NOTICE_Dm_GetItem "   ..fontSize.." "..fontSize.."}{/}{/}{#0000FF}" .. argStr.."{/}{nl}");
+			CHAT_SYSTEM("{img NOTICE_Dm_GetItem "   ..iconSize.." "..iconSize.."}{/}{/}{#0000FF}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		end
 	elseif (msg == "NOTICE_Dm_levelup_base") and s1.isShowLvl then
-		CHAT_SYSTEM("{img NOTICE_Dm_levelup_base "  ..fontSize.." "..fontSize.."}{/}{/}" .. argStr.."{nl}");
+		CHAT_SYSTEM("{img NOTICE_Dm_levelup_base "  ..iconSize.." "..iconSize.."}{/}{/}{s"..fontSize.."}" .. argStr.."{nl}");
 	elseif (msg == "NOTICE_Dm_levelup_skill") and s1.isShowLvl then
-		CHAT_SYSTEM("{img NOTICE_Dm_levelup_skill " ..fontSize.." "..fontSize.."}{/}{/}" .. argStr.."{nl}");
+		CHAT_SYSTEM("{img NOTICE_Dm_levelup_skill " ..iconSize.." "..iconSize.."}{/}{/}{s"..fontSize.."}" .. argStr.."{nl}");
 	elseif s1.isDebug then
 		CHAT_SYSTEM("{#FF2000}"..msg.."{nl}"..argStr.."{/}{nl} ");
 	end
