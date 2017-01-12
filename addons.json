@@ -8,7 +8,7 @@
         "unicode" : "✉",
         "description" : "画面下部に表示されるNPCの台詞等やクエスト等のメッセージをチャットログにも表示します。",
         "tags" : [ "npc", "quest", "chat" ]
-    }
+    },
     {
         "name" : "tpChatSys",
         "file" : "tpchatsys",
