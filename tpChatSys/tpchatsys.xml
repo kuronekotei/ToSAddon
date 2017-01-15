@@ -3,20 +3,21 @@
 <uiframe name="tpchatsys" x="0" y="0" width="400" height="30">
 	<frame title="tpchatsys" layout_gravity="left top" margin="0 340 0 0"/>
 	<draw drawframe="true" drawnotitlebar="false" drawtitlebar="false" blend="95"/>
-	<input hittest="true" movable="true" moveintitlebar="false" hittestframe="true"/>
+	<input hittest="true" moveable="true" moveintitlebar="false" hittestframe="true"/>
 	<option visible="true" hideable="true" useimageitem="true" closebutton="false" savelayout="true"/>
+	<script LBtnUpScp="TPCAHTSYS_LBTNUP"/>
 	<skin frameskin="chat_window"/>
 	<layer layerlevel="61"/>
 	<controls>
 		<richtext name="chattitle" rect="0 0 200 24" margin="5 -2 0 0" layout_gravity="left center"
 			textalign="left center" fixheight="true" fixwidth="true" caption="{@st42}tpChatSys{/}" resizebytext="false" hittest="false"/>
-		<button name="btn_min" rect="0 0 30 30" margin="0 0 20 0"  layout_gravity="right top"
+		<button name="btn_min" rect="0 0 30 30" margin="0 0 10 0"  layout_gravity="right top"
 			caption="{@sti7}{s16}×" clicksound="button_click_big" oversound="button_over" hittest="true"
 			LBtnUpScp="TPCHATSYS_ON_BTN_MIN"/>
-		<button name="btn_top" rect="0 0 30 30" margin="0 0 60 0"  layout_gravity="right top"
+		<button name="btn_top" rect="0 0 30 30" margin="0 0 50 0"  layout_gravity="right top"
 			caption="{@sti7}{s16}↑" clicksound="button_click_big" oversound="button_over" hittest="true"
 			LBtnUpScp="TPCHATSYS_ON_BTN_TOP"/>
-		<button name="btn_bottom" rect="0 0 30 30" margin="0 0 100 0" layout_gravity="right top"
+		<button name="btn_bottom" rect="0 0 30 30" margin="0 0 90 0" layout_gravity="right top"
 			caption="{@sti7}{s16}↓" clicksound="button_click_big" oversound="button_over" hittest="true"
 			LBtnUpScp="TPCHATSYS_ON_BTN_BOTTOM"/>
 	</controls>

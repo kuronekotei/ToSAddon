@@ -27,29 +27,24 @@ function TPCHATSYS_ON_INIT(addon, frame)
 		_G["CHAT_SYSTEM"] = TPCHATSYS_HOOK_CHAT_SYSTEM;
 	end
 
-	local frm1 = ui.GetFrame("tpchatsys");
-	frm1:SetEventScript(ui.MOUSEMOVE, "TPCAHTSYS_MOUSEMOVE");
+	-- イベント登録
+	frame:SetEventScript(ui.MOUSEMOVE, "TPCAHTSYS_MOUSEMOVE");
 
+	-- 開始位置をいじる
+	frame:MoveFrame(s2.posX, s2.posY);
 end
 
 function TPCHATSYS2_ON_INIT(addon, frame)
 	TPCHATSYS_LOAD_SETTING();
+	-- 開始位置と大きさをいじる
+	frame:MoveFrame(s2.posX, s2.posY+30);
+	frame:Resize(s2.sizeW, s2.sizeH);
+	local grp		= tolua.cast(frame:GetChild("chatlist"), "ui::CGroupBox");	-- GET_CHILDで同じことが出来るけどベースコードで書く
+	grp:Resize(s2.sizeW-6, s2.sizeH-6);
 	TPCHATSYS_INIT_MSG();
 end
 
 function TPCHATSYS_HOOK_CHAT_SYSTEM(msg)
-	local frm	= ui.GetFrame("tpchatsys2");
-	if (frm == nil) then
-		TPCHATSYS_OLD_CHAT_SYSTEM(msg);
-		return;
-	end
-	local grp	= frm:GetChild("chatlist");
-	if (frm == nil) then
-		TPCHATSYS_OLD_CHAT_SYSTEM(msg);
-		return;
-	end
-	
-	
 	local f,m = pcall(TPCHATSYS_NEW_CHAT_SYSTEM,msg);
 	if f then
 	else
@@ -68,9 +63,13 @@ function TPCHATSYS_LOAD_SETTING()
 	s2.isDebug		= s2.isDebug		or false;
 	s2.isSaveLog	= s2.isSaveLog		or true;
 	s2.isUseOrignal	= s2.isUseOrignal	or false;
-	s2.msgLimitH 	= s2.msgLimitH 		or 300;
-	s2.msgLimitL 	= s2.msgLimitL 		or 240;
+	s2.msgLimitH	= s2.msgLimitH		or 300;
+	s2.msgLimitL	= s2.msgLimitL		or 240;
 	s2.msgMargeSpan	= s2.msgMargeSpan	or 2;
+	s2.posX			= s2.posX			or 0;
+	s2.posY			= s2.posY			or 340;
+	s2.sizeW		= s2.sizeW			or 600;
+	s2.sizeH		= s2.sizeH			or 370;
 	if (s2.msgLimitH < s2.msgLimitL) then
 		s2.msgLimitL = s2.msgLimitH;
 	end
@@ -110,6 +109,17 @@ function TPCAHTSYS_MOUSEMOVE()
 		frm2:MoveFrame(frm1:GetX(), frm1:GetY() + frm1:GetHeight());
 	end
 end
+
+function TPCAHTSYS_LBTNUP()
+	local frm1	= ui.GetFrame("tpchatsys");
+	if (frm1 == nil) then
+		return;
+	end
+	s2.posX	= frm1:GetX();
+	s2.posY	= frm1:GetY();
+	TPCHATSYS_SAVE_SETTING();
+end
+
 
 function TPCHATSYS_ON_SCROLL(frame, ctrl, str, scrollValue)
 	local frm1	= ui.GetFrame("tpchatsys");
@@ -218,18 +228,34 @@ end
 
 -- 管理メッセージで最後のメッセージを更新する　boolを返却
 function TPCHATSYS_UPD_MSG(msg)
-	local frm		= ui.GetFrame("tpchatsys2");
-	local grp		= tolua.cast(frm:GetChild("chatlist"), "ui::CGroupBox");	-- GET_CHILDで同じことが出来るけどベースコードで書く
-
 	local xxx 		= g2.msgList["cht"..g2.msgNewNum];
+	if (xxx == nil) then
+		return false;
+	end
+
+	local frm		= ui.GetFrame("tpchatsys2");
+	if (frm == nil) then
+		-- 最終データの文字列を置き換える
+		xxx.msg = xxx.msg .. "{nl}" .. msg;
+		return true;
+	end
+	local grp		= tolua.cast(frm:GetChild("chatlist"), "ui::CGroupBox");	-- GET_CHILDで同じことが出来るけどベースコードで書く
+	if (grp == nil) then
+		-- 最終データの文字列を置き換える
+		xxx.msg = xxx.msg .. "{nl}" .. msg;
+		return true;
+	end
+
 	local tmpBox	= grp:GetChild("cht"..g2.msgNewNum);
-	if (tmpBox == nil) or (xxx == nil) then
+	if (tmpBox == nil) then
 		return false;
 	end
 	local tmpTxt = tmpBox:GetChild("chtTxt");
 	if (tmpTxt == nil) then
 		return false;
 	end
+	-- 最終データの文字列を置き換える
+	xxx.msg = xxx.msg .. "{nl}" .. msg;
 
 	local mainchatFrame	= ui.GetFrame("chatframe")
 	local fontSize		= GET_CHAT_FONT_SIZE();	
@@ -244,8 +270,6 @@ function TPCHATSYS_UPD_MSG(msg)
 		isBottom = true;
 	end
 
-	-- 最終データの文字列を置き換える
-	xxx.msg = xxx.msg .. "{nl}" .. msg;
 	tmpTxt:SetText("{/}{/}{/}"..fontStyle.."{s"..fontSize.."}"..xxx.msg.."{/}{/}{/}{nl}");
 
 	tmpBox:Resize(tmpBox:GetWidth(), tmpTxt:GetHeight());
@@ -265,19 +289,31 @@ end
 
 -- 管理メッセージで古いメッセージを削除する
 function TPCHATSYS_DEL_MSG()
-	local frm		= ui.GetFrame("tpchatsys2");
-	local grp		= frm:GetChild("chatlist");
+	local msgOldNum = g2.msgOldNum;
 	local i			= 0;
-
-	-- 古いデータとコントロールを消す
+	-- 古いデータを消す
 	for i = g2.msgOldNum , g2.msgNewNum+1-s2.msgLimitL do
+		g2.msgList["cht"..i] = nil;
+	end
+	g2.msgOldNum = g2.msgNewNum+2-s2.msgLimitL;
+
+	local frm		= ui.GetFrame("tpchatsys2");
+	if (frm == nil) then
+		return;
+	end
+	local grp		= tolua.cast(frm:GetChild("chatlist"), "ui::CGroupBox");	-- GET_CHILDで同じことが出来るけどベースコードで書く
+	if (grp == nil) then
+		return;
+	end
+
+	-- 古いコントロールを消す
+	for i = msgOldNum , g2.msgNewNum+1-s2.msgLimitL do
 		local tmpCht1 = grp:GetChild("cht"..i);
 		if (tmpCht1 ~= nil) then
 			grp:RemoveChild("cht"..i);
 		end
 		g2.msgList["cht"..i] = nil;
 	end
-	g2.msgOldNum = g2.msgNewNum+2-s2.msgLimitL;
 	
 	-- 残ったデータの表示位置再計算
 	g2.msgLastPos = 0;
@@ -292,16 +328,22 @@ end
 
 -- 管理メッセージ追加する
 function TPCHATSYS_ADD_MSG(msg)
-	local frm		= ui.GetFrame("tpchatsys2");
-	local grp		= tolua.cast(frm:GetChild("chatlist"), "ui::CGroupBox");	-- GET_CHILDで同じことが出来るけどベースコードで書く
-	local fontSize	= GET_CHAT_FONT_SIZE();	
-
 	-- 新しいデータを追加
 	g2.msgNewNum = g2.msgNewNum+1;
 	g2.msgList["cht"..g2.msgNewNum] = {};
 	g2.msgList["cht"..g2.msgNewNum].msg = msg;
 	g2.msgList["cht"..g2.msgNewNum].tim = os.date("%H:%M:%S");
 	g2.msgList["cht"..g2.msgNewNum].dsp = config.GetXMLConfig("ToggleTextChat");
+
+	local frm		= ui.GetFrame("tpchatsys2");
+	if (frm == nil) then
+		return;
+	end
+	local grp		= tolua.cast(frm:GetChild("chatlist"), "ui::CGroupBox");	-- GET_CHILDで同じことが出来るけどベースコードで書く
+	if (grp == nil) then
+		return;
+	end
+	local fontSize	= GET_CHAT_FONT_SIZE();	
 
 	-- 最下部判定　全体Yサイズ　＜　表示上端Y＋表可能Yサイズ＋1行文　なら、最下部に設定し直す
 	local isBottom = false;

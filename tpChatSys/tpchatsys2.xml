@@ -6,7 +6,7 @@
 	<input hittest="true" movable="true" moveintitlebar="false" hittestframe="false"/>
 	<option visible="true" hideable="true" useimageitem="true" closebutton="false" savelayout="true"/>
 	<skin frameskin="chat_window"/>
-	<layer layerlevel="1"/>
+	<layer layerlevel="41"/>
 	<controls>
 		<groupbox name="chatlist" rect="0 0 594 364" margin="3 3 3 3" layout_gravity="left top"
 			autoresize="0 1" border="0 0 0 0" draw="true" skin="chat_window" visiblevector="false"
