@@ -232,17 +232,23 @@ function TPCHATSYS_UPD_MSG(msg)
 	if (xxx == nil) then
 		return false;
 	end
+	local mainchatFrame	= ui.GetFrame("chatframe")
+	local fontSize		= GET_CHAT_FONT_SIZE();	
+	local fontStyle		= mainchatFrame:GetUserConfig("TEXTCHAT_FONTSTYLE_SYSTEM");
+	if (xxx.dsp ==0) then
+		fontStyle	= mainchatFrame:GetUserConfig("BALLONCHAT_FONTSTYLE_SYSTEM");
+	end
 
 	local frm		= ui.GetFrame("tpchatsys2");
 	if (frm == nil) then
 		-- 最終データの文字列を置き換える
-		xxx.msg = xxx.msg .. "{nl}" .. msg;
+		xxx.msg = fontStyle.."{s"..fontSize.."}"..xxx.msg .. "{/}{/}{/}{nl}" .. msg;
 		return true;
 	end
 	local grp		= tolua.cast(frm:GetChild("chatlist"), "ui::CGroupBox");	-- GET_CHILDで同じことが出来るけどベースコードで書く
 	if (grp == nil) then
 		-- 最終データの文字列を置き換える
-		xxx.msg = xxx.msg .. "{nl}" .. msg;
+		xxx.msg = fontStyle.."{s"..fontSize.."}"..xxx.msg .. "{/}{/}{/}{nl}" .. msg;
 		return true;
 	end
 
@@ -255,14 +261,8 @@ function TPCHATSYS_UPD_MSG(msg)
 		return false;
 	end
 	-- 最終データの文字列を置き換える
-	xxx.msg = xxx.msg .. "{nl}" .. msg;
+	xxx.msg = fontStyle.."{s"..fontSize.."}"..xxx.msg .. "{/}{/}{/}{nl}" .. msg;
 
-	local mainchatFrame	= ui.GetFrame("chatframe")
-	local fontSize		= GET_CHAT_FONT_SIZE();	
-	local fontStyle		= mainchatFrame:GetUserConfig("TEXTCHAT_FONTSTYLE_SYSTEM");
-	if (xxx.dsp ==0) then
-		fontStyle	= mainchatFrame:GetUserConfig("BALLONCHAT_FONTSTYLE_SYSTEM");
-	end
 
 	-- 最下部判定　全体Yサイズ　＜　表示上端Y＋表可能Yサイズ＋1行文　なら、最下部に設定し直す
 	local isBottom = false;
@@ -434,14 +434,12 @@ function TPCHATSYS_INIT_MSG()
 		TPCHATSYS_ADD_MSG_BOX(i)
 	end
 
-	if (isBottom) then
-		grp:SetScrollPos(999999);	-- CGroupBoxでないと使えない
-		local frm1		= ui.GetFrame("tpchatsys");
-		local btnTop	= frm1:GetChild("btn_top");
-		local btnBtm	= frm1:GetChild("btn_bottom");
-		btnTop:ShowWindow(1);
-		btnBtm:ShowWindow(0);
-	end
+	grp:SetScrollPos(999999);	-- CGroupBoxでないと使えない
+	local frm1		= ui.GetFrame("tpchatsys");
+	local btnTop	= frm1:GetChild("btn_top");
+	local btnBtm	= frm1:GetChild("btn_bottom");
+	btnTop:ShowWindow(1);
+	btnBtm:ShowWindow(0);
 end
 
 
