@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 日本語 -->
-<uiframe name="tpchatsys" x="0" y="0" width="400" height="30">
+<uiframe name="__tpchatsys" x="0" y="0" width="400" height="30">
 	<frame title="tpchatsys" layout_gravity="left top" margin="0 340 0 0"/>
 	<draw drawframe="true" drawnotitlebar="false" drawtitlebar="false" blend="95"/>
 	<input hittest="true" moveable="true" moveintitlebar="false" hittestframe="true"/>

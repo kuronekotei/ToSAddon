@@ -16,7 +16,7 @@ g2.msgDispMode	= g2.msgDispMode	or 0;
 
 local s2 = g2.settings;
 
-function TPCHATSYS_ON_INIT(addon, frame)
+function __TPCHATSYS_ON_INIT(addon, frame)
 	TPCHATSYS_LOAD_SETTING();
 	TPCHATSYS_SAVE_SETTING();
 	--	既存の「CHAT_SYSTEM」を置き換える(addon.ipf\chat)
@@ -100,7 +100,7 @@ function TPCHATSYS_SAVE_LOG(msg)
 end
 
 function TPCAHTSYS_MOUSEMOVE()
-	local frm1	= ui.GetFrame("tpchatsys");
+	local frm1	= ui.GetFrame("__tpchatsys");
 	local frm2	= ui.GetFrame("tpchatsys2");
 	if (frm1 == nil) or (frm2 == nil) then
 		return;
@@ -111,7 +111,7 @@ function TPCAHTSYS_MOUSEMOVE()
 end
 
 function TPCAHTSYS_LBTNUP()
-	local frm1	= ui.GetFrame("tpchatsys");
+	local frm1	= ui.GetFrame("__tpchatsys");
 	if (frm1 == nil) then
 		return;
 	end
@@ -122,7 +122,7 @@ end
 
 
 function TPCHATSYS_ON_SCROLL(frame, ctrl, str, scrollValue)
-	local frm1	= ui.GetFrame("tpchatsys");
+	local frm1	= ui.GetFrame("__tpchatsys");
 	local frm2	= ui.GetFrame("tpchatsys2");
 	if (frm1 == nil) or (frm2 == nil) then
 		return;
@@ -155,7 +155,7 @@ function TPCHATSYS_ON_SCROLL(frame, ctrl, str, scrollValue)
 end
 
 function TPCHATSYS_ON_BTN_MIN()
-	local frm1	= ui.GetFrame("tpchatsys");
+	local frm1	= ui.GetFrame("__tpchatsys");
 	local frm2	= ui.GetFrame("tpchatsys2");
 	if (frm1 == nil) or (frm2 == nil) then
 		return;
@@ -169,7 +169,7 @@ function TPCHATSYS_ON_BTN_MIN()
 end
 
 function TPCHATSYS_ON_BTN_TOP()
-	local frm1	= ui.GetFrame("tpchatsys");
+	local frm1	= ui.GetFrame("__tpchatsys");
 	local frm2	= ui.GetFrame("tpchatsys2");
 	if (frm1 == nil) or (frm2 == nil) then
 		return;
@@ -187,7 +187,7 @@ function TPCHATSYS_ON_BTN_TOP()
 end
 
 function TPCHATSYS_ON_BTN_BOTTOM()
-	local frm1	= ui.GetFrame("tpchatsys");
+	local frm1	= ui.GetFrame("__tpchatsys");
 	local frm2	= ui.GetFrame("tpchatsys2");
 	if (frm1 == nil) or (frm2 == nil) then
 		return;
@@ -242,13 +242,13 @@ function TPCHATSYS_UPD_MSG(msg)
 	local frm		= ui.GetFrame("tpchatsys2");
 	if (frm == nil) then
 		-- 最終データの文字列を置き換える
-		xxx.msg = fontStyle.."{s"..fontSize.."}"..xxx.msg .. "{/}{/}{/}{nl}" .. msg;
+		xxx.msg = xxx.msg .. "{/}{/}{/}{nl}" .. fontStyle.."{s"..fontSize.."}"..msg;
 		return true;
 	end
 	local grp		= tolua.cast(frm:GetChild("chatlist"), "ui::CGroupBox");	-- GET_CHILDで同じことが出来るけどベースコードで書く
 	if (grp == nil) then
 		-- 最終データの文字列を置き換える
-		xxx.msg = fontStyle.."{s"..fontSize.."}"..xxx.msg .. "{/}{/}{/}{nl}" .. msg;
+		xxx.msg = xxx.msg .. "{/}{/}{/}{nl}" .. fontStyle.."{s"..fontSize.."}"..msg;
 		return true;
 	end
 
@@ -261,7 +261,7 @@ function TPCHATSYS_UPD_MSG(msg)
 		return false;
 	end
 	-- 最終データの文字列を置き換える
-	xxx.msg = fontStyle.."{s"..fontSize.."}"..xxx.msg .. "{/}{/}{/}{nl}" .. msg;
+	xxx.msg = xxx.msg .. "{/}{/}{/}{nl}" .. fontStyle.."{s"..fontSize.."}"..msg;
 
 
 	-- 最下部判定　全体Yサイズ　＜　表示上端Y＋表可能Yサイズ＋1行文　なら、最下部に設定し直す
@@ -277,7 +277,7 @@ function TPCHATSYS_UPD_MSG(msg)
 
 	if (isBottom) then
 		grp:SetScrollPos(999999);	-- CGroupBoxでないと使えない
-		local frm1		= ui.GetFrame("tpchatsys");
+		local frm1		= ui.GetFrame("__tpchatsys");
 		local btnTop	= frm1:GetChild("btn_top");
 		local btnBtm	= frm1:GetChild("btn_bottom");
 		btnTop:ShowWindow(1);
@@ -355,7 +355,7 @@ function TPCHATSYS_ADD_MSG(msg)
 
 	if (isBottom) then
 		grp:SetScrollPos(999999);	-- CGroupBoxでないと使えない
-		local frm1		= ui.GetFrame("tpchatsys");
+		local frm1		= ui.GetFrame("__tpchatsys");
 		local btnTop	= frm1:GetChild("btn_top");
 		local btnBtm	= frm1:GetChild("btn_bottom");
 		btnTop:ShowWindow(1);
@@ -435,7 +435,7 @@ function TPCHATSYS_INIT_MSG()
 	end
 
 	grp:SetScrollPos(999999);	-- CGroupBoxでないと使えない
-	local frm1		= ui.GetFrame("tpchatsys");
+	local frm1		= ui.GetFrame("__tpchatsys");
 	local btnTop	= frm1:GetChild("btn_top");
 	local btnBtm	= frm1:GetChild("btn_bottom");
 	btnTop:ShowWindow(1);
