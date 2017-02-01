@@ -61,7 +61,7 @@ function TPCHATSYS_LOAD_SETTING()
 	local t, err = acutil.loadJSON(g2.settingPath, g2.settings);
 	-- 	値の存在確保と初期値設定
 	s2.isDebug		= s2.isDebug		or false;
-	s2.isSaveLog	= s2.isSaveLog		or true;
+	s2.isSaveLog	= s2.isSaveLog		or (s2.isSaveLog==nil);
 	s2.isUseOrignal	= s2.isUseOrignal	or false;
 	s2.msgLimitH	= s2.msgLimitH		or 300;
 	s2.msgLimitL	= s2.msgLimitL		or 240;

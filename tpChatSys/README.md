@@ -7,10 +7,10 @@
 
 | 名称 | 効果 |
 | ---- | ---- |
-| isUseOrigna	l | 通常のシステムチャット表示有無です。<br>初期状態でtrueですが、falseにすると軽くなります	 |
+| isUseOrignal | 通常のシステムチャット表示有無です。<br>初期状態でfalseです。	 |
 | msgLimitH	 | この行数を超えるとmsgLimitLまで古い行を削減します。　Def.300	 |
 | msgLimitL	 | 上記参照　Def.240	 |
-| isSaveLog	 | ログファイルを保存します。パスは設定ファイルと同じ位置です。	 |
+| isSaveLog	 | ログファイルを保存します。パスは設定ファイルと同じ位置です。<br>初期状態でtrueですが、falseにすると軽くなります。	 |
 | msgMargeSpan	 | この秒数以下のメッセージを、1つの発言として結合表示します。　Def.2	 |
 | posX	 | 位置を指定します。　Def.0	 |
 | posY	 | 位置を指定します。　Def.340	 |

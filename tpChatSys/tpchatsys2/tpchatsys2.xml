@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 日本語 -->
 <uiframe name="tpchatsys2" x="0" y="0" width="600" height="370">
-	<frame title="tpChatSys2" layout_gravity="left top" margin="0 370 0 0"/>
-	<draw drawframe="true" drawnotitlebar="false" drawtitlebar="false" blend="95"/>
+	<frame title="tpChatSys2" layout_gravity="left top" margin="0 370 0 0" keyboardselectframe="false"/>
+	<draw drawframe="false" drawnotitlebar="false" drawtitlebar="false" blend="95"/>
 	<input hittest="true" movable="true" moveintitlebar="false" hittestframe="false"/>
 	<option visible="true" hideable="true" useimageitem="true" closebutton="false" savelayout="true"/>
 	<skin frameskin="chat_window"/>
