@@ -57,10 +57,10 @@ function TPNPCCHAT_LOAD_SETTING()
 	s1.isShowScr = s1.isShowScr or true; -- NOTICE_Dm_scroll
 	s1.isShowClr = s1.isShowClr or true; -- NOTICE_Dm_Clear
 	s1.isShowGet = s1.isShowGet or true; -- NOTICE_Dm_GetItem
-	s1.isShowRes = s1.isShowRes or true; -- NOTICE_Dm_ResBuff!
-	s1.isShowUse = s1.isShowUse or true; -- NOTICE_Dm_UsePotion!
-	s1.isShowCmp = s1.isShowCmp or true; -- NOTICE_Dm_quest_complete!
-	s1.isShowGlb = s1.isShowGlb or true; -- NOTICE_Dm_UsePotion!
+	s1.isShowRes = s1.isShowRes or true; -- NOTICE_Dm_ResBuff
+	s1.isShowUse = s1.isShowUse or true; -- NOTICE_Dm_UsePotion
+	s1.isShowCmp = s1.isShowCmp or true; -- NOTICE_Dm_quest_complete
+	s1.isShowGlb = s1.isShowGlb or true; -- NOTICE_Dm_UsePotion
 	s1.isShowLvl = s1.isShowLvl or true; -- NOTICE_Dm_levelup_base NOTICE_Dm_levelup_skill
 end
 
@@ -119,15 +119,15 @@ function TPNPCCHAT_NEW_NOTICE_ON_MSG(frame, msg, argStr, argNum)
 		CHAT_SYSTEM("{img NOTICE_Dm_levelup_skill "      ..iconSize.." "..iconSize.."}{/}{/}{s"..fontSize.."}" .. argStr.."{nl}");
 	elseif (msg == "NOTICE_Dm_ResBuff") and s1.isShowRes then
 		if (dispMode ==1) then
-			CHAT_SYSTEM("{img NOTICE_Dm_ResBuff! "       ..iconSize.." "..iconSize.."}{/}{/}{#FF2000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
+			CHAT_SYSTEM("{img NOTICE_Dm_ResBuff "       ..iconSize.." "..iconSize.."}{/}{/}{#FF2000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		else
-			CHAT_SYSTEM("{img NOTICE_Dm_ResBuff! "       ..iconSize.." "..iconSize.."}{/}{/}{#E00000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
+			CHAT_SYSTEM("{img NOTICE_Dm_ResBuff "       ..iconSize.." "..iconSize.."}{/}{/}{#E00000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		end
 	elseif (msg == "NOTICE_Dm_UsePotion") and s1.isShowUse then
 		if (dispMode ==1) then
-			CHAT_SYSTEM("{img NOTICE_Dm_UsePotion! "     ..iconSize.." "..iconSize.."}{/}{/}{#FF2000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
+			CHAT_SYSTEM("{img NOTICE_Dm_UsePotion "     ..iconSize.." "..iconSize.."}{/}{/}{#FF2000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		else
-			CHAT_SYSTEM("{img NOTICE_Dm_UsePotion! "     ..iconSize.." "..iconSize.."}{/}{/}{#E00000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
+			CHAT_SYSTEM("{img NOTICE_Dm_UsePotion "     ..iconSize.." "..iconSize.."}{/}{/}{#E00000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		end
 	elseif (msg == "NOTICE_Dm_quest_complete") and s1.isShowCmp then
 		if (dispMode ==1) then
@@ -137,9 +137,9 @@ function TPNPCCHAT_NEW_NOTICE_ON_MSG(frame, msg, argStr, argNum)
 		end
 	elseif (msg == "NOTICE_Dm_Global_Shout") and s1.isShowGlb then
 		if (dispMode ==1) then
-			CHAT_SYSTEM("{img NOTICE_Dm_Global_Shout! "  ..iconSize.." "..iconSize.."}{/}{/}{#FF2000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
+			CHAT_SYSTEM("{img NOTICE_Dm_Global_Shout "  ..iconSize.." "..iconSize.."}{/}{/}{#FF2000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		else
-			CHAT_SYSTEM("{img NOTICE_Dm_Global_Shout! "  ..iconSize.." "..iconSize.."}{/}{/}{#E00000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
+			CHAT_SYSTEM("{img NOTICE_Dm_Global_Shout "  ..iconSize.." "..iconSize.."}{/}{/}{#E00000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		end
 	elseif (msg == "NOTICE_Dm_GuildQuestSuccess") then
 		--何もしない

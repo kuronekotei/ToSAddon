@@ -9,7 +9,7 @@
 	<layer layerlevel="41"/>
 	<controls>
 		<groupbox name="chatlist" rect="0 0 594 364" margin="3 3 3 3" layout_gravity="left top"
-			autoresize="0 1" border="0 0 0 0" draw="true" skin="chat_window" visiblevector="false"
+			autoresize="1 1" border="0 0 0 0" draw="true" skin="chat_window" visiblevector="false"
 			hittest="true" scrollbar="true" leftscroll="true"  hittestbox="false"
 			ScrollScp="TPCHATSYS_ON_SCROLL"/>
 	</controls>

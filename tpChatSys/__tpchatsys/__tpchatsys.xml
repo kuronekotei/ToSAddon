@@ -4,21 +4,39 @@
 	<frame title="tpchatsys" layout_gravity="left top" margin="0 340 0 0"/>
 	<draw drawframe="true" drawnotitlebar="false" drawtitlebar="false" blend="95"/>
 	<input hittest="true" moveable="true" moveintitlebar="false" hittestframe="true"/>
-	<option visible="true" hideable="true" useimageitem="true" closebutton="false" savelayout="true"/>
+	<option visible="true" hideable="false" useimageitem="true" closebutton="false" savelayout="true"/>
 	<script LBtnUpScp="TPCAHTSYS_LBTNUP"/>
 	<skin frameskin="chat_window"/>
 	<layer layerlevel="61"/>
 	<controls>
-		<richtext name="chattitle" rect="0 0 200 24" margin="5 -2 0 0" layout_gravity="left center"
-			textalign="left center" fixheight="true" fixwidth="true" caption="{@st42}tpChatSys{/}" resizebytext="false" hittest="false"/>
-		<button name="btn_min" rect="0 0 30 30" margin="0 0 10 0"  layout_gravity="right top"
+		<richtext name="chattitle" rect="0 0 32 32" margin="5 -2 0 0" layout_gravity="left center"
+			textalign="left center" fixheight="true" fixwidth="true" caption="{@st42}{img icon_item_sleeping_leopard 32 32}{/}{/}" resizebytext="false" hittest="false"/>
+		<button name="reheight" rect="0 0 57 40" margin="0 0 0 0" layout_gravity="right top"
+			MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" image="button_chat_scale" oversound="button_over" 
+			LBtnDownScp="TPCHATSYS_ON_BTN_RESIZE"/>
+		<button name="btn_min" rect="0 0 30 30" margin="0 0 30 0"  layout_gravity="right top"
 			caption="{@sti7}{s16}×" clicksound="button_click_big" oversound="button_over" hittest="true"
 			LBtnUpScp="TPCHATSYS_ON_BTN_MIN"/>
-		<button name="btn_top" rect="0 0 30 30" margin="0 0 50 0"  layout_gravity="right top"
+		<button name="btn_top" rect="0 0 30 30" margin="0 0 70 0"  layout_gravity="right top"
 			caption="{@sti7}{s16}↑" clicksound="button_click_big" oversound="button_over" hittest="true"
 			LBtnUpScp="TPCHATSYS_ON_BTN_TOP"/>
-		<button name="btn_bottom" rect="0 0 30 30" margin="0 0 90 0" layout_gravity="right top"
+		<button name="btn_bottom" rect="0 0 30 30" margin="0 0 110 0" layout_gravity="right top"
 			caption="{@sti7}{s16}↓" clicksound="button_click_big" oversound="button_over" hittest="true"
 			LBtnUpScp="TPCHATSYS_ON_BTN_BOTTOM"/>
+		<button name="btn_1" rect="0 0 30 30" margin="40 0 0 0" layout_gravity="left top"
+			caption="{@sti7}{s16}1" clicksound="button_click_big" oversound="button_over" hittest="true"
+			LBtnUpScp="TPCHATSYS_ON_BTN_1"/>
+		<button name="btn_2" rect="0 0 30 30" margin="80 0 0 0" layout_gravity="left top"
+			caption="{@sti7}{s16}2" clicksound="button_click_big" oversound="button_over" hittest="true"
+			LBtnUpScp="TPCHATSYS_ON_BTN_2"/>
+		<button name="btn_3" rect="0 0 30 30" margin="120 0 0 0" layout_gravity="left top"
+			caption="{@sti7}{s16}3" clicksound="button_click_big" oversound="button_over" hittest="true"
+			LBtnUpScp="TPCHATSYS_ON_BTN_3"/>
+		<button name="btn_4" rect="0 0 30 30" margin="160 0 0 0" layout_gravity="left top"
+			caption="{@sti7}{s16}4" clicksound="button_click_big" oversound="button_over" hittest="true"
+			LBtnUpScp="TPCHATSYS_ON_BTN_4"/>
+		<button name="btn_5" rect="0 0 30 30" margin="200 0 0 0" layout_gravity="left top"
+			caption="{@sti7}{s16}5" clicksound="button_click_big" oversound="button_over" hittest="true"
+			LBtnUpScp="TPCHATSYS_ON_BTN_5"/>
 	</controls>
 </uiframe>
