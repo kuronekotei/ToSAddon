@@ -17,16 +17,21 @@ g2.msgDispMode	= g2.msgDispMode	or 0;
 
 local s2 = g2.settings;
 
+ADDONS											= ADDONS or {};
+ADDONS.torahamu									= ADDONS.torahamu or {};
+ADDONS.torahamu.CHATEXTENDS						= ADDONS.torahamu.CHATEXTENDS or {};
+ADDONS.torahamu.CHATEXTENDS.settings			= ADDONS.torahamu.CHATEXTENDS.settings or {};
+ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG	= ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG or false;
+
+
 function __TPCHATSYS_ON_INIT(addon, frame)
 	local f,m = pcall(TPCHATSYS_LOAD_SETTING);
-	if f then
-	else
+	if f ~= true then
 		CHAT_SYSTEM(m);
 		return;
 	end
 	f,m = pcall(TPCHATSYS_SAVE_SETTING);
-	if f then
-	else
+	if f ~= true then
 		CHAT_SYSTEM(m);
 		return;
 	end
@@ -39,8 +44,7 @@ function __TPCHATSYS_ON_INIT(addon, frame)
 	end
 
 	f,m = pcall(TPCHATSYS_ON_INIT,addon, frame);
-	if f then
-	else
+	if f ~= true then
 		CHAT_SYSTEM(m);
 		return;
 	end
@@ -78,8 +82,7 @@ end
 
 function TPCHATSYS_HOOK_CHAT_SYSTEM(msg)
 	local f,m = pcall(TPCHATSYS_NEW_CHAT_SYSTEM,msg);
-	if f then
-	else
+	if f ~= true then
 		TPCHATSYS_OLD_CHAT_SYSTEM(m);
 		TPCHATSYS_OLD_CHAT_SYSTEM(msg);
 		return;
@@ -362,7 +365,7 @@ end
 
 function TPCHATSYS_ON_MSG(msg)
 	local nowTime	= os.clock();	-- Windowsならシステム秒
-	local dispMode	= config.GetXMLConfig("ToggleTextChat");
+	local dispMode	= (ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG and 0 or 1);
 
 	-- メッセージをマージする範囲内なら、UPD_MSG	※msgLastPosが変化
 	if (g2.msgNewNum>0) and (g2.msgLast + s2.msgMargeSpan > nowTime) and (g2.msgDispMode == dispMode) then
@@ -392,7 +395,7 @@ function TPCHATSYS_UPD_MSG(msg)
 	local fontSize		= GET_CHAT_FONT_SIZE();	
 	local fontStyle		= mainchatFrame:GetUserConfig("TEXTCHAT_FONTSTYLE_SYSTEM");
 	if (msgDat.dsp ==0) then
-		fontStyle	= mainchatFrame:GetUserConfig("BALLONCHAT_FONTSTYLE_SYSTEM");
+		fontStyle	= "{#000000}{b}";
 	end
 
 	local frm		= ui.GetFrame("tpchatsys2");
@@ -489,7 +492,7 @@ function TPCHATSYS_ADD_MSG(msg)
 	g2.msgList["cht"..g2.msgNewNum] = {};
 	g2.msgList["cht"..g2.msgNewNum].msg = msg;
 	g2.msgList["cht"..g2.msgNewNum].tim = os.date("%H:%M:%S");
-	g2.msgList["cht"..g2.msgNewNum].dsp = config.GetXMLConfig("ToggleTextChat");
+	g2.msgList["cht"..g2.msgNewNum].dsp = (ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG and 0 or 1);
 
 	local frm		= ui.GetFrame("tpchatsys2");
 	if (frm == nil) then
@@ -535,7 +538,7 @@ function TPCHATSYS_ADD_MSG_BOX(msgNum)
 	local boxCol		= string.format("%02x",g2.backCol) .."000000";
 	local timFont		= "white_14_ol";
 	if (msgDat.dsp ==0) then
-		fontStyle	= mainchatFrame:GetUserConfig("BALLONCHAT_FONTSTYLE_SYSTEM");
+		fontStyle	= "{#000000}{b}";
 		boxCol		= string.format("%02x",g2.backCol) .."FFFFFF";
 		timFont		= "black_14_b";
 	end
@@ -572,7 +575,7 @@ function TPCHATSYS_INIT_MSG()
 	local frm		= ui.GetFrame("tpchatsys2");
 	local grp		= tolua.cast(frm:GetChild("chatlist"), "ui::CGroupBox");	-- GET_CHILDで同じことが出来るけどベースコードで書く
 
-	g2.msgDispMode	= config.GetXMLConfig("ToggleTextChat");
+	g2.msgDispMode	= (ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG and 0 or 1);
 
 	-- 古いコントロールを消す　(データは消さない)
 	for i = g2.msgOldNum , g2.msgNewNum do
