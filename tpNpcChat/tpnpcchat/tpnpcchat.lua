@@ -10,6 +10,12 @@ g1.settingPath = g1.settingpath or "../addons/tpnpcchat/settings.json";
 g1.settings = g1.settings or {};
 local s1 = g1.settings;
 
+ADDONS											= ADDONS or {};
+ADDONS.torahamu									= ADDONS.torahamu or {};
+ADDONS.torahamu.CHATEXTENDS						= ADDONS.torahamu.CHATEXTENDS or {};
+ADDONS.torahamu.CHATEXTENDS.settings			= ADDONS.torahamu.CHATEXTENDS.settings or {};
+ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG	= ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG or false;
+
 function TPNPCCHAT_ON_INIT(addon, frame)
 	--	既存の「DIALOG_SHOW_DIALOG_TEXT」を置き換える(addon.ipf\dialog)
 	--	既存の関数はとっておいて、あとで使う
@@ -71,7 +77,8 @@ end
 
 function TPNPCCHAT_NEW_DIALOG_SHOW_DIALOG_TEXT(frame, text, titleName, voiceName)
 	--	DIALOGで表示する内容をシステムチャットに流し込む
-	if (config.GetXMLConfig("ToggleTextChat")==1) then
+	local dispMode	= (ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG and 0 or 1);
+	if (dispMode ==1) then
 		--	簡易チャット(背景が黒い)
 		CHAT_SYSTEM("<<{#FF8040}"..titleName.."{/}>>{nl}{#FFFFA0}"..text.."{/}{nl} ");
 	else
@@ -82,7 +89,7 @@ end
 
 function TPNPCCHAT_NEW_NOTICE_ON_MSG(frame, msg, argStr, argNum)
 	local fontSize = GET_CHAT_FONT_SIZE();
-	local dispMode = config.GetXMLConfig("ToggleTextChat");
+	local dispMode	= (ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG and 0 or 1);
 	if (msg ==nil) or (argStr  ==nil) or (fontSize  ==nil) then
 		return;
 	end
@@ -137,9 +144,9 @@ function TPNPCCHAT_NEW_NOTICE_ON_MSG(frame, msg, argStr, argNum)
 		end
 	elseif (msg == "NOTICE_Dm_Global_Shout") and s1.isShowGlb then
 		if (dispMode ==1) then
-			CHAT_SYSTEM("{img NOTICE_Dm_Global_Shout "  ..iconSize.." "..iconSize.."}{/}{/}{#FF2000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
+			CHAT_SYSTEM("{#FF2000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		else
-			CHAT_SYSTEM("{img NOTICE_Dm_Global_Shout "  ..iconSize.." "..iconSize.."}{/}{/}{#E00000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
+			CHAT_SYSTEM("{#E00000}{s"..fontSize.."}" .. argStr.."{/}{/}{nl}");
 		end
 	elseif (msg == "NOTICE_Dm_GuildQuestSuccess") then
 		--何もしない
