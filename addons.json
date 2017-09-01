@@ -18,5 +18,15 @@
         "unicode" : "✉",
         "description" : "システムメッセージを分割して別ウィンドウ表示します。既存のシステム動作を大幅に置き換えるので、アドオンの動作に理解がある人以外の導入はお勧めしません。",
         "tags" : [ "chat" ]
+    },
+    {
+        "name" : "tpChatMode",
+        "file" : "tpchatmode",
+        "extension" : "ipf",
+        "fileVersion" : "v0.0.1",
+        "releaseTag" : "tpchatmode",
+        "unicode" : "✉",
+        "description" : "ゲーム開始時とID入場時に、チャットモードを自動で切り替えます。",
+        "tags" : [ "chat" ]
     }
 ]
