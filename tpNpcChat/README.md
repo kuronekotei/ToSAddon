@@ -15,6 +15,7 @@
 | 宝石 | 特定アイテムの入手 | NOTICE_Dm_GetItem | isShowGet |
 | 頭部 | キャラレベルアップ | NOTICE_Dm_levelup_base | isShowLvl |
 | 交差剣 | クラスレベルアップ | NOTICE_Dm_levelup_skill | isShowLvl |
+| 魚 | 釣り | NOTICE_Dm_Fishing | isShowFsh |
 
 
 設定が増えてログが多くなっているため、ON/OFFが可能になっています。
