@@ -95,6 +95,9 @@ end
 
 
 function g1.TPNPCCHAT_NEW_DIALOG_SHOW_DIALOG_TEXT(frame, text, titleName, voiceName)
+	if (titleName ==nil) then
+		titleName="";
+	end
 	--	DIALOGで表示する内容をシステムチャットに流し込む
 	local dispMode	= (ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG and 0 or 1);
 	if (dispMode ==1) then
@@ -106,7 +109,7 @@ function g1.TPNPCCHAT_NEW_DIALOG_SHOW_DIALOG_TEXT(frame, text, titleName, voiceN
 	end
 end
 
-function TPNPCCHAT_NEW_NOTICE_ON_MSG(frame, msg, argStr, argNum)
+function g1.TPNPCCHAT_NEW_NOTICE_ON_MSG(frame, msg, argStr, argNum)
 	local fontSize = GET_CHAT_FONT_SIZE();
 	local dispMode	= (ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG and 0 or 1);
 	if (msg ==nil) or (argStr  ==nil) or (fontSize  ==nil) then
