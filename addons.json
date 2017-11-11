@@ -28,5 +28,15 @@
         "unicode" : "✉",
         "description" : "ゲーム開始時とID入場時に、チャットモードを自動で切り替えます。",
         "tags" : [ "chat" ]
+    },
+    {
+        "name" : "tpFarmed",
+        "file" : "tpfarmed",
+        "extension" : "ipf",
+        "fileVersion" : "v0.0.1",
+        "releaseTag" : "tpfarmed",
+        "unicode" : "✉",
+        "description" : "手に入れた物に関するログが出ます。",
+        "tags" : [ "chat" ]
     }
 ]
