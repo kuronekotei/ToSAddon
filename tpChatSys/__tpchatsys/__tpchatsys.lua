@@ -94,7 +94,9 @@ end
 
 function TPCHATSYS_LOAD_SETTING()
 	local t, err = acutil.loadJSON(g2.settingPath);
-	g2.settings = acutil.mergeLeft(g2.settings, t);
+	if t then
+		g2.settings = acutil.mergeLeft(g2.settings, t);
+	end
 	-- 	値の存在確保と初期値設定
 	s2.isDebug		= ((type(s2.isDebug			) == "boolean")	and s2.isDebug		)or false;
 	s2.isSaveLog	= ((type(s2.isSaveLog		) == "boolean")	and s2.isSaveLog	)or (s2.isSaveLog==nil);
