@@ -73,10 +73,10 @@ function g4.TPFARMED_LOAD_SETTING()
 		s4 = acutil.mergeLeft(s4, t);
 	end
 	-- 	値の存在確保と初期値設定
-	s4.isDebug			= ((type(s4.isDebug			) == "boolean")	and s4.isDebug		)or false;
-	s4.isShowCube		= ((type(s4.isShowCube		) == "boolean")	and s4.isShowCube	)or (s4.isShowCube	==nil);
-	s4.isShowSilver		= ((type(s4.isShowSilver	) == "boolean")	and s4.isShowSilver	)or (s4.isShowSilver	==nil);
-	s4.isShowJournal	= ((type(s4.isShowJournal	) == "boolean")	and s4.isShowJourna	)or (s4.isShowJourna	==nil);
+	s4.isDebug			= ((type(s4.isDebug			) == "boolean")	and s4.isDebug			)or false;
+	s4.isShowCube		= ((type(s4.isShowCube		) == "boolean")	and s4.isShowCube		)or (s4.isShowCube		==nil);
+	s4.isShowSilver		= ((type(s4.isShowSilver	) == "boolean")	and s4.isShowSilver		)or (s4.isShowSilver	==nil);
+	s4.isShowJournal	= ((type(s4.isShowJournal	) == "boolean")	and s4.isShowJournal	)or (s4.isShowJournal	==nil);
 end
 
 function g4.TPFARMED_SAVE_SETTING()
