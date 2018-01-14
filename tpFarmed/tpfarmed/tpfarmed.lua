@@ -77,6 +77,7 @@ function g4.TPFARMED_LOAD_SETTING()
 	s4.isShowCube		= ((type(s4.isShowCube		) == "boolean")	and s4.isShowCube		)or (s4.isShowCube		==nil);
 	s4.isShowSilver		= ((type(s4.isShowSilver	) == "boolean")	and s4.isShowSilver		)or (s4.isShowSilver	==nil);
 	s4.isShowJournal	= ((type(s4.isShowJournal	) == "boolean")	and s4.isShowJournal	)or (s4.isShowJournal	==nil);
+	s4.ManyMoney		= ((type(s4.ManyMoney		) == "number")	and s4.ManyMoney		)or 10000;
 end
 
 function g4.TPFARMED_SAVE_SETTING()
@@ -87,6 +88,7 @@ function g4.TPFARMED_SAVE_SETTING()
 		filep:write("\t\"isShowCube\":"		.. ((s4.isShowCube		and "true") or "false")	.."\n"	);
 		filep:write("\t\"isShowSilver\":"	.. ((s4.isShowSilver	and "true") or "false")	.."\n"	);
 		filep:write("\t\"isShowJournal\":"	.. ((s4.isShowJournal	and "true") or "false")	.."\n"	);
+		filep:write("\t\"ManyMoney\":"		.. s4.ManyMoney		.."\n"	);
 		filep:write("}\n");
 		filep:close();
 	end
@@ -270,7 +272,7 @@ function g4.TPFARMED_GETITEM(frame, msg, guid, num)
 	if (itemObj == nil) then
 		return;
 	end
-	if ((s4.isShowSilver ~= true) and (itemObj.ClassID == 900011)) then
+	if (((s4.isShowSilver ~= true) and (itemObj.ClassID == 900011)) and (num < s4.ManyMoney)) then
 		return;
 	end
 	local fontSize		= GET_CHAT_FONT_SIZE();	

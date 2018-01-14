@@ -16,6 +16,7 @@
 | ---- | ---- |
 | isShowCube	 | true/false　falseだとキューブ開封時の専用ログが出なくなります。	 |
 | isShowSilver	 | true/false　falseだとシルバー取得時のログが出なくなります。	 |
+| ManyMoney		 | true/false　この価格を超えると、上記がfalseでも表示されます。	 |
 | isShowJournal	 | true/false　falseだと冒険日誌用のカウントが出なくなります。	 |
 
 
