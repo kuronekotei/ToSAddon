@@ -38,5 +38,15 @@
         "unicode" : "✉",
         "description" : "手に入れた物に関するログが出ます。",
         "tags" : [ "chat" ]
+    },
+    {
+        "name" : "tpMiniMap",
+        "file" : "tpminimap",
+        "extension" : "ipf",
+        "fileVersion" : "v0.0.1",
+        "releaseTag" : "tpminimap",
+        "unicode" : "✉",
+        "description" : "自家製ミニマップです。",
+        "tags" : [ "map" ]
     }
 ]
