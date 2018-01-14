@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uiframe name="tpminimap" x="0" y="0" width="480" height="400" create="open">
+	<frame snapclient="true" snapframe="true" layout_gravity="left top" margin="0 0 0 0"/>
+	<option visible="true" alwaysVisible="false" closebutton="false" useimageitem="true" autoopen="true" hideable="false"/>
+	<input hittest="true" movable="true" moveintitlebar="false" hittestframe="true"/>
+	<layer layerlevel="25"/>
+	<draw drawnotitlebar="false" drawtitlebar="false" drawframe="true"/>
+	<skin frameskin="chat_window"/>
+	<controls>
+		<picture name="mapbg" rect="0 0 3920 2160" layout_gravity="left top" hittest="false" stretch="true" />
+		<picture name="mapld" rect="0 0 84 84" layout_gravity="left top" hittest="false" stretch="true" image="minimap_leader" />
+		<groupbox name="grpb" rect="0 0 3920 2160"               skin="none" margin="0 0 0 0" layout_gravity="left top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
+		<groupbox name="grp1" rect="0 0 3920 2160" parent="grpb" skin="none" margin="0 0 0 0" layout_gravity="left top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
+		<groupbox name="grp2" rect="0 0 3920 2160" parent="grpb" skin="none" margin="0 0 0 0" layout_gravity="left top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
+		<groupbox name="grp3" rect="0 0 3920 2160" parent="grpb" skin="none" margin="0 0 0 0" layout_gravity="left top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
+		<groupbox name="grp4" rect="0 0 3920 2160" parent="grpb" skin="none" margin="0 0 0 0" layout_gravity="left top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
+		<groupbox name="grp5" rect="0 0 3920 2160" parent="grpb" skin="none" margin="0 0 0 0" layout_gravity="left top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
+		<groupbox name="grp6" rect="0 0 3920 2160" parent="grpb" skin="none" margin="0 0 0 0" layout_gravity="left top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
+		<groupbox name="grp7" rect="0 0 3920 2160" parent="grpb" skin="none" margin="0 0 0 0" layout_gravity="left top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
+		<groupbox name="grp8" rect="0 0 3920 2160" parent="grpb" skin="none" margin="0 0 0 0" layout_gravity="left top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
+		<groupbox name="grp9" rect="0 0 3920 2160" parent="grpb" skin="none" margin="0 0 0 0" layout_gravity="left top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
+	</controls>
+</uiframe>

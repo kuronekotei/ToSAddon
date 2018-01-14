@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skinset name="TP_MINIMAP">
+	<imagelist category="TP_MINIMAP">
+		<image name="sugoidot" file="tpminimap\sugoidot.tga" imgrect="0 0 16 16" />
+		<image name="sugoisqr" file="tpminimap\sugoisqr.tga" imgrect="0 0 16 16" />
+	</imagelist>
+</skinset>
