@@ -319,7 +319,7 @@ function g5.SetList()
 		elseif (fndList[i].Faction == "Neutral") then
 			g5.List4[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = itm.Faction	,Col="FF000080"	,Pic="sugoisqr"	,Size=16};
 			--CHAT_SYSTEM(itm.ClassName ..":".. itm.Faction ..":".. mon.MonRank);
-		elseif (session.world.IsDungeon()==false) and (ui.IsFrameVisible("challenge_mode")) then
+		elseif (session.world.IsDungeon()==false) and (ui.IsFrameVisible("challenge_mode")~=true) then
 		elseif (fndList[i].Faction == "Monster") then
 			if (mon.Size == "S" ) then
 				g5.List8[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = itm.Faction	,Col="FFFF0000"	,Pic="sugoidot"	,Size=12};
