@@ -199,41 +199,41 @@ function g1.TPNPCCHAT_NEW_NOTICE_ON_MSG(frame, msg, argStr, argNum)
 	end
 end
 
---function g1.TPNPCCHAT_SOLD_ITEM_NOTICE(frame, msg, argStr, argNum)	
---	local fontSize = GET_CHAT_FONT_SIZE();
---	local dispMode	= (ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG and 0 or 1);
---	local argList = StringSplit(argStr, '/');
---	if #argList ~= 3 then
---		frame:ShowWindow(0);
---		return;
---	end
---	local askMsg = ScpArgMsg("SoldItemNotice", "ITEM", argList[2], "COUNT", argList[3]);
---	if (dispMode ==1) then
---		--	簡易チャット(背景が黒い)
---		CHAT_SYSTEM("{#E04000}{s"..fontSize.."}" .. askMsg.."{/}{/}{nl}");
---	else
---		--	吹出チャット(背景が白い)
---		CHAT_SYSTEM("{#602000}{s"..fontSize.."}" .. askMsg.."{/}{/}{nl}");
---	end
---
---end
---function ON_SOLD_ITEM_NOTICE(frame, msg, argStr, argNum)	
---end
---
---function g1.TPNPCCHAT_RECEIVABLE_SILVER_NOTICE(frame, msg, argStr, argNum)	
---	local fontSize = GET_CHAT_FONT_SIZE();
---	local dispMode	= (ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG and 0 or 1);
---	
---	local askMsg = "受取可能な シルバーがあります。{nl}[マーケット受取箱]で受け取れます。";
---	if (dispMode ==1) then
---		--	簡易チャット(背景が黒い)
---		local askMsg2 = askMsg:gsub("{#000000}","{#E04000}");
---		CHAT_SYSTEM("{#E04000}{s"..fontSize.."}" .. askMsg2.."{/}{/}{nl}");
---	else
---		--	吹出チャット(背景が白い)
---		CHAT_SYSTEM("{#602000}{s"..fontSize.."}" .. askMsg.."{/}{/}{nl}");
---	end
---
---end
---function ON_RECEIVABLE_SILVER_NOTICE(frame, msg, argStr, argNum)
---end
+function g1.TPNPCCHAT_SOLD_ITEM_NOTICE(frame, msg, argStr, argNum)	
+	local fontSize = GET_CHAT_FONT_SIZE();
+	local dispMode	= (ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG and 0 or 1);
+	local argList = StringSplit(argStr, '/');
+	if #argList ~= 3 then
+		frame:ShowWindow(0);
+		return;
+	end
+	local askMsg = "★["..argList[2].."]が"..argList[3].."個売れました";
+	if (dispMode ==1) then
+		--	簡易チャット(背景が黒い)
+		CHAT_SYSTEM("{#E04000}{s"..fontSize.."}" .. askMsg.."{/}{/}{nl}");
+	else
+		--	吹出チャット(背景が白い)
+		CHAT_SYSTEM("{#602000}{s"..fontSize.."}" .. askMsg.."{/}{/}{nl}");
+	end
+
+end
+function ON_SOLD_ITEM_NOTICE(frame, msg, argStr, argNum)	
+end
+
+function g1.TPNPCCHAT_RECEIVABLE_SILVER_NOTICE(frame, msg, argStr, argNum)	
+	local fontSize = GET_CHAT_FONT_SIZE();
+	local dispMode	= (ADDONS.torahamu.CHATEXTENDS.settings.BALLON_FLG and 0 or 1);
+	
+	local askMsg = "★受取可能な シルバーがあります。";
+	if (dispMode ==1) then
+		--	簡易チャット(背景が黒い)
+		local askMsg2 = askMsg:gsub("{#000000}","{#E04000}");
+		CHAT_SYSTEM("{#E04000}{s"..fontSize.."}" .. askMsg2.."{/}{/}{nl}");
+	else
+		--	吹出チャット(背景が白い)
+		CHAT_SYSTEM("{#602000}{s"..fontSize.."}" .. askMsg.."{/}{/}{nl}");
+	end
+
+end
+function ON_RECEIVABLE_SILVER_NOTICE(frame, msg, argStr, argNum)
+end

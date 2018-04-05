@@ -88,7 +88,7 @@ function g4.TPFARMED_SAVE_SETTING()
 		filep:write("\t\"isShowCube\":"		.. ((s4.isShowCube		and "true") or "false")	.."\n"	);
 		filep:write("\t\"isShowSilver\":"	.. ((s4.isShowSilver	and "true") or "false")	.."\n"	);
 		filep:write("\t\"isShowJournal\":"	.. ((s4.isShowJournal	and "true") or "false")	.."\n"	);
-		filep:write("\t\"ManyMoney\":"		.. s4.ManyMoney		.."\n"	);
+		filep:write("\t\"ManyMoney\":"		.. (s4.ManyMoney					or 10000)	.."\n"	);
 		filep:write("}\n");
 		filep:close();
 	end
