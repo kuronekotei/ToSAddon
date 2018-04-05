@@ -48,5 +48,15 @@
         "unicode" : "✉",
         "description" : "自家製ミニマップです。",
         "tags" : [ "map" ]
+    },
+    {
+        "name" : "tpUnstoppable",
+        "file" : "tpunstoppable",
+        "extension" : "ipf",
+        "fileVersion" : "v0.0.1",
+        "releaseTag" : "tpunstoppable",
+        "unicode" : "✉",
+        "description" : "強力な呪いにより生産が止められなくなります。",
+        "tags" : [ "craft" ]
     }
 ]
