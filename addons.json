@@ -58,5 +58,15 @@
         "unicode" : "✉",
         "description" : "強力な呪いにより生産が止められなくなります。",
         "tags" : [ "craft" ]
+    },
+    {
+        "name" : "tpWeAreMale",
+        "file" : "tpwearemale",
+        "extension" : "ipf",
+        "fileVersion" : "v1.0.20180603",
+        "releaseTag" : "tpwearemale",
+        "unicode" : "✉",
+        "description" : "みんなでオトコノコになろう。",
+        "tags" : [ "voice" ]
     }
 ]
