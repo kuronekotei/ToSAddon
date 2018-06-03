@@ -25,7 +25,11 @@ Thumbs.db
 *.lib
 *.sbr
 *.fsb
+*.lnk
 obj/
+tpWeAreMale/sound.ipf/f2m/*.wav
+tpWeAreMale/sound.ipf/m2f/*.wav
+tpWeAreMale/sound.ipf/org/*.wav
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
