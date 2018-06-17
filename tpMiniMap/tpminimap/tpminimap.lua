@@ -110,7 +110,7 @@ function g5.TPMINIMAP_SAVE_SETTING()
 --		filep:write(",\t\"OthPetAway\":"	.. ((s5.OthPetAway		and "true") or "false")	.."\n"	);
 --		filep:write(",\t\"OthSummonAway\":"	.. ((s5.OthSummonAway	and "true") or "false")	.."\n"	);
 --		filep:write(",\t\"MySummonAway\":"	.. ((s5.MySummonAway	and "true") or "false")	.."\n"	);
-		if (s5.isDebug) and  s5.xxxxxxxxx == false)  then
+		if (s5.isDebug) and (s5.xxxxxxxxx == false)  then
 			filep:write(",\t\"xxxxxxxxx\":false\n"		);
 		end
 		filep:write("}\n");

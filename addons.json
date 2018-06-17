@@ -43,7 +43,7 @@
         "name" : "tpMiniMap",
         "file" : "tpminimap",
         "extension" : "ipf",
-        "fileVersion" : "v0.0.4",
+        "fileVersion" : "v0.0.5",
         "releaseTag" : "tpminimap",
         "unicode" : "✉",
         "description" : "自家製ミニマップです。",
