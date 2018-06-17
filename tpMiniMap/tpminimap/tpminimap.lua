@@ -1,12 +1,12 @@
 --[[
-	“ú–{Œê
+	æ—¥æœ¬èª
 --]]
 
 local acutil = require('acutil');
 
 _G['TPMINIMAP'] = _G['TPMINIMAP'] or {};
 local g5 = _G['TPMINIMAP'];
-g5.settingPath = g5.settingpath or "../addons/tpminimap/settings.json";
+g5.settingPath = g5.settingpath or "../addons/tpminimap/stg_tpminimap.json";
 g5.settings = g5.settings or {};
 local s5 = g5.settings;
 
@@ -43,7 +43,7 @@ end
 function TPMINIMAP_GAME_START(frame, msg, str, num)
 	--CHAT_SYSTEM("TPMINIMAP_GAME_START");
 	local frm	= ui.GetFrame("tpminimap");
-	if (world.IsPVPMap()) then frm:ShowWindow(0); return; end
+	if (s5.xxxxxxxxx) and (world.IsPVPMap()) then frm:ShowWindow(0); return; end
 	frm:ShowWindow(1);
 	g5.fDelay = false;
 	g5.fFirst = false;
@@ -53,9 +53,9 @@ end
 function TPMINIMAP_UPDATE(frame)
 	--CHAT_SYSTEM("TPMINIMAP_UPDATE");
 	if (g5.fDelay ~= true) then
-		--	RunUpdateScript‚Í‰‰ñ‚Í0•b‚Å‘–‚é‚Ì‚Å2ü‚³‚¹‚é
+		--	RunUpdateScriptã¯åˆå›ã¯0ç§’ã§èµ°ã‚‹ã®ã§2å‘¨ã•ã›ã‚‹
 		g5.fDelay = true;
-		return 1;	--	RunUpdateScript‚Í1‚ÅŒp‘±
+		return 1;	--	RunUpdateScriptã¯1ã§ç¶™ç¶š
 	end
 	
 	if (g5.fFirst ~= true) then
@@ -63,16 +63,16 @@ function TPMINIMAP_UPDATE(frame)
 		local f,m = pcall(g5.TPMINIMAP_START_DELAY, frame);
 		if f ~= true then
 			CHAT_SYSTEM(m);
-			return 0;	--	RunUpdateScript‚Í0‚ÅI—¹
+			return 0;	--	RunUpdateScriptã¯0ã§çµ‚äº†
 		end
-		return 1;	--	RunUpdateScript‚Í1‚ÅŒp‘±
+		return 1;	--	RunUpdateScriptã¯1ã§ç¶™ç¶š
 	end
 	local f,m = pcall(g5.TPMINIMAP_UPDATE, frame);
 	if f ~= true then
 		CHAT_SYSTEM(m);
-		return 0;	--	RunUpdateScript‚Í0‚ÅI—¹
+		return 0;	--	RunUpdateScriptã¯0ã§çµ‚äº†
 	end
-	return 1;	--	RunUpdateScript‚Í1‚ÅŒp‘±
+	return 1;	--	RunUpdateScriptã¯1ã§ç¶™ç¶š
 end
 
 function g5.TPMINIMAP_LOAD_SETTING()
@@ -80,7 +80,7 @@ function g5.TPMINIMAP_LOAD_SETTING()
 	if t then
 		s5 = acutil.mergeLeft(s5, t);
 	end
-	-- 	’l‚Ì‘¶İŠm•Û‚Æ‰Šú’lİ’è
+	-- 	å€¤ã®å­˜åœ¨ç¢ºä¿ã¨åˆæœŸå€¤è¨­å®š
 	s5.isDebug			= ((type(s5.isDebug			) == "boolean")	and s5.isDebug			)or false;
 	s5.posX				= ((type(s5.posX			) == "number")	and s5.posX				)or 600;
 	s5.posY				= ((type(s5.posY			) == "number")	and s5.posY				)or 400;
@@ -88,6 +88,11 @@ function g5.TPMINIMAP_LOAD_SETTING()
 	s5.sizeH			= ((type(s5.sizeH			) == "number")	and s5.sizeH			)or 300;
 	s5.zoomRate			= ((type(s5.zoomRate		) == "number")	and s5.zoomRate			)or 120;
 	s5.updInterval		= ((type(s5.updInterval		) == "number")	and s5.updInterval		)or 0.2;
+	s5.SucAndFail		= ((type(s5.SucAndFail		) == "boolean")	and s5.SucAndFail		)or false;
+	s5.OthPetAway		= ((type(s5.OthPetAway		) == "boolean")	and s5.OthPetAway		)or false;
+	s5.OthSummonAway	= ((type(s5.OthSummonAway	) == "boolean")	and s5.OthSummonAway	)or false;
+	s5.MySummonAway		= ((type(s5.MySummonAway	) == "boolean")	and s5.MySummonAway		)or false;
+	s5.xxxxxxxxx		= ((type(s5.xxxxxxxxx		) == "boolean")	and s5.xxxxxxxxx		)or (s5.xxxxxxxxx==nil);
 end
 
 function g5.TPMINIMAP_SAVE_SETTING()
@@ -95,12 +100,19 @@ function g5.TPMINIMAP_SAVE_SETTING()
 	if filep then
 		filep:write("{\n");
 		filep:write("\t\"isDebug\":"		.. ((s5.isDebug			and "true") or "false")	.."\n"	);
-		filep:write("\t\"posX\":"			.. s5.posX			.."\n"		);
-		filep:write("\t\"posY\":"			.. s5.posY			.."\n"		);
-		filep:write("\t\"sizeW\":"			.. s5.sizeW			.."\n"		);
-		filep:write("\t\"sizeH\":"			.. s5.sizeH			.."\n"		);
-		filep:write("\t\"zoomRate\":"		.. s5.zoomRate		.."\n"		);
-		filep:write("\t\"updInterval\":"	.. s5.updInterval	.."\n"		);
+		filep:write(",\t\"posX\":"			.. s5.posX			.."\n"		);
+		filep:write(",\t\"posY\":"			.. s5.posY			.."\n"		);
+		filep:write(",\t\"sizeW\":"			.. s5.sizeW			.."\n"		);
+		filep:write(",\t\"sizeH\":"			.. s5.sizeH			.."\n"		);
+		filep:write(",\t\"zoomRate\":"		.. s5.zoomRate		.."\n"		);
+		filep:write(",\t\"updInterval\":"	.. s5.updInterval	.."\n"		);
+		filep:write(",\t\"SucAndFail\":"	.. ((s5.SucAndFail		and "true") or "false")	.."\n"	);
+--		filep:write(",\t\"OthPetAway\":"	.. ((s5.OthPetAway		and "true") or "false")	.."\n"	);
+--		filep:write(",\t\"OthSummonAway\":"	.. ((s5.OthSummonAway	and "true") or "false")	.."\n"	);
+--		filep:write(",\t\"MySummonAway\":"	.. ((s5.MySummonAway	and "true") or "false")	.."\n"	);
+		if (s5.isDebug) and  s5.xxxxxxxxx == false)  then
+			filep:write(",\t\"xxxxxxxxx\":false\n"		);
+		end
 		filep:write("}\n");
 		filep:close();
 	end
@@ -140,7 +152,7 @@ function g5.TPMINIMAP_START_DELAY(frame)
 	g5.Grp7		= tolua.cast(g5.GrpB:GetChild('grp7'), "ui::CGroupBox");
 	g5.Grp8		= tolua.cast(g5.GrpB:GetChild('grp8'), "ui::CGroupBox");
 	g5.Grp9		= tolua.cast(g5.GrpB:GetChild('grp9'), "ui::CGroupBox");
-	--	ƒ}ƒbƒvID‚Ìæ“¾
+	--	ãƒãƒƒãƒ—IDã®å–å¾—
 	g5.MapName = session.GetMapName();
 	g5.MapProp = geMapTable.GetMapProp(g5.MapName);
 	g5.MapBg:SetImage(g5.MapName .. "_fog");
@@ -151,9 +163,9 @@ function g5.TPMINIMAP_START_DELAY(frame)
 	g5.ImgH = g5.MapBg:GetImageHeight();
 	local pos1 = g5.MapProp:WorldPosToMinimapPos(0, 0, g5.ImgW, g5.ImgH);
 	local pos2 = g5.MapProp:WorldPosToMinimapPos(1, 0, g5.ImgW, g5.ImgH);
-	--	‹——£1‚ ‚½‚è‚ÌƒsƒNƒZƒ‹
+	--	è·é›¢1ã‚ãŸã‚Šã®ãƒ”ã‚¯ã‚»ãƒ«
 	local pix = pos2.x - pos1.x;
-	--	‹——£100‚ÅŒ©‚¦‚é”ÍˆÍ‚ğƒtƒŒ[ƒ€‚Ì’·‚³‚É‡‚í‚¹‚½ê‡
+	--	è·é›¢100ã§è¦‹ãˆã‚‹ç¯„å›²ã‚’ãƒ•ãƒ¬ãƒ¼ãƒ ã®é•·ã•ã«åˆã‚ã›ãŸå ´åˆ
 	local zoomRate = frame:GetWidth() / (pix * s5.zoomRate);
 	g5.MapW = g5.ImgW * zoomRate / 10;
 	g5.MapH = g5.ImgH * zoomRate / 10;
@@ -170,7 +182,7 @@ function g5.TPMINIMAP_START_DELAY(frame)
 	g5.Grp8:Resize(g5.MapW, g5.MapH);
 	g5.Grp9:Resize(g5.MapW, g5.MapH);
 
-	--	©ƒLƒƒƒ‰‚ğ’†‰›‘µ‚¦
+	--	è‡ªã‚­ãƒ£ãƒ©ã‚’ä¸­å¤®æƒãˆ
 	g5.MapLd:SetOffset(frame:GetWidth() / 2 - g5.MapLd:GetImageWidth() / 2 , frame:GetHeight() / 2 - g5.MapLd:GetImageHeight() / 2);
 
 
@@ -188,7 +200,7 @@ function g5.TPMINIMAP_START_DELAY(frame)
 end
 
 function g5.TPMINIMAP_UPDATE(frame)
-	if (world.IsPVPMap()) then return end
+	if (s5.xxxxxxxxx) and (world.IsPVPMap()) then return end
 
 	g5.Counter = (g5.Counter % 100) + 1;
 
@@ -223,21 +235,21 @@ function g5.MoveMap()
 	  return;
 	end
 
-	--	©ƒLƒƒƒ‰‚ÌŠp“x‚ğæ“¾
-	local myAng = info.GetAngle(myHnd) - g5.MapProp.RotateAngle;	--	ƒ}ƒbƒv‚ÍÅ‰‚©‚ç45“xŒX‚¢‚Ä‚é
+	--	è‡ªã‚­ãƒ£ãƒ©ã®è§’åº¦ã‚’å–å¾—
+	local myAng = info.GetAngle(myHnd) - g5.MapProp.RotateAngle;	--	ãƒãƒƒãƒ—ã¯æœ€åˆã‹ã‚‰45åº¦å‚¾ã„ã¦ã‚‹
 	g5.MapLd:SetAngle(myAng);
 
-	--	©ƒLƒƒƒ‰‚ÌˆÊ’u‚ğæ“¾
+	--	è‡ªã‚­ãƒ£ãƒ©ã®ä½ç½®ã‚’å–å¾—
 	local myPos = info.GetPositionInMap(myHnd, g5.MapW, g5.MapH);
 
 
-	--	ƒIƒtƒZƒbƒg‚ğŒvZ
+	--	ã‚ªãƒ•ã‚»ãƒƒãƒˆã‚’è¨ˆç®—
 	local miniX = myPos.x - g5.MapLd:GetOffsetX() - g5.MapLd:GetImageWidth() / 2;
 	local miniY = myPos.y - g5.MapLd:GetOffsetY() - g5.MapLd:GetImageHeight() / 2;
 	miniX = math.floor(miniX);
 	miniY = math.floor(miniY);
 
-	--	ƒ}ƒbƒv‰æ‘œ‚ÌˆÊ’u‚ğ•ÏX
+	--	ãƒãƒƒãƒ—ç”»åƒã®ä½ç½®ã‚’å¤‰æ›´
 	g5.MapBg:SetOffset( -miniX, -miniY);
 	g5.GrpB:SetOffset( -miniX, -miniY);
 end
@@ -248,7 +260,8 @@ function g5.SetList()
 		return;
 	end
 
-	if (world.IsPVPMap()) then return end
+	if (s5.xxxxxxxxx) and (world.IsPVPMap()) then return end
+
 
 	if (g5.Counter == 100) and s5.isDebug then
 		CHAT_SYSTEM(fndCount);
@@ -268,6 +281,7 @@ function g5.SetList()
 	local tgt=nil;
 	local actr=nil;
 	local mon=nil;
+	local myPC = GetMyPCObject();
 	local myHnd=session.GetMyHandle();
 	for i = 1, fndCount do
 		itm		= fndList[i];
@@ -276,8 +290,8 @@ function g5.SetList()
 		tgt		= info.GetTargetInfo(hnd);
 		actr	= world.GetActor(hnd);
 		mon		= GetClassByType("Monster", actr:GetType());
-		if (myHnd == hnd) or (g5.List1[hnd2]) or (g5.List2[hnd2]) or (g5.List3[hnd2]) or (g5.List4[hnd2]) or (g5.List5[hnd2]) or (g5.List6[hnd2]) or (g5.List7[hnd2]) or (g5.List8[hnd2]) or (g5.List9[hnd2]) or (world.IsPVPMap()) then
-			--	‰½‚à‚µ‚È‚¢
+		if (myHnd == hnd) or (g5.List1[hnd2]) or (g5.List2[hnd2]) or (g5.List3[hnd2]) or (g5.List4[hnd2]) or (g5.List5[hnd2]) or (g5.List6[hnd2]) or (g5.List7[hnd2]) or (g5.List8[hnd2]) or (g5.List9[hnd2]) or (s5.xxxxxxxxx) and (world.IsPVPMap()) then
+			--	ä½•ã‚‚ã—ãªã„
 		elseif(itm.ClassName == "PC") and (tgt.IsDummyPC == 1) then
 			g5.List6[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = "DummyPC"	,Col="FF60FF60"	,Pic="sugoidot"	,Size=12};
 			--CHAT_SYSTEM(itm.Name ..":DummyPC");
@@ -291,18 +305,37 @@ function g5.SetList()
 			g5.List9[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = itm.Faction	,Col="FFFFFF00"	,Pic="sugoidot"	,Size=8};
 			--CHAT_SYSTEM(itm.ClassName ..":".. itm.Faction);
 		elseif (itm.Faction == "Pet") then
-			g5.List6[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = itm.Faction	,Col="FF00FFFF"	,Pic="sugoidot"	,Size=16};
+			local ownerHnd = info.GetOwner(hnd);
+			local petCol = "FF00FFFF";
+			if (myHnd == ownerHnd) then
+				petCol = "FF40FFFF";
+			end
+			g5.List6[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = itm.Faction	,Col=petCol	,Pic="sugoidot"	,Size=16};
+			--if (myHnd ~= ownerHnd) and (s5.OthPetAway) then -- ä»–äººã®ãƒšãƒƒãƒˆã¯Leaveå‡ºæ¥ãªã‹ã£ãŸ
+			--	world.Leave(hnd, 0.0);
+			--else
+			--end
 			--CHAT_SYSTEM(itm.ClassName ..":".. itm.Faction);
 		elseif (fndList[i].Faction == "Summon") or (itm.ClassName == "pcskill_dirtypole") or (itm.ClassName == "russianblue") then
-			if (mon.Size == "S" ) then
-				g5.List5[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = "Summon"		,Col="FF8000FF"	,Pic="sugoidot"	,Size=12};
-			elseif (mon.Size == "M" ) then
-				g5.List5[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = "Summon"		,Col="FF8000FF"	,Pic="sugoidot"	,Size=16};
-			elseif (mon.Size == "L" ) then
-				g5.List5[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = "Summon"		,Col="FF8000FF"	,Pic="sugoidot"	,Size=24};
-			elseif (mon.Size == "XL" ) then
-				g5.List3[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = "Summon"		,Col="FF8000FF"	,Pic="sugoidot"	,Size=32};
+			local ownerHnd = info.GetOwner(hnd);
+			local sumCol = "FF6000C0";
+			if (myHnd == ownerHnd) then
+				sumCol = "FFC020FF";
 			end
+			if (mon.Size == "S" ) then
+				g5.List5[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = "Summon"		,Col=sumCol	,Pic="sugoidot"	,Size=12};
+			elseif (mon.Size == "M" ) then
+				g5.List5[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = "Summon"		,Col=sumCol	,Pic="sugoidot"	,Size=16};
+			elseif (mon.Size == "L" ) then
+				g5.List5[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = "Summon"		,Col=sumCol	,Pic="sugoidot"	,Size=24};
+			elseif (mon.Size == "XL" ) then
+				g5.List3[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = "Summon"		,Col=sumCol	,Pic="sugoidot"	,Size=32};
+			end
+			--if (myHnd == ownerHnd) and (s5.MySummonAway) then
+			--	world.Leave(hnd, 0.0);
+			--elseif (myHnd ~= ownerHnd) and (s5.OthSummonAway) then
+			--	world.Leave(hnd, 0.0);
+			--end
 			--CHAT_SYSTEM(itm.ClassName ..":".. itm.Faction);
 		elseif (fndList[i].Faction == "RootCrystal") then
 			g5.List4[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = itm.Faction	,Col="FF60FFFF"	,Pic="sugoisqr"	,Size=12};
@@ -312,6 +345,14 @@ function g5.SetList()
 			--CHAT_SYSTEM(itm.ClassName ..":".. itm.Faction ..":".. mon.MonRank);
 		elseif (mon.MonRank == "NPC") then
 			g5.List4[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = itm.Faction	,Col="FF0000FF"	,Pic="sugoidot"	,Size=12};
+			if (s5.SucAndFail) then
+				local questIES = GetClassByType("QuestProgressCheck", 19071);
+				local qstRes = SCR_QUEST_CHECK_C(myPC, questIES.ClassName);
+
+				if (itm.ClassName == "npc_fedimian_merchant_1") and (qstRes == "SUCCESS")  then
+					world.Leave(hnd, 0.0);
+				end
+			end
 			--CHAT_SYSTEM(itm.ClassName ..":".. itm.Faction ..":".. mon.MonRank);
 		elseif (mon.MonRank == "Material") then
 			g5.List4[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = itm.Faction	,Col="FF0080FF"	,Pic="sugoisqr"	,Size=16};
@@ -319,7 +360,7 @@ function g5.SetList()
 		elseif (fndList[i].Faction == "Neutral") then
 			g5.List4[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = itm.Faction	,Col="FF000080"	,Pic="sugoisqr"	,Size=16};
 			--CHAT_SYSTEM(itm.ClassName ..":".. itm.Faction ..":".. mon.MonRank);
-		elseif (session.world.IsDungeon()==false) and (ui.IsFrameVisible("challenge_mode")~=1) then
+		elseif (s5.xxxxxxxxx) and (session.world.IsDungeon()==false) and (ui.IsFrameVisible("challenge_mode")~=1) then
 		elseif (fndList[i].Faction == "Monster") then
 			if (mon.Size == "S" ) then
 				g5.List8[hnd2] = {	Hnd=hnd	,Actr = actr	,Fct = itm.Faction	,Col="FFFF0000"	,Pic="sugoidot"	,Size=12};
@@ -362,15 +403,15 @@ function g5.SetObj(lst,grp,pref)
 	for _,itm in pairs(lst) do
 		itm.ObjNm = pref..itm.Hnd;
 		local tgt = info.GetTargetInfo( itm.Hnd );
-		if (tgt == nil) or ((tgt.stat.maxHP > 0) and (tgt.stat.HP==0)) then	--	íœƒ‚[ƒh
+		if (tgt == nil) or ((tgt.stat.maxHP > 0) and (tgt.stat.HP==0)) then	--	å‰Šé™¤ãƒ¢ãƒ¼ãƒ‰
 			if (itm.Img ~= nil) then
 				itm.Img:ShowWindow(0);
 			else
 				grp:RemoveChild(itm.ObjNm);
 			end
-		elseif (itm.Img) then	--	‰æ‘œ‚ ‚è
+		elseif (itm.Img) then	--	ç”»åƒã‚ã‚Š
 			g5.SetImgPos(itm.Img,itm.Hnd)
-		else	--	‰æ‘œ–³‚µ
+		else	--	ç”»åƒç„¡ã—
 			local tmpImg = grp:CreateOrGetControl("picture", itm.ObjNm, 0, 0, itm.Size, itm.Size);
 			itm.Img = tolua.cast(tmpImg, "ui::CPicture");
 			itm.Img:SetImage(itm.Pic);

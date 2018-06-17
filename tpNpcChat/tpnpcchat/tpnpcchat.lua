@@ -6,7 +6,7 @@ local acutil = require('acutil');
 
 _G['TPNPCCHAT'] = _G['TPNPCCHAT'] or {};
 local g1 = _G['TPNPCCHAT'];
-g1.settingPath = g1.settingpath or "../addons/tpnpcchat/settings.json";
+g1.settingPath = g1.settingpath or "../addons/tpnpcchat/stg_tpnpcchat.json";
 g1.settings = g1.settings or {};
 local s1 = g1.settings;
 
@@ -74,19 +74,22 @@ function TPNPCCHAT_RECEIVABLE_SILVER_NOTICE(frame, msg, argStr, argNum)
 end
 
 function g1.TPNPCCHAT_LOAD_SETTING()
-	local t, err = acutil.loadJSON(g1.settingPath, g1.settings);
+	local t, err = acutil.loadJSON(g1.settingPath);
+	if t then
+		s1 = acutil.mergeLeft(s1, t);
+	end
 	-- 	値の存在確保と初期値設定
-	s1.isDebug   = s1.isDebug   or false;
-	s1.isShowExc = s1.isShowExc or true; -- NOTICE_Dm_!
-	s1.isShowScr = s1.isShowScr or true; -- NOTICE_Dm_scroll
-	s1.isShowClr = s1.isShowClr or true; -- NOTICE_Dm_Clear
-	s1.isShowGet = s1.isShowGet or true; -- NOTICE_Dm_GetItem
-	s1.isShowRes = s1.isShowRes or true; -- NOTICE_Dm_ResBuff
-	s1.isShowUse = s1.isShowUse or true; -- NOTICE_Dm_UsePotion
-	s1.isShowCmp = s1.isShowCmp or true; -- NOTICE_Dm_quest_complete
-	s1.isShowGlb = s1.isShowGlb or true; -- NOTICE_Dm_Global_Shout
-	s1.isShowLvl = s1.isShowLvl or true; -- NOTICE_Dm_levelup_base NOTICE_Dm_levelup_skill
-	s1.isShowFsh = s1.isShowFsh or true; -- NOTICE_Dm_Fishing
+	s1.isDebug		= ((type(s1.isDebug		) == "boolean")	and s1.isDebug		)or false;
+	s1.isShowExc	= ((type(s1.isShowExc	) == "boolean")	and s1.isShowExc	)or (s1.isShowExc	==nil);
+	s1.isShowScr	= ((type(s1.isShowScr	) == "boolean")	and s1.isShowScr	)or (s1.isShowScr	==nil);
+	s1.isShowClr	= ((type(s1.isShowClr	) == "boolean")	and s1.isShowClr	)or (s1.isShowClr	==nil);
+	s1.isShowGet	= ((type(s1.isShowGet	) == "boolean")	and s1.isShowGet	)or (s1.isShowGet	==nil);
+	s1.isShowRes	= ((type(s1.isShowRes	) == "boolean")	and s1.isShowRes	)or (s1.isShowRes	==nil);
+	s1.isShowUse	= ((type(s1.isShowUse	) == "boolean")	and s1.isShowUse	)or (s1.isShowUse	==nil);
+	s1.isShowCmp	= ((type(s1.isShowCmp	) == "boolean")	and s1.isShowCmp	)or (s1.isShowCmp	==nil);
+	s1.isShowGlb	= ((type(s1.isShowGlb	) == "boolean")	and s1.isShowGlb	)or (s1.isShowGlb	==nil);
+	s1.isShowLvl	= ((type(s1.isShowLvl	) == "boolean")	and s1.isShowLvl	)or (s1.isShowLvl	==nil);
+	s1.isShowFsh	= ((type(s1.isShowFsh	) == "boolean")	and s1.isShowFsh	)or (s1.isShowFsh	==nil);
 end
 
 function g1.TPNPCCHAT_SAVE_SETTING()
@@ -94,16 +97,16 @@ function g1.TPNPCCHAT_SAVE_SETTING()
 	if filep then
 		filep:write("{\n");
 		filep:write("\t\"isDebug\":"		.. ((s1.isDebug			and "true") or "false")	.."\n"	);
-		filep:write("\t\"isShowExc\":"		.. ((s1.isShowExc		and "true") or "false")	.."\n"	);
-		filep:write("\t\"isShowScr\":"		.. ((s1.isShowScr		and "true") or "false")	.."\n"	);
-		filep:write("\t\"isShowClr\":"		.. ((s1.isShowClr		and "true") or "false")	.."\n"	);
-		filep:write("\t\"isShowGet\":"		.. ((s1.isShowGet		and "true") or "false")	.."\n"	);
-		filep:write("\t\"isShowRes\":"		.. ((s1.isShowRes		and "true") or "false")	.."\n"	);
-		filep:write("\t\"isShowUse\":"		.. ((s1.isShowUse		and "true") or "false")	.."\n"	);
-		filep:write("\t\"isShowCmp\":"		.. ((s1.isShowCmp		and "true") or "false")	.."\n"	);
-		filep:write("\t\"isShowGlb\":"		.. ((s1.isShowGlb		and "true") or "false")	.."\n"	);
-		filep:write("\t\"isShowLvl\":"		.. ((s1.isShowLvl		and "true") or "false")	.."\n"	);
-		filep:write("\t\"isShowFsh\":"		.. ((s1.isShowFsh		and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isShowExc\":"		.. ((s1.isShowExc		and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isShowScr\":"		.. ((s1.isShowScr		and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isShowClr\":"		.. ((s1.isShowClr		and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isShowGet\":"		.. ((s1.isShowGet		and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isShowRes\":"		.. ((s1.isShowRes		and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isShowUse\":"		.. ((s1.isShowUse		and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isShowCmp\":"		.. ((s1.isShowCmp		and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isShowGlb\":"		.. ((s1.isShowGlb		and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isShowLvl\":"		.. ((s1.isShowLvl		and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isShowFsh\":"		.. ((s1.isShowFsh		and "true") or "false")	.."\n"	);
 		filep:write("}\n");
 		filep:close();
 	end
@@ -207,7 +210,7 @@ function g1.TPNPCCHAT_SOLD_ITEM_NOTICE(frame, msg, argStr, argNum)
 		frame:ShowWindow(0);
 		return;
 	end
-	local askMsg = "★["..argList[2].."]が"..argList[3].."個売れました";
+	local askMsg = "★[".. argList[2] .."]が".. argList[3] .."個売れました";
 	if (dispMode ==1) then
 		--	簡易チャット(背景が黒い)
 		CHAT_SYSTEM("{#E04000}{s"..fontSize.."}" .. askMsg.."{/}{/}{nl}");
@@ -217,8 +220,8 @@ function g1.TPNPCCHAT_SOLD_ITEM_NOTICE(frame, msg, argStr, argNum)
 	end
 
 end
-function ON_SOLD_ITEM_NOTICE(frame, msg, argStr, argNum)	
-end
+--function ON_SOLD_ITEM_NOTICE(frame, msg, argStr, argNum)	
+--end
 
 function g1.TPNPCCHAT_RECEIVABLE_SILVER_NOTICE(frame, msg, argStr, argNum)	
 	local fontSize = GET_CHAT_FONT_SIZE();
@@ -235,5 +238,5 @@ function g1.TPNPCCHAT_RECEIVABLE_SILVER_NOTICE(frame, msg, argStr, argNum)
 	end
 
 end
-function ON_RECEIVABLE_SILVER_NOTICE(frame, msg, argStr, argNum)
-end
+--function ON_RECEIVABLE_SILVER_NOTICE(frame, msg, argStr, argNum)
+--end

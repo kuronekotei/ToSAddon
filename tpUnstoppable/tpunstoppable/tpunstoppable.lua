@@ -6,7 +6,7 @@ local acutil = require('acutil');
 
 _G['TPUNSTOPPABLE'] = _G['TPUNSTOPPABLE'] or {};
 local g6 = _G['TPUNSTOPPABLE'];
-g6.settingPath = g6.settingpath or "../addons/tpunstoppable/settings.json";
+g6.settingPath = g6.settingpath or "../addons/tpunstoppable/stg_tpunstoppable.json";
 g6.settings = g6.settings or {};
 local s6 = g6.settings;
 
@@ -44,7 +44,7 @@ function g6.LOAD_SETTING()
 	end
 	-- 	値の存在確保と初期値設定
 	s6.isDebug			= ((type(s6.isDebug			) == "boolean")	and s6.isDebug			)or false;
-	s6.actCount			= ((type(s6.actCount		) == "number")	and s6.actCount			)or 1000;
+	s6.actCount			= ((type(s6.actCount		) == "number")	and s6.actCount			)or 3;
 end
 
 function g6.SAVE_SETTING()
@@ -52,7 +52,7 @@ function g6.SAVE_SETTING()
 	if filep then
 		filep:write("{\n");
 		filep:write("\t\"isDebug\":"		.. ((s6.isDebug			and "true") or "false")	.."\n"	);
-		filep:write("\t\"actCount\":"		.. s6.actCount			or 1000 .."\n"		);
+		filep:write(",\t\"actCount\":"		.. (s6.actCount			or 3) .."\n"		);
 		filep:write("}\n");
 		filep:close();
 	end

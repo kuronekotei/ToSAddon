@@ -7,7 +7,7 @@ local json = require('json');
 
 _G['TPCHATSYS'] = _G['TPCHATSYS'] or {};
 local g2 = _G['TPCHATSYS'];
-g2.settingPath	= g2.settingpath	or "../addons/tpchatsys/settings.json";
+g2.settingPath	= g2.settingpath	or "../addons/tpchatsys/stg_tpchatsys.json";
 g2.settings		= g2.settings		or {};
 g2.msgList		= g2.msgList		or {};
 g2.msgOldNum	= g2.msgOldNum		or 0;
@@ -95,7 +95,7 @@ end
 function TPCHATSYS_LOAD_SETTING()
 	local t, err = acutil.loadJSON(g2.settingPath);
 	if t then
-		g2.settings = acutil.mergeLeft(g2.settings, t);
+		s2 = acutil.mergeLeft(s2, t);
 	end
 	-- 	値の存在確保と初期値設定
 	s2.isDebug		= ((type(s2.isDebug			) == "boolean")	and s2.isDebug		)or false;
@@ -146,32 +146,32 @@ end
 function TPCHATSYS_SAVE_SETTING()
 	local filep = io.open(g2.settingPath,"w+");
 	if filep then
-		filep:write("{");
+		filep:write("{\n");
 		filep:write("\t\"isSaveLog\":"		.. ((s2.isSaveLog		and "true") or "false")	.."\n"	);
-		filep:write("\t\"isUseOrignal\":"	.. ((s2.isUseOrignal	and "true") or "false")	.."\n"	);
-		filep:write("\t\"msgLimitH\":"		.. s2.msgLimitH		.."\n"		);
-		filep:write("\t\"msgLimitL\":"		.. s2.msgLimitL		.."\n"		);
-		filep:write("\t\"msgMargeSpan\":"	.. s2.msgMargeSpan	.."\n"		);
-		filep:write("\t\"posX\":"			.. s2.posX			.."\n"		);
-		filep:write("\t\"posY\":"			.. s2.posY			.."\n"		);
-		filep:write("\t\"sizeW\":"			.. s2.sizeW			.."\n"		);
-		filep:write("\t\"sizeH\":"			.. s2.sizeH			.."\n"		);
-		filep:write("\t\"backCol\":"		.. s2.backCol		.."\n"		);
-		filep:write("\t\"btn1Show\":"		.. s2.btn1Show		.."\n"		);
-		filep:write("\t\"btn2Show\":"		.. s2.btn2Show		.."\n"		);
-		filep:write("\t\"btn3Show\":"		.. s2.btn3Show		.."\n"		);
-		filep:write("\t\"btn4Show\":"		.. s2.btn4Show		.."\n"		);
-		filep:write("\t\"btn5Show\":"		.. s2.btn5Show		.."\n"		);
-		filep:write("\t\"btn1Text\":\""		.. s2.btn1Text		.."\"\n"	);
-		filep:write("\t\"btn2Text\":\""		.. s2.btn2Text		.."\"\n"	);
-		filep:write("\t\"btn3Text\":\""		.. s2.btn3Text		.."\"\n"	);
-		filep:write("\t\"btn4Text\":\""		.. s2.btn4Text		.."\"\n"	);
-		filep:write("\t\"btn5Text\":\""		.. s2.btn5Text		.."\"\n"	);
-		filep:write("\t\"btn1Cmd\":\""		.. s2.btn1Cmd		.."\"\n"	);
-		filep:write("\t\"btn2Cmd\":\""		.. s2.btn2Cmd		.."\"\n"	);
-		filep:write("\t\"btn3Cmd\":\""		.. s2.btn3Cmd		.."\"\n"	);
-		filep:write("\t\"btn4Cmd\":\""		.. s2.btn4Cmd		.."\"\n"	);
-		filep:write("\t\"btn5Cmd\":\""		.. s2.btn5Cmd		.."\"\n"	);
+		filep:write(",\t\"isUseOrignal\":"	.. ((s2.isUseOrignal	and "true") or "false")	.."\n"	);
+		filep:write(",\t\"msgLimitH\":"		.. s2.msgLimitH		.."\n"		);
+		filep:write(",\t\"msgLimitL\":"		.. s2.msgLimitL		.."\n"		);
+		filep:write(",\t\"msgMargeSpan\":"	.. s2.msgMargeSpan	.."\n"		);
+		filep:write(",\t\"posX\":"			.. s2.posX			.."\n"		);
+		filep:write(",\t\"posY\":"			.. s2.posY			.."\n"		);
+		filep:write(",\t\"sizeW\":"			.. s2.sizeW			.."\n"		);
+		filep:write(",\t\"sizeH\":"			.. s2.sizeH			.."\n"		);
+		filep:write(",\t\"backCol\":"		.. s2.backCol		.."\n"		);
+		filep:write(",\t\"btn1Show\":"		.. s2.btn1Show		.."\n"		);
+		filep:write(",\t\"btn2Show\":"		.. s2.btn2Show		.."\n"		);
+		filep:write(",\t\"btn3Show\":"		.. s2.btn3Show		.."\n"		);
+		filep:write(",\t\"btn4Show\":"		.. s2.btn4Show		.."\n"		);
+		filep:write(",\t\"btn5Show\":"		.. s2.btn5Show		.."\n"		);
+		filep:write(",\t\"btn1Text\":\""	.. s2.btn1Text		.."\"\n"	);
+		filep:write(",\t\"btn2Text\":\""	.. s2.btn2Text		.."\"\n"	);
+		filep:write(",\t\"btn3Text\":\""	.. s2.btn3Text		.."\"\n"	);
+		filep:write(",\t\"btn4Text\":\""	.. s2.btn4Text		.."\"\n"	);
+		filep:write(",\t\"btn5Text\":\""	.. s2.btn5Text		.."\"\n"	);
+		filep:write(",\t\"btn1Cmd\":\""		.. s2.btn1Cmd		.."\"\n"	);
+		filep:write(",\t\"btn2Cmd\":\""		.. s2.btn2Cmd		.."\"\n"	);
+		filep:write(",\t\"btn3Cmd\":\""		.. s2.btn3Cmd		.."\"\n"	);
+		filep:write(",\t\"btn4Cmd\":\""		.. s2.btn4Cmd		.."\"\n"	);
+		filep:write(",\t\"btn5Cmd\":\""		.. s2.btn5Cmd		.."\"\n"	);
 		filep:write("}\n");
 		filep:close();
 	end
