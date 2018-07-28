@@ -368,15 +368,14 @@ COPY /B  /Y 	../org/J_voice_wiz_f_agility_shot_2.wav	J_voice_wiz_m_agility_shot_
 COPY /B  /Y 	../org/J_voice_wiz_f_alchemisticmissile_shot_1.wav	J_voice_wiz_m_alchemisticmissile_shot_1.wav
 COPY /B  /Y 	../org/J_voice_wiz_f_alchemisticmissile_shot_2.wav	J_voice_wiz_m_alchemisticmissile_shot_2.wav
 COPY /B  /Y 	../org/J_voice_wiz_f_algiz_cast_1.wav	J_voice_wiz_m_algiz_cast_1.wav
-COPY /B  /Y 	../org/J_voice_wiz_f_algiz_cast_2.wav	J_voice_wiz_m_algiz_shot_1.wav
-COPY /B  /Y 	../org/J_voice_wiz_f_algiz_shot_1.wav	J_voice_wiz_m_algiz_shot_2.wav
-COPY /B  /Y 	../org/J_voice_wiz_f_algiz_shot_2.wav	J_voice_wiz_m_attackground_shot_1.wav
-COPY /B  /Y 	../org/J_voice_wiz_f_attackground_shot_1.wav	J_voice_wiz_m_attackground_shot_2.wav
-COPY /B  /Y 	../org/J_voice_wiz_f_attackground_shot_2.wav	J_voice_wiz_m_backmasking_shot_1.wav
-COPY /B  /Y 	../org/J_voice_wiz_f_backmasking_shot_1.wav	J_voice_wiz_m_backmasking_shot_2.wav
-COPY /B  /Y 	../org/J_voice_wiz_f_backmasking_shot_2.wav	J_voice_wiz_m_blink_shot_1.wav
-COPY /B  /Y 	../org/J_voice_wiz_f_blink_shot_1.wav	J_voice_wiz_m_blink_shot_2.wav
-COPY /B  /Y 	../org/J_voice_wiz_f_blink_shot_2.wav	J_voice_wiz_m_blink_shot_3.wav
+COPY /B  /Y 	../org/J_voice_wiz_f_algiz_shot_1.wav	J_voice_wiz_m_algiz_shot_1.wav
+COPY /B  /Y 	../org/J_voice_wiz_f_algiz_shot_2.wav	J_voice_wiz_m_algiz_shot_2.wav
+COPY /B  /Y 	../org/J_voice_wiz_f_attackground_shot_1.wav	J_voice_wiz_m_attackground_shot_1.wav
+COPY /B  /Y 	../org/J_voice_wiz_f_attackground_shot_2.wav	J_voice_wiz_m_attackground_shot_2.wav
+COPY /B  /Y 	../org/J_voice_wiz_f_backmasking_shot_1.wav	J_voice_wiz_m_backmasking_shot_1.wav
+COPY /B  /Y 	../org/J_voice_wiz_f_backmasking_shot_2.wav	J_voice_wiz_m_backmasking_shot_2.wav
+COPY /B  /Y 	../org/J_voice_wiz_f_blink_shot_1.wav	J_voice_wiz_m_blink_shot_1.wav
+COPY /B  /Y 	../org/J_voice_wiz_f_blink_shot_2.wav	J_voice_wiz_m_blink_shot_2.wav
 COPY /B  /Y 	../org/J_voice_wiz_f_bonepointing_cast_1.wav	J_voice_wiz_m_bonepointing_cast_1.wav
 COPY /B  /Y 	../org/J_voice_wiz_f_bonepointing_cast_2.wav	J_voice_wiz_m_bonepointing_cast_2.wav
 COPY /B  /Y 	../org/J_voice_wiz_f_combustion_shot_1.wav	J_voice_wiz_m_combustion_shot_1.wav
@@ -667,10 +666,11 @@ COPY /B  /Y 	../org/J_voice_kback_war_f_3.wav	J_voice_war_kdown_3.wav
 COPY /B  /Y 	../org/J_voice_kback_war_f_4.wav	J_voice_war_kdown_4.wav
 COPY /B  /Y 	../org/J_voice_kback_war_f_5.wav	J_voice_war_kdown_5.wav
 		
-REM ## 女ヴォイスのみ		
+REM ## 男ヴォイスのみ		
 REM	J_voice_archer_f_growling_shot_2.wav	J_voice_archer_m_growling_shot_1.wav
 REM	J_voice_cleric_f_chortasmata_shot_3.wav	J_voice_cleric_m_chortasmata_shot_2.wav
 REM	J_voice_cleric_f_malleusmaleficarum_shot_3.wav	J_voice_cleric_m_malleusmaleficarum_shot_1.wav
+REM 	../org/J_voice_wiz_f_algiz_cast_2.wav	J_voice_wiz_m_algiz_cast_1.wav
 REM	J_voice_wiz_f_firepillar_shot_2.wav	J_voice_wiz_m_firepillar_shot.wav
 REM	J_voice_wiz_f_firewall_shot_2.wav	J_voice_wiz_m_firewall_shot.wav
 REM	J_voice_wiz_f_gust_shot_2.wav	J_voice_wiz_m_gust_shot_1.wav
@@ -685,7 +685,8 @@ REM	J_voice_blk_war_f1.wav	J_voice_war_atk_short_1.wav
 REM	J_voice_blk_war_f2.wav	J_voice_war_atk_short_2.wav
 REM	J_voice_buff_war_f1.wav	J_voice_archer_atk_cast_1.wav
 		
-REM ## 男ヴォイスのみ		
+REM ## 女ヴォイスのみ		
+COPY /B  /Y 	../org/J_voice_wiz_f_blink_shot_2.wav	J_voice_wiz_m_blink_shot_3.wav
 COPY /B  /Y 	../org/J_voice_wiz_f_missilehole_shot_2	J_voice_wiz_m_missilehole_shot_3.wav
 COPY /B  /Y 	../org/J_voice_wiz_f_energybolt_shot_1.wav	J_voice_wiz_m_energybolt_shot_6.wav
 COPY /B  /Y 	../org/J_voice_wiz_f_energybolt_shot_3.wav	J_voice_wiz_m_energybolt_shot_7.wav
