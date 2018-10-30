@@ -33,7 +33,7 @@
         "name" : "tpFarmed",
         "file" : "tpfarmed",
         "extension" : "ipf",
-        "fileVersion" : "v0.0.4",
+        "fileVersion" : "v1.0.0",
         "releaseTag" : "tpfarmed",
         "unicode" : "✉",
         "description" : "手に入れた物に関するログが出ます。",
