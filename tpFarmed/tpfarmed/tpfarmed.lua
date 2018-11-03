@@ -33,6 +33,7 @@ function TPFARMED_ON_INIT(addon, frame)
 	addon:RegisterMsg("INV_ITEM_IN", "TPFARMED_INV_ITEM_IN");
 	addon:RegisterMsg("JOB_EXP_UPDATE", "TPFARMED_JOB_EXP_UPDATE");
 	addon:RegisterMsg("JOB_EXP_ADD", "TPFARMED_JOB_EXP_UPDATE");
+	addon:RegisterMsg('EXP_UPDATE', 'TPFARMED_EXP_UPDATE');
 	local f,m = pcall(g4.TPFARMED_INIT);
 	if f ~= true then
 		CHAT_SYSTEM(m);
@@ -83,6 +84,13 @@ end
 function TPFARMED_JOB_EXP_UPDATE(frame, msg, str, exp, tableinfo)
 	g4.JobLvl = tableinfo.level;
 	g4.JobExp = exp - tableinfo.startExp;
+	if str ~= nil and str ~= "None" and str ~= "" then
+		g4.LastCExp = tonumber(str) or 0;
+	end
+end
+
+function TPFARMED_EXP_UPDATE(frame, msg, argStr, argNum)
+	g4.LastBExp = tonumber(argNum) or 0;
 end
 
 function TPFARMED_UI_LBUTTONUP()
@@ -249,6 +257,8 @@ function g4.TPFARMED_MAPSTART()
 	local charName = GetMyName();
 
 	if (g4.MapName == mapName) and (g4.CharName == charName) then
+		local frm = ui.GetFrame("tpfarmed");
+		frm:RunUpdateScript("TPFARMED_UPDATE",  1, 0.0, 0, 1);
 		return;
 	end
 	--	マップ名の取得
@@ -306,6 +316,9 @@ function g4.TPFARMED_MAPSTART()
 	g4.StartBExp	= expBT+expBN;
 	g4.StartCExp	= expCT+expCN;
 	g4.StartMoney	= money;
+	g4.LastBExp		= g4.LastBExp or 0;
+	g4.LastCExp		= g4.LastCExp or 0;
+	g4.PopCnt		= 0;
 	g4.MemLogSize	= g4.MemLogSize or 0;
 	g4.MemMsgId		= g4.MemMsgId or 0;
 	g4.TtlGiveDmg	= 0;
@@ -406,13 +419,52 @@ function g4.TPFARMED_UI_UPDATE()
 	local expCN = g4.JobExp;
 	local perbex = expBN*100/(expBR+1);
 	local percex = expCN*100/(expCR+1);
-	expBR = math.floor(expBR /1000);
-	expBN = math.floor(expBN /1000);
-	expCR = math.floor(expCR /1000);
-	expCN = math.floor(expCN /1000);
+	local expBRk = math.floor(expBR /1000);
+	local expBNk = math.floor(expBN /1000);
+	local expCRk = math.floor(expCR /1000);
+	local expCNk = math.floor(expCN /1000);
 	
-	local strbex ="{#8080FE}BExp:"..g4.lpnts(expBN,11).."K{/}/{#80FEFE}"..g4.lpnts(expBR,11).."K{/} {#80FE80}"..string.format("%5.2f", perbex).."%{/}";
-	local strcex ="{#8080FE}CExp:"..g4.lpnts(expCN,11).."K{/}/{#80FEFE}"..g4.lpnts(expCR,11).."K{/} {#80FE80}"..string.format("%5.2f", percex).."%{/}";
+	local at1bex = "";
+	local at1cex = "";
+	if (g4.LastBExp >9999999) then 
+		at1bex = g4.lpnts(math.floor(g4.LastBExp /1000000),5).."M"
+	elseif (g4.LastBExp >9999) then 
+		at1bex = g4.lpnts(math.floor(g4.LastBExp /1000),5).."K"
+	else
+		at1bex = g4.lpnts(math.floor(g4.LastBExp),5).." "
+	end
+	if (g4.LastCExp >9999999) then 
+		at1cex = g4.lpnts(math.floor(g4.LastCExp /1000000),5).."M"
+	elseif (g4.LastCExp >9999) then 
+		at1cex = g4.lpnts(math.floor(g4.LastCExp /1000),5).."K"
+	else
+		at1cex = g4.lpnts(math.floor(g4.LastCExp),5).." "
+	end
+	local toxbex = (expBR - expBN + g4.LastBExp - 1) / g4.LastBExp;
+	local toxcex = (expCR - expCN + g4.LastCExp - 1) / g4.LastCExp;
+	local toXbex = "";
+	local toXcex = "";
+	if (g4.LastBExp > 0) and (toxbex >9999999) then 
+		toXbex = g4.lpnts(math.floor(toxbex /1000000),5).."M"
+	elseif (g4.LastBExp > 0) and (toxbex >9999) then 
+		toXbex = g4.lpnts(math.floor(toxbex /1000),5).."K"
+	elseif (g4.LastBExp > 0) then 
+		toXbex = g4.lpnts(math.floor(toxbex),5).." "
+	else
+		toXbex = "----- "
+	end
+	if (g4.LastCExp > 0) and (toxcex >9999999) then 
+		toXcex = g4.lpnts(math.floor(toxcex /1000000),5).."M"
+	elseif (g4.LastCExp > 0) and (toxcex >9999) then 
+		toXcex = g4.lpnts(math.floor(toxcex /1000),5).."K"
+	elseif (g4.LastCExp > 0) then 
+		toXcex = g4.lpnts(math.floor(toxcex),5).." "
+	else
+		toXcex = "----- "
+	end
+
+	local strbex ="{#8080FE}BExp:"..g4.lpnts(expBNk,11).."K{/}/{#80FEFE}"..g4.lpnts(expBRk,11).."K{/} {#80FE80}"..string.format("%5.2f", perbex).."%{/}     {#C0FE40}@"..at1bex.."{/} x"..toXbex;
+	local strcex ="{#8080FE}CExp:"..g4.lpnts(expCNk,11).."K{/}/{#80FEFE}"..g4.lpnts(expCRk,11).."K{/} {#80FE80}"..string.format("%5.2f", percex).."%{/}     {#C0FE40}@"..at1cex.."{/} x"..toXcex;
 
 	local strpop ="POP:"..g4.lpnts(g4.PopCnt,3).."/"..g4.lpnts(g4.PopMax,3);
 
@@ -468,8 +520,9 @@ function g4.TPFARMED_TIMETABLE()
 	local nowTime	= math.floor(os.clock());
 	local nowTmP10	= math.floor(nowTime/10)*10;
 	local nowTmM10	= math.floor(nowTime%10);
-	g4.FirstClock	= g4.FirstClock or nowTime;
-
+	if (g4.FirstClock == 0) then
+		g4.FirstClock	= nowTime;
+	end
 	--	キャラオブジェクトの取得
 	local pcObj = GetMyPCObject();
 
@@ -695,7 +748,10 @@ function g4.TPFARMED_GETITEM(frame, msg, guid, num)
 end
 
 function g4.nts(num)
-	local numStr		= ""..num;
+	local numStr		= "";
+	if (num~=nil) then
+		numStr = numStr..num;
+	end
 	if (#numStr > 12) then
 		numStr = string.sub(numStr,0,#numStr-12)..","..string.sub(numStr,#numStr-11,#numStr-9)..","..string.sub(numStr,#numStr-8,#numStr-6)..","..string.sub(numStr,#numStr-5,#numStr-3)..","..string.sub(numStr,#numStr-2);
 	elseif (#numStr > 9) then
