@@ -698,6 +698,48 @@ COPY /Y /B	..\org\J_voice_war_kdown_2.wav	J_voice_kback_war_f_2.wav
 COPY /Y /B	..\org\J_voice_war_kdown_3.wav	J_voice_kback_war_f_3.wav
 COPY /Y /B	..\org\J_voice_war_kdown_4.wav	J_voice_kback_war_f_4.wav
 COPY /Y /B	..\org\J_voice_war_kdown_5.wav	J_voice_kback_war_f_5.wav
+
+COPY /Y /B	..\org\J_voice_archer_m_blockandshoot_cast.wav	J_voice_archer_f_blockandshoot_cast.wav
+COPY /Y /B	..\org\J_voice_archer_m_concentration_cast.wav	J_voice_archer_f_concentration_cast.wav
+COPY /Y /B	..\org\J_voice_archer_m_insurance_cast.wav	J_voice_archer_f_insurance_cast.wav
+COPY /Y /B	..\org\J_voice_cleric_m_binatio_cast.wav	J_voice_cleric_f_binatio_cast.wav
+COPY /Y /B	..\org\J_voice_cleric_m_omikuji_cast_fail.wav	J_voice_cleric_f_omikuji_cast_fail.wav
+COPY /Y /B	..\org\J_voice_cleric_m_omikuji_cast_success.wav	J_voice_cleric_f_omikuji_cast_success.wav
+COPY /Y /B	..\org\J_voice_cleric_m_paraclitustime_cast.wav	J_voice_cleric_f_paraclitustime_cast.wav
+COPY /Y /B	..\org\J_voice_cleric_m_visibletalent_cast_1.wav	J_voice_cleric_f_visibletalent_cast_1.wav
+COPY /Y /B	..\org\J_voice_cleric_m_visibletalent_cast_2.wav	J_voice_cleric_f_visibletalent_cast_2.wav
+COPY /Y /B	..\org\J_voice_scout_m_aggress_cast_1.wav	J_voice_scout_f_aggress_cast_1.wav
+COPY /Y /B	..\org\J_voice_scout_m_aggress_cast_2.wav	J_voice_scout_f_aggress_cast_2.wav
+COPY /Y /B	..\org\J_voice_scout_m_breakbrick_cast.wav	J_voice_scout_f_breakbrick_cast.wav
+COPY /Y /B	..\org\J_voice_scout_m_brutality_cast.wav	J_voice_scout_f_brutality_cast.wav
+COPY /Y /B	..\org\J_voice_scout_m_bully_cast.wav	J_voice_scout_f_bully_cast.wav
+COPY /Y /B	..\org\J_voice_scout_m_enchantglove_cast.wav	J_voice_scout_f_enchantglove_cast.wav
+COPY /Y /B	..\org\J_voice_scout_m_fireblindly_cast.wav	J_voice_scout_f_fireblindly_cast.wav
+COPY /Y /B	..\org\J_voice_scout_m_freestep_cast.wav	J_voice_scout_f_freestep_cast.wav
+COPY /Y /B	..\org\J_voice_scout_m_hallucinationsmoke_cast.wav	J_voice_scout_f_hallucinationsmoke_cast.wav
+COPY /Y /B	..\org\J_voice_scout_m_hasisas_cast.wav	J_voice_scout_f_hasisas_cast.wav
+COPY /Y /B	..\org\J_voice_scout_m_instantaneousacceleration_cast.wav	J_voice_scout_f_instantaneousacceleration_cast.wav
+COPY /Y /B	..\org\J_voice_scout_m_knifethrowing_cast.wav	J_voice_scout_f_knifethrowing_cast.wav
+COPY /Y /B	..\org\J_voice_scout_m_mangle_cast.wav	J_voice_scout_f_mangle_cast.wav
+COPY /Y /B	..\org\J_voice_scout_m_piercingheart_cast.wav	J_voice_scout_f_piercingheart_cast.wav
+COPY /Y /B	..\org\J_voice_scout_m_raitonnojutsu_cast.wav	J_voice_scout_f_raitonnojutsu_cast.wav
+COPY /Y /B	..\org\J_voice_scout_m_rampage_cast_1.wav	J_voice_scout_f_rampage_cast_1.wav
+COPY /Y /B	..\org\J_voice_scout_m_rampage_cast_2.wav	J_voice_scout_f_rampage_cast_2.wav
+COPY /Y /B	..\org\J_voice_scout_m_rampage_cast_3.wav	J_voice_scout_f_rampage_cast_3.wav
+COPY /Y /B	..\org\J_voice_scout_m_rampage_cast_4.wav	J_voice_scout_f_rampage_cast_4.wav
+COPY /Y /B	..\org\J_voice_scout_m_swellhands_cast.wav	J_voice_scout_f_swellhands_cast.wav
+COPY /Y /B	..\org\J_voice_war_m_battleorders_cast.wav	J_voice_war_f_battleorders_cast.wav
+COPY /Y /B	..\org\J_voice_war_m_flyingcolors_cast_1.wav	J_voice_war_f_flyingcolors_cast_1.wav
+COPY /Y /B	..\org\J_voice_war_m_flyingcolors_cast_2.wav	J_voice_war_f_flyingcolors_cast_2.wav
+COPY /Y /B	..\org\J_voice_wiz_m_elementalessence_cast.wav	J_voice_wiz_f_elementalessence_cast.wav
+COPY /Y /B	..\org\J_voice_wiz_m_fireclaw_cast.wav	J_voice_wiz_f_fireclaw_cast.wav
+COPY /Y /B	..\org\J_voice_wiz_m_raiseskullwizard_cast.wav	J_voice_wiz_f_raiseskullwizard_cast.wav
+COPY /Y /B	..\org\J_voice_wiz_m_stan_cast.wav	J_voice_wiz_f_stan_cast.wav
+COPY /Y /B	..\org\J_voice_wiz_m_stan_shot.wav	J_voice_wiz_f_stan_shot.wav
+COPY /Y /B	..\org\J_voice_wiz_m_timeforward_cast.wav	J_voice_wiz_f_timeforward_cast.wav
+COPY /Y /B	..\org\J_voice_wiz_m_whitetigerhowling_cast_1.wav	J_voice_wiz_f_whitetigerhowling_cast_1.wav
+COPY /Y /B	..\org\J_voice_wiz_m_whitetigerhowling_cast_2.wav	J_voice_wiz_f_whitetigerhowling_cast_2.wav
+COPY /Y /B	..\org\J_voice_wiz_m_yinyangconsonance_cast_1.wav	J_voice_wiz_f_yinyangconsonance_cast_1.wav
 		
 REM ## 男ヴォイスのみ		
 COPY /Y /B	..\org\J_voice_archer_m_growling_shot_1.wav	J_voice_archer_f_growling_shot_2.wav
@@ -717,6 +759,7 @@ COPY /Y /B	..\org\J_voice_war_kdown_5.wav	J_voice_kback_war_f_6.wav
 COPY /Y /B	..\org\J_voice_war_atk_short_1.wav	J_voice_blk_war_f1.wav
 COPY /Y /B	..\org\J_voice_war_atk_short_2.wav	J_voice_blk_war_f2.wav
 COPY /Y /B	..\org\J_voice_archer_atk_cast_1.wav	J_voice_buff_war_f1.wav
+REM	..\org\J_voice_scout_m_sprinklesands_cast.wav	
 		
 REM ## 女ヴォイスのみ		
 REM	J_voice_wiz_f_blink_shot_2.wav	J_voice_wiz_m_blink_shot_3.wav

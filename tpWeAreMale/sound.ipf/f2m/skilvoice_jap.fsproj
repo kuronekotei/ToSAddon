@@ -130,10 +130,16 @@
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_f_atk_5.wav</file>
         </subsound>
         <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_f_blockandshoot_cast.wav</file>
+        </subsound>
+        <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_f_cannonshot_1.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_f_cannonshot_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_f_concentration_cast.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_f_coursing_shot_1.wav</file>
@@ -170,6 +176,9 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_f_infiniteassault_shot_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_f_insurance_cast.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_f_outrage_shot_1.wav</file>
@@ -289,6 +298,9 @@
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_m_TracerBullet_cast_1.wav</file>
         </subsound>
         <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_m_blockandshoot_cast.wav</file>
+        </subsound>
+        <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_m_bounce_shot.wav</file>
         </subsound>
         <subsound>
@@ -302,6 +314,9 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_m_cloaking_shot.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_m_concentration_cast.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_m_coursing_shot_1.wav</file>
@@ -338,6 +353,9 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_m_infiniteassault_shot_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_m_insurance_cast.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_archer_m_multishot_cast.wav</file>
@@ -641,6 +659,9 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_f_begondemon_shot_3.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_f_binatio_cast.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_f_blessing_shot_1.wav</file>
@@ -1051,6 +1072,12 @@
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_f_ogouveve_shot_2.wav</file>
         </subsound>
         <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_f_omikuji_cast_fail.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_f_omikuji_cast_success.wav</file>
+        </subsound>
+        <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_f_outofbody_shot_1.wav</file>
         </subsound>
         <subsound>
@@ -1064,6 +1091,9 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_f_pandemic_shot_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_f_paraclitustime_cast.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_f_parkayapravesh_shot_1.wav</file>
@@ -1243,6 +1273,12 @@
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_f_vashitasiddhi_shot_2.wav</file>
         </subsound>
         <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_f_visibletalent_cast_1.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_f_visibletalent_cast_2.wav</file>
+        </subsound>
+        <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_f_zaibas_shot_1.wav</file>
         </subsound>
         <subsound>
@@ -1376,6 +1412,9 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_m_begondemon_shot_3.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_m_binatio_cast.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_m_blessing_shot_1.wav</file>
@@ -1789,6 +1828,12 @@
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_m_ogouveve_shot_2.wav</file>
         </subsound>
         <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_m_omikuji_cast_fail.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_m_omikuji_cast_success.wav</file>
+        </subsound>
+        <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_m_outofbody_shot_1.wav</file>
         </subsound>
         <subsound>
@@ -1802,6 +1847,9 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_m_pandemic_shot_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_m_paraclitustime_cast.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_m_parkayapravesh_shot_1.wav</file>
@@ -1981,6 +2029,12 @@
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_m_vashitasiddhi_shot_2.wav</file>
         </subsound>
         <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_m_visibletalent_cast_1.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_m_visibletalent_cast_2.wav</file>
+        </subsound>
+        <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_cleric_m_zaibas_shot_1.wav</file>
         </subsound>
         <subsound>
@@ -2042,6 +2096,129 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_kback_war_f_6.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_aggress_cast_1.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_aggress_cast_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_breakbrick_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_brutality_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_bully_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_enchantglove_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_fireblindly_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_freestep_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_hallucinationsmoke_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_hasisas_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_instantaneousacceleration_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_knifethrowing_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_mangle_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_piercingheart_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_raitonnojutsu_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_rampage_cast_1.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_rampage_cast_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_rampage_cast_3.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_rampage_cast_4.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_f_swellhands_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_aggress_cast_1.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_aggress_cast_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_breakbrick_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_brutality_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_bully_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_enchantglove_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_fireblindly_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_freestep_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_hallucinationsmoke_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_hasisas_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_instantaneousacceleration_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_knifethrowing_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_mangle_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_piercingheart_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_raitonnojutsu_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_rampage_cast_1.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_rampage_cast_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_rampage_cast_3.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_rampage_cast_4.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_sprinklesands_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_scout_m_swellhands_cast.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_atk_long_cast_1.wav</file>
@@ -2227,6 +2404,9 @@
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_f_Sprint_cast_2.wav</file>
         </subsound>
         <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_f_battleorders_cast.wav</file>
+        </subsound>
+        <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_f_bunshinnojutsu_cast_1.wav</file>
         </subsound>
         <subsound>
@@ -2264,6 +2444,12 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_f_fishingnetsdraw_cast_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_f_flyingcolors_cast_1.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_f_flyingcolors_cast_2.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_f_jollyroger_shot_1.wav</file>
@@ -2455,6 +2641,9 @@
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_m_Sprint_cast_2.wav</file>
         </subsound>
         <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_m_battleorders_cast.wav</file>
+        </subsound>
+        <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_m_bunshinnojutsu_cast_1.wav</file>
         </subsound>
         <subsound>
@@ -2492,6 +2681,12 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_m_fishingnetsdraw_cast_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_m_flyingcolors_cast_1.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_m_flyingcolors_cast_2.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_war_m_jollyroger_shot_1.wav</file>
@@ -2779,6 +2974,9 @@
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_electrocute_shot_2.wav</file>
         </subsound>
         <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_elementalessence_cast.wav</file>
+        </subsound>
+        <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_empowering_shot_1.wav</file>
         </subsound>
         <subsound>
@@ -2840,6 +3038,9 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_fireball_shot_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_fireclaw_cast.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_firefoxshikigami_cast_1.wav</file>
@@ -3235,6 +3436,9 @@
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_raisedead_cast_2.wav</file>
         </subsound>
         <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_raiseskullwizard_cast.wav</file>
+        </subsound>
+        <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_reflectshield_shot_1.wav</file>
         </subsound>
         <subsound>
@@ -3296,6 +3500,12 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_spiritualchain_shot_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_stan_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_stan_shot.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_stonecurse_shot_1.wav</file>
@@ -3422,6 +3632,9 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_thurisaz_shot_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_timeforward_cast.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_f_tiwaz_cast_1.wav</file>
@@ -3664,6 +3877,9 @@
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_electrocute_shot_2.wav</file>
         </subsound>
         <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_elementalessence_cast.wav</file>
+        </subsound>
+        <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_empowering_shot_1.wav</file>
         </subsound>
         <subsound>
@@ -3740,6 +3956,9 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_fireball_shot_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_fireclaw_cast.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_firefoxshikigami_cast_1.wav</file>
@@ -4120,6 +4339,9 @@
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_raisedead_cast_2.wav</file>
         </subsound>
         <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_raiseskullwizard_cast.wav</file>
+        </subsound>
+        <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_reflectshield_shot_1.wav</file>
         </subsound>
         <subsound>
@@ -4181,6 +4403,12 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_spiritualchain_shot_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_stan_cast.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_stan_shot.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_stonecurse_shot_1.wav</file>
@@ -4304,6 +4532,9 @@
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_thurisaz_shot_2.wav</file>
+        </subsound>
+        <subsound>
+            <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_timeforward_cast.wav</file>
         </subsound>
         <subsound>
             <file>T:/000/40Pro/ToSAddon/tpWeAreMale/sound.ipf/f2m/J_voice_wiz_m_tiwaz_cast_1.wav</file>
