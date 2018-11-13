@@ -624,32 +624,30 @@ function g4.TPFARMED_TIMETABLE()
 end
 
 function g4.TPFARMED_POPCOUNT()
-	if (g4.MemPopCnt == 0) then
-		g4.ChNow = session.loginInfo.GetChannel();
-		local zoneInsts = session.serverState.GetMap();
-		local popMax = session.serverState.GetMaxPCCount();
-		if zoneInsts == nil then
-			g4.ChNum = 0;
-			return;
-		end
-		g4.ChNum = zoneInsts:GetZoneInstCount();
-		if g4.ChNum == 0 then
-			return;
-		end
-		app.RequestChannelTraffics();
-		local i = 0;
-		for i=1, g4.ChNum do
-			local zoneInst = zoneInsts:GetZoneInstByIndex(i-1);
-			g4["PopMax"..i] = popMax;
-			g4["PopCnt"..i] = zoneInst.pcCount;
-			if ((i-1) == g4.ChNow) then
-				g4.PopMax = popMax;
-				g4.PopCnt = zoneInst.pcCount;
-				if (g4.MemPopCnt ~= zoneInst.pcCount) and ((g4.MemPopCnt < 5) or (zoneInst.pcCount < 5)) then
-					g4.MemPopCnt = zoneInst.pcCount;
-					if (s4.isShowPopCnt) then
-						CHAT_SYSTEM("{#C0FF80}{s14}{ol}　□POP " .. zoneInst.pcCount .. "/" .. popMax .. "{/}{/}{/}");
-					end
+	g4.ChNow = session.loginInfo.GetChannel();
+	local zoneInsts = session.serverState.GetMap();
+	local popMax = session.serverState.GetMaxPCCount();
+	if zoneInsts == nil then
+		g4.ChNum = 0;
+		return;
+	end
+	g4.ChNum = zoneInsts:GetZoneInstCount();
+	if g4.ChNum == 0 then
+		return;
+	end
+	app.RequestChannelTraffics();
+	local i = 0;
+	for i=1, g4.ChNum do
+		local zoneInst = zoneInsts:GetZoneInstByIndex(i-1);
+		g4["PopMax"..i] = popMax;
+		g4["PopCnt"..i] = zoneInst.pcCount;
+		if ((i-1) == g4.ChNow) then
+			g4.PopMax = popMax;
+			g4.PopCnt = zoneInst.pcCount;
+			if (g4.MemPopCnt ~= zoneInst.pcCount) and ((g4.MemPopCnt < 5) or (zoneInst.pcCount < 5)) then
+				g4.MemPopCnt = zoneInst.pcCount;
+				if (s4.isShowPopCnt) then
+					CHAT_SYSTEM("{#C0FF80}{s14}{ol}　□POP " .. zoneInst.pcCount .. "/" .. popMax .. "{/}{/}{/}");
 				end
 			end
 		end
