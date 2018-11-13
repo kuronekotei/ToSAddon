@@ -5,7 +5,7 @@
 	<input hittest="true" moveable="true" moveintitlebar="false" hittestframe="true"/>
 	<option visible="true" hideable="false" useimageitem="true" closebutton="false" savelayout="false"/>
 	<skin frameskin="chat_window"/>
-	<layer layerlevel="5"/>
+	<layer layerlevel="31"/>
 	<controls>
 		<richtext name="title"                    rect="0 0 32 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left center" caption="{@st42}{img icon_item_wing_cat 32 32}{/}{/}" fixheight="true" fixwidth="true" resizebytext="false" hittest="false"/>
 		<groupbox name="boxpop"                   rect="0 0 86 19"  margin="50 13 0 0" layout_gravity="left top" draw="true" hittestbox="false" hittest="false" scrollbar="false" skin="skin_white"/>
