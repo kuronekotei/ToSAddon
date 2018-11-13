@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uiframe name="tpfarmed_ui" x="0" y="0" width="520" height="60">
+<uiframe name="tpfarmed_ui" x="0" y="0" width="520" height="112">
  	<frame title="tpfarmed_ui" snapclient="true" snapframe="true" layout_gravity="left top" margin="400 400 0 0"/>
 	<draw drawframe="true" drawnotitlebar="false" drawtitlebar="false" blend="95"/>
 	<input hittest="true" moveable="true" moveintitlebar="false" hittestframe="true"/>
 	<option visible="true" hideable="false" useimageitem="true" closebutton="false" savelayout="false"/>
 	<skin frameskin="chat_window"/>
-	<layer layerlevel="61"/>
+	<layer layerlevel="5"/>
 	<controls>
-		<richtext name="title"                  rect="0 0 32 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left center" caption="{@st42}{img icon_item_wing_cat 32 32}{/}{/}" fixheight="true" fixwidth="true" resizebytext="false" hittest="false"/>
-		<groupbox name="boxpop"                 rect="0 0 96 21"  margin="50 10 0 0" layout_gravity="left top" draw="true" hittestbox="false" hittest="false" scrollbar="false" skin="skin_white"/>
-		<groupbox name="boxdps"                 rect="0 0 516 21" margin="3 36 0 0"  layout_gravity="left top" draw="true" hittestbox="false" hittest="false" scrollbar="false" skin="skin_white"/>
-		<groupbox name="boxbex"                 rect="0 0 516 21" margin="3 62 0 0"  layout_gravity="left top" draw="true" hittestbox="false" hittest="false" scrollbar="false" skin="skin_white"/>
-		<groupbox name="boxcex"                 rect="0 0 516 21" margin="3 88 0 0"  layout_gravity="left top" draw="true" hittestbox="false" hittest="false" scrollbar="false" skin="skin_white"/>
-		<richtext name="txtpop" parent="boxpop" rect="0 0 90 18"  margin="3 2 0 0"   layout_gravity="left top" textalign="left top" caption="POP:100/100"                                                       fontname="white_16_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
-		<richtext name="txtdps" parent="boxdps" rect="0 0 510 18" margin="3 2 0 0"   layout_gravity="left top" textalign="left top" caption="DPS :123,456,789,012/sec in999sec   MapTotal:123,456,789,012"      fontname="white_16_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
-		<richtext name="txtbex" parent="boxbex" rect="0 0 510 18" margin="3 2 0 0"   layout_gravity="left top" textalign="left top" caption="BExp:123,456,789K/123,456,789K 99.99%"                            fontname="white_16_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
-		<richtext name="txtcex" parent="boxcex" rect="0 0 510 18" margin="3 2 0 0"   layout_gravity="left top" textalign="left top" caption="CExp:123,456,789K/123,456,789K 99.99%"                            fontname="white_16_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
+		<richtext name="title"                    rect="0 0 32 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left center" caption="{@st42}{img icon_item_wing_cat 32 32}{/}{/}" fixheight="true" fixwidth="true" resizebytext="false" hittest="false"/>
+		<groupbox name="boxpop"                   rect="0 0 86 19"  margin="50 13 0 0" layout_gravity="left top" draw="true" hittestbox="false" hittest="false" scrollbar="false" skin="skin_white"/>
+		<groupbox name="boxch1"                   rect="0 0 30 32"  margin="150 0 0 0" layout_gravity="left top" draw="true" hittestbox="true"  hittest="true"  scrollbar="false" skin="skin_white" LBtnUpScp="TPFARMED_ON_CHCH" />
+		<groupbox name="boxch2"                   rect="0 0 30 32"  margin="183 0 0 0" layout_gravity="left top" draw="true" hittestbox="true"  hittest="true"  scrollbar="false" skin="skin_white" LBtnUpScp="TPFARMED_ON_CHCH" />
+		<groupbox name="boxch3"                   rect="0 0 30 32"  margin="216 0 0 0" layout_gravity="left top" draw="true" hittestbox="true"  hittest="true"  scrollbar="false" skin="skin_white" LBtnUpScp="TPFARMED_ON_CHCH" />
+		<groupbox name="boxch4"                   rect="0 0 30 32"  margin="249 0 0 0" layout_gravity="left top" draw="true" hittestbox="true"  hittest="true"  scrollbar="false" skin="skin_white" LBtnUpScp="TPFARMED_ON_CHCH" />
+		<groupbox name="boxch5"                   rect="0 0 30 32"  margin="282 0 0 0" layout_gravity="left top" draw="true" hittestbox="true"  hittest="true"  scrollbar="false" skin="skin_white" LBtnUpScp="TPFARMED_ON_CHCH" />
+		<groupbox name="boxch6"                   rect="0 0 30 32"  margin="315 0 0 0" layout_gravity="left top" draw="true" hittestbox="true"  hittest="true"  scrollbar="false" skin="skin_white" LBtnUpScp="TPFARMED_ON_CHCH" />
+		<groupbox name="boxch7"                   rect="0 0 30 32"  margin="348 0 0 0" layout_gravity="left top" draw="true" hittestbox="true"  hittest="true"  scrollbar="false" skin="skin_white" LBtnUpScp="TPFARMED_ON_CHCH" />
+		<groupbox name="boxch8"                   rect="0 0 30 32"  margin="381 0 0 0" layout_gravity="left top" draw="true" hittestbox="true"  hittest="true"  scrollbar="false" skin="skin_white" LBtnUpScp="TPFARMED_ON_CHCH" />
+		<groupbox name="boxch9"                   rect="0 0 30 32"  margin="414 0 0 0" layout_gravity="left top" draw="true" hittestbox="true"  hittest="true"  scrollbar="false" skin="skin_white" LBtnUpScp="TPFARMED_ON_CHCH" />
+		<groupbox name="boxch10"                  rect="0 0 30 32"  margin="447 0 0 0" layout_gravity="left top" draw="true" hittestbox="true"  hittest="true"  scrollbar="false" skin="skin_white" LBtnUpScp="TPFARMED_ON_CHCH" />
+		<groupbox name="boxdps"                   rect="0 0 516 21" margin="3 36 0 0"  layout_gravity="left top" draw="true" hittestbox="false" hittest="false" scrollbar="false" skin="skin_white"/>
+		<groupbox name="boxbex"                   rect="0 0 516 21" margin="3 62 0 0"  layout_gravity="left top" draw="true" hittestbox="false" hittest="false" scrollbar="false" skin="skin_white"/>
+		<groupbox name="boxcex"                   rect="0 0 516 21" margin="3 88 0 0"  layout_gravity="left top" draw="true" hittestbox="false" hittest="false" scrollbar="false" skin="skin_white"/>
+		<richtext name="txtpop"  parent="boxpop"  rect="0 0 80 18"  margin="3 2 0 0"   layout_gravity="left top" textalign="left top" caption="POP:100/100"                                                      fontname="white_14_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
+		<richtext name="txtch1"  parent="boxch1"  rect="0 0 24 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left top" caption="c 1{nl}999"                                                       fontname="white_14_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
+		<richtext name="txtch2"  parent="boxch2"  rect="0 0 24 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left top" caption="c 2{nl}999"                                                       fontname="white_14_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
+		<richtext name="txtch3"  parent="boxch3"  rect="0 0 24 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left top" caption="c 3{nl}999"                                                       fontname="white_14_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
+		<richtext name="txtch4"  parent="boxch4"  rect="0 0 24 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left top" caption="c 4{nl}999"                                                       fontname="white_14_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
+		<richtext name="txtch5"  parent="boxch5"  rect="0 0 24 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left top" caption="c 5{nl}999"                                                       fontname="white_14_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
+		<richtext name="txtch6"  parent="boxch6"  rect="0 0 24 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left top" caption="c 6{nl}999"                                                       fontname="white_14_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
+		<richtext name="txtch7"  parent="boxch7"  rect="0 0 24 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left top" caption="c 7{nl}999"                                                       fontname="white_14_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
+		<richtext name="txtch8"  parent="boxch8"  rect="0 0 24 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left top" caption="c 8{nl}999"                                                       fontname="white_14_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
+		<richtext name="txtch9"  parent="boxch9"  rect="0 0 24 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left top" caption="c 9{nl}999"                                                       fontname="white_14_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
+		<richtext name="txtch10" parent="boxch10" rect="0 0 24 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left top" caption="c10{nl}999"                                                       fontname="white_14_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
+		<richtext name="txtdps"  parent="boxdps"  rect="0 0 510 18" margin="3 2 0 0"   layout_gravity="left top" textalign="left top" caption="DPS :123,456,789,012/sec in999sec   MapTotal:123,456,789,012"     fontname="white_16_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
+		<richtext name="txtbex"  parent="boxbex"  rect="0 0 510 18" margin="3 2 0 0"   layout_gravity="left top" textalign="left top" caption="BExp:123,456,789K/123,456,789K 99.99%"                            fontname="white_16_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
+		<richtext name="txtcex"  parent="boxcex"  rect="0 0 510 18" margin="3 2 0 0"   layout_gravity="left top" textalign="left top" caption="CExp:123,456,789K/123,456,789K 99.99%"                            fontname="white_16_ol" fixheight="true" fixwidth="false" resizebytext="false" hittest="false"/>
 	</controls>
 </uiframe>

@@ -84,13 +84,15 @@ end
 function TPFARMED_JOB_EXP_UPDATE(frame, msg, str, exp, tableinfo)
 	g4.JobLvl = tableinfo.level;
 	g4.JobExp = exp - tableinfo.startExp;
-	if str ~= nil and str ~= "None" and str ~= "" then
+	if (str ~= nil) and (str ~= "None") and (str ~= "") and (msg == "JOB_EXP_ADD") then
 		g4.LastCExp = tonumber(str) or 0;
 	end
 end
 
 function TPFARMED_EXP_UPDATE(frame, msg, argStr, argNum)
-	g4.LastBExp = tonumber(argNum) or 0;
+	if (argNum ~= nil) and (tonumber(argNum) ~= nil) and (tonumber(argNum) ~= 0) then
+		g4.LastBExp = tonumber(argNum);
+	end
 end
 
 function TPFARMED_UI_LBUTTONUP()
@@ -112,8 +114,8 @@ function g4.TPFARMED_LOAD_SETTING()
 	-- 	値の存在確保と初期値設定
 	s4.isDebug			= ((type(s4.isDebug			) == "boolean")	and s4.isDebug			)or false;
 	s4.isShowCube		= ((type(s4.isShowCube		) == "boolean")	and s4.isShowCube		)or (s4.isShowCube		==nil);
-	s4.isShowSilver		= ((type(s4.isShowSilver	) == "boolean")	and s4.isShowSilver		)or (s4.isShowSilver	==nil);
-	s4.isShowJournal	= ((type(s4.isShowJournal	) == "boolean")	and s4.isShowJournal	)or (s4.isShowJournal	==nil);
+	s4.isShowSilver		= ((type(s4.isShowSilver	) == "boolean")	and s4.isShowSilver		)or false;
+	s4.isShowJournal	= ((type(s4.isShowJournal	) == "boolean")	and s4.isShowJournal	)or false;
 	s4.isShowGiveDmg	= ((type(s4.isShowGiveDmg	) == "boolean")	and s4.isShowGiveDmg	)or (s4.isShowGiveDmg	==nil);
 	s4.isShowTakeDmg	= ((type(s4.isShowTakeDmg	) == "boolean")	and s4.isShowTakeDmg	)or (s4.isShowTakeDmg	==nil);
 	s4.isShowExpGain	= ((type(s4.isShowExpGain	) == "boolean")	and s4.isShowExpGain	)or false;
@@ -121,6 +123,8 @@ function g4.TPFARMED_LOAD_SETTING()
 	s4.isShowTimeTbl	= ((type(s4.isShowTimeTbl	) == "boolean")	and s4.isShowTimeTbl	)or false;
 	s4.ManyMoney		= ((type(s4.ManyMoney		) == "number")	and s4.ManyMoney		)or 10000;
 	s4.useUI			= ((type(s4.useUI			) == "boolean")	and s4.useUI			)or (s4.useUI			==nil);
+	s4.useUIExp			= ((type(s4.useUIExp		) == "boolean")	and s4.useUIExp			)or false;
+	s4.useUIChCh		= ((type(s4.useUIChCh		) == "boolean")	and s4.useUIChCh		)or (s4.useUIChCh		==nil);
 	s4.posX				= ((type(s4.posX			) == "number")	and s4.posX				)or 400;
 	s4.posY				= ((type(s4.posY			) == "number")	and s4.posY				)or 400;
 end
@@ -140,6 +144,8 @@ function g4.TPFARMED_SAVE_SETTING()
 		filep:write(",\t\"isShowPopCnt\":"	.. ((s4.isShowPopCnt	and "true") or "false")	.."\n"	);
 		filep:write(",\t\"ManyMoney\":"		.. (s4.ManyMoney					or 10000)	.."\n"	);
 		filep:write(",\t\"useUI\":"			.. ((s4.useUI			and "true") or "false")	.."\n"	);
+		filep:write(",\t\"useUIExp\":"		.. ((s4.useUIExp		and "true") or "false")	.."\n"	);
+		filep:write(",\t\"useUIChCh\":"		.. ((s4.useUIChCh		and "true") or "false")	.."\n"	);
 		filep:write(",\t\"posX\":"			.. (s4.posX							or 400)		.."\n"	);
 		filep:write(",\t\"posY\":"			.. (s4.posY							or 400)		.."\n"	);
 		filep:write("}\n");
@@ -316,8 +322,13 @@ function g4.TPFARMED_MAPSTART()
 	g4.StartBExp	= expBT+expBN;
 	g4.StartCExp	= expCT+expCN;
 	g4.StartMoney	= money;
-	g4.LastBExp		= g4.LastBExp or 0;
-	g4.LastCExp		= g4.LastCExp or 0;
+	if (g4.CharName == charName) then
+		g4.LastBExp		= g4.LastBExp or 0;
+		g4.LastCExp		= g4.LastCExp or 0;
+	else
+		g4.LastBExp		= 0;
+		g4.LastCExp		= 0;
+	end
 	g4.PopCnt		= 0;
 	g4.MemLogSize	= g4.MemLogSize or 0;
 	g4.MemMsgId		= g4.MemMsgId or 0;
@@ -367,6 +378,9 @@ function g4.TPFARMED_UI_GAME_START(frame, control)
 		return;
 	end
 	frm:MoveFrame(s4.posX		,s4.posY	);
+	if (s4.useUIExp ~= true) then
+		frm:Resize(	520	,60	);
+	end
 	local boxdps	= tolua.cast(frm:GetChild("boxdps"), "ui::CGroupBox");
 	if (boxdps ~= nil) then
 		boxdps:SetColorTone("C0000000");
@@ -383,6 +397,13 @@ function g4.TPFARMED_UI_GAME_START(frame, control)
 	if (boxpop ~= nil) then
 		boxpop:SetColorTone("C0000000");
 	end
+	local i = 0;
+	for i=1, 10 do
+		local boxch	= tolua.cast(frm:GetChild("boxch"..i), "ui::CGroupBox");
+		if (boxch ~= nil) then
+			boxch:SetColorTone("C0000000");
+		end
+	end
 	if s4.useUI then
 		frm:ShowWindow(1);
 	else
@@ -397,6 +418,7 @@ function g4.TPFARMED_UI_UPDATE()
 	end
 	local timdps = math.min(g4.LastClock - g4.FirstClock ,50)+g4.TimeSec;
 	local ttldps =0;
+	local i = 0;
 	for i=1, 6 do
 		ttldps = ttldps + (g4.TimeTable["X"..i].GiveDmg or 0);
 	end
@@ -468,42 +490,65 @@ function g4.TPFARMED_UI_UPDATE()
 
 	local strpop ="POP:"..g4.lpnts(g4.PopCnt,3).."/"..g4.lpnts(g4.PopMax,3);
 
-	local boxdps	= tolua.cast(frm:GetChild("boxdps"), "ui::CGroupBox");
-	if (boxdps ~= nil) then
-		local txtdps	= tolua.cast(boxdps:GetChild("txtdps"), "ui::CRichText");
-		if (txtdps ~= nil) then
-			txtdps:SetText(strdps);
-		end
+	local txtdps	= GET_CHILD_RECURSIVELY(frm, "txtdps", "ui::CRichText");
+	if (txtdps ~= nil) then
+		txtdps:SetText(strdps);
 	end
 
-	local boxbex	= tolua.cast(frm:GetChild("boxbex"), "ui::CGroupBox");
-	if (boxbex ~= nil) then
-		local txtbex	= tolua.cast(boxbex:GetChild("txtbex"), "ui::CRichText");
-		if (txtbex ~= nil) then
-			txtbex:SetText(strbex);
-		end
+	local txtbex	= GET_CHILD_RECURSIVELY(frm, "txtbex", "ui::CRichText");
+	if (txtbex ~= nil) then
+		txtbex:SetText(strbex);
 	end
 
-	local boxcex	= tolua.cast(frm:GetChild("boxcex"), "ui::CGroupBox");
-	if (boxcex ~= nil) then
-		local txtcex	= tolua.cast(boxcex:GetChild("txtcex"), "ui::CRichText");
-		if (txtcex ~= nil) then
-			txtcex:SetText(strcex);
-		end
+	local txtcex	= GET_CHILD_RECURSIVELY(frm, "txtcex", "ui::CRichText");
+	if (txtcex ~= nil) then
+		txtcex:SetText(strcex);
 	end
 
 	local boxpop	= tolua.cast(frm:GetChild("boxpop"), "ui::CGroupBox");
 	if (boxpop ~= nil) then
-		if (s4.isShowPopCnt) then
-			boxpop:ShowWindow(1);
-			local txtpop	= tolua.cast(boxpop:GetChild("txtpop"), "ui::CRichText");
-			if (txtpop ~= nil) then
-				txtpop:SetText(strpop);
-			end
-		else
-			boxpop:ShowWindow(0);
+		local txtpop	= tolua.cast(boxpop:GetChild("txtpop"), "ui::CRichText");
+		if (txtpop ~= nil) then
+			txtpop:SetText(strpop);
 		end
 	end
+	if (s4.useUIChCh) then
+		for i=1, 10 do
+			local boxch	= tolua.cast(frm:GetChild("boxch"..i), "ui::CGroupBox");
+			if (boxch ~= nil) then
+				if (i>g4.ChNum) or (g4["PopMax"..i] == nil) or (g4["PopCnt"..i] == nil) then
+					boxch:ShowWindow(0);
+				else
+					if ((i-1) == g4.ChNow) then
+						boxch:SetColorTone("60FFFFFF");
+					else
+						boxch:SetColorTone("C0100000");
+					end
+					boxch:ShowWindow(1);
+					local txtch	= tolua.cast(boxch:GetChild("txtch"..i), "ui::CRichText");
+					if (txtch ~= nil) then
+						local cnt = g4["PopCnt"..i];
+						local textcol = "";
+						if ( cnt <10) then
+							textcol = "FFFFFF";
+						elseif ( cnt <20) then
+							textcol = "00FFFF";
+						elseif ( cnt <40) then
+							textcol = "E0FF00";
+						elseif ( cnt <60) then
+							textcol = "FFC000";
+						else
+							textcol = "FF2020";
+						end
+						txtch:SetText("{#"..textcol.."}c"..i.."{nl}"..g4.lpnts(cnt,4).."{/}");
+					end
+				end
+			end
+		end
+	end
+end
+function TPFARMED_ON_CHCH(frame, ctrl, argStr, argNum)
+	RUN_GAMEEXIT_TIMER("Channel", tonumber(ctrl:GetName():sub(6))-1);
 end
 
 function g4.TPFARMED_UI_LBUTTONUP()
@@ -579,20 +624,34 @@ function g4.TPFARMED_TIMETABLE()
 end
 
 function g4.TPFARMED_POPCOUNT()
-	if (s4.isShowPopCnt) or (g4.MemPopCnt == 0) then
-		local channel = session.loginInfo.GetChannel();
+	if (g4.MemPopCnt == 0) then
+		g4.ChNow = session.loginInfo.GetChannel();
 		local zoneInsts = session.serverState.GetMap();
 		local popMax = session.serverState.GetMaxPCCount();
-		if zoneInsts == nil or zoneInsts:GetZoneInstCount() == 0 then
+		if zoneInsts == nil then
+			g4.ChNum = 0;
+			return;
+		end
+		g4.ChNum = zoneInsts:GetZoneInstCount();
+		if g4.ChNum == 0 then
 			return;
 		end
 		app.RequestChannelTraffics();
-		local zoneInst = zoneInsts:GetZoneInstByIndex(channel);
-		g4.PopMax = popMax;
-		g4.PopCnt = zoneInst.pcCount;
-		if (g4.MemPopCnt ~= zoneInst.pcCount) and ((g4.MemPopCnt < 5) or (zoneInst.pcCount < 5)) then
-			g4.MemPopCnt = zoneInst.pcCount;
-			CHAT_SYSTEM("{#C0FF80}{s14}{ol}　□POP " .. zoneInst.pcCount .. "/" .. popMax .. "{/}{/}{/}");
+		local i = 0;
+		for i=1, g4.ChNum do
+			local zoneInst = zoneInsts:GetZoneInstByIndex(i-1);
+			g4["PopMax"..i] = popMax;
+			g4["PopCnt"..i] = zoneInst.pcCount;
+			if ((i-1) == g4.ChNow) then
+				g4.PopMax = popMax;
+				g4.PopCnt = zoneInst.pcCount;
+				if (g4.MemPopCnt ~= zoneInst.pcCount) and ((g4.MemPopCnt < 5) or (zoneInst.pcCount < 5)) then
+					g4.MemPopCnt = zoneInst.pcCount;
+					if (s4.isShowPopCnt) then
+						CHAT_SYSTEM("{#C0FF80}{s14}{ol}　□POP " .. zoneInst.pcCount .. "/" .. popMax .. "{/}{/}{/}");
+					end
+				end
+			end
 		end
 	end
 end

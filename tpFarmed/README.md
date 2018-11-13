@@ -1,6 +1,7 @@
 # tpFarmed
 手に入れた物に関するログが出ます。  
-v1.0.0でダメージ集計に対応しました。
+v1.0.0でダメージ集計に対応しました。  
+v1.2.0でチャンネル切り替え機能を追加しました。
 
 
 - マップ切り替え時に前マップの取得経験とシルバー表示(無い物は出ません)
@@ -20,9 +21,15 @@ v1.0.0でダメージ集計に対応しました。
 | isShowCube	 | true/false　falseだとキューブ開封時の専用ログが出なくなります。	 |
 | isShowSilver	 | true/false　falseだとシルバー取得時のログが出なくなります。	 |
 | isShowJournal	 | true/false　falseだと冒険日誌用のカウントが出なくなります。	 |
-| isShowGiveDmg	 | true/false　falseだと与ダメージ集計が出なくなります。	 |
-| isShowTakeDmg	 | true/false　falseだと受ダメージ集計が出なくなります。	 |
+| isShowGiveDmg	 | true/false　falseだと与ダメージ集計ログが出なくなります。	 |
+| isShowTakeDmg	 | true/false　falseだと受ダメージ集計ログが出なくなります。	 |
+| isShowExpGain	 | true/false　falseだと10分ごとの経験集計ログが出なくなります。	 |
+| isShowPopCnt	 | true/false　falseだとCh人数変動時のログが出なくなります。	 |
+| isShowTimeTbl	 | true/false　falseだと10分ごとのログが全て出なくなります。	 |
 | ManyMoney		 | true/false　この価格を超えると、上記がfalseでも表示されます。	 |
+| useUI			 | true/false　falseだと表示ウィンドウが出なくなります。	 |
+| useUIExp		 | true/false　falseだと表示ウィンドウから経験値がなくなりコンパクトになります。	 |
+| useUIChCh		 | true/false　falseだと表示ウィンドウのチャンネルチェンジャーは表示されなくなります。	 |
 
 
 
