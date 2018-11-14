@@ -436,7 +436,7 @@ function g4.TPFARMED_UI_UPDATE()
 	--	現在クラス経験値の取得
 	local clsL  = g4.JobLvl;
 	local clsR  = session.GetPcTotalJobGrade()
-	local clLv = (clsR-1) *14 + clsL;
+	local clLv = math.min((clsR-1) *14 + clsL ,g4.ExpTableCLen);
 	local expCR = g4.ExpTableC[clLv]["Req"] or 0;
 	local expCN = g4.JobExp;
 	local perbex = expBN*100/(expBR+1);
@@ -579,7 +579,7 @@ function g4.TPFARMED_TIMETABLE()
 	--	現在クラス経験値の取得
 	local clsL  = g4.JobLvl;
 	local clsR  = session.GetPcTotalJobGrade()
-	local clLv = (clsR-1) *14 + clsL;
+	local clLv = math.min((clsR-1) *14 + clsL ,g4.ExpTableCLen);
 	local expCT = g4.ExpTableC[clLv]["Ttl"];
 	local expCN = g4.JobExp;
 
