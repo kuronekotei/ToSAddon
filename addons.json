@@ -63,7 +63,7 @@
         "name" : "tpJoyExt",
         "file" : "tpjoyext",
         "extension" : "ipf",
-        "fileVersion" : "v0.0.1",
+        "fileVersion" : "v0.0.2",
         "releaseTag" : "tpjoyext",
         "unicode" : "✉",
         "description" : "ジョイスティックの入力を拡張します。",

@@ -20,7 +20,7 @@ function JOYSTICK_QUICKSLOT_EXECUTE(slotIndex)
 	end
 	
 	if input_L1 == 1 and input_R1 == 1 then
-		CHAT_SYSTEM("ON_L1R1");
+		--CHAT_SYSTEM("ON_L1R1");
 		if	slotIndex == 2	or slotIndex == 14 then
 			slotIndex = 10
 		elseif	slotIndex == 0	or slotIndex == 12 then
@@ -31,7 +31,7 @@ function JOYSTICK_QUICKSLOT_EXECUTE(slotIndex)
 			slotIndex = 11
 		end
 	elseif input_L1 == 1 and input_L2 == 1 then
-		CHAT_SYSTEM("ON_L1L2");
+		--CHAT_SYSTEM("ON_L1L2");
 		if	slotIndex == 2	or slotIndex == 6 then
 			slotIndex = 22
 		elseif	slotIndex == 0	or slotIndex == 4 then
@@ -42,7 +42,7 @@ function JOYSTICK_QUICKSLOT_EXECUTE(slotIndex)
 			slotIndex = 23
 		end
 	elseif input_L2 == 1 and input_R2 == 1 then
-		CHAT_SYSTEM("ON_L2R2");
+		--CHAT_SYSTEM("ON_L2R2");
 		if	slotIndex == 6	or slotIndex == 18 then
 			slotIndex = 30
 		elseif	slotIndex == 4	or slotIndex == 16 then
@@ -53,7 +53,7 @@ function JOYSTICK_QUICKSLOT_EXECUTE(slotIndex)
 			slotIndex = 31
 		end
 	elseif input_R1 == 1 and input_R2 == 1 then
-		CHAT_SYSTEM("ON_R1R2");
+		--CHAT_SYSTEM("ON_R1R2");
 		if	slotIndex == 14	or slotIndex == 18 then
 			slotIndex = 34
 		elseif	slotIndex == 12	or slotIndex == 16 then
