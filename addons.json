@@ -60,6 +60,16 @@
         "tags" : [ "craft" ]
     },
     {
+        "name" : "tpJoyExt",
+        "file" : "tpjoyext",
+        "extension" : "ipf",
+        "fileVersion" : "v0.0.1",
+        "releaseTag" : "tpjoyext",
+        "unicode" : "✉",
+        "description" : "ジョイスティックの入力を拡張します。",
+        "tags" : [ "joystick","controller","shortcut","skill" ]
+    },
+    {
         "name" : "tpWeAreMale",
         "file" : "tpwearemale",
         "extension" : "ipf",
