@@ -281,7 +281,7 @@ function g4.TPFARMED_MAPSTART()
 	--	現在クラス経験値の取得
 	local clsL  = g4.JobLvl;
 	local clsR  = session.GetPcTotalJobGrade()
-	local clLv = (clsR-1) *14 + clsL;
+	local clLv = math.min((clsR-1) *14 + clsL ,g4.ExpTableCLen);
 	local expCT = g4.ExpTableC[clLv]["Ttl"];
 	local expCN = g4.JobExp;
 
@@ -316,7 +316,7 @@ function g4.TPFARMED_MAPSTART()
 			end
 		end
 	end
-	g4.CharName		= charName
+	g4.CharName		= charName;
 	g4.MapName		= mapName;
 	g4.MapNameS		= mapNameS;
 	g4.StartBExp	= expBT+expBN;
