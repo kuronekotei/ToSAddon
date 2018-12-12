@@ -61,7 +61,7 @@ function TPFARMED_CHAT_SYSTEM(msg)
 end
 
 function TPFARMED_GAME_START(frame, control)
-	local f,m = pcall(g4.TPFARMED_MAPSTART());
+	local f,m = pcall(g4.TPFARMED_MAPSTART);
 	if f ~= true then
 		CHAT_SYSTEM(m);
 	end
@@ -285,7 +285,7 @@ function g4.TPFARMED_MAPSTART()
 	local expCT = g4.ExpTableC[clLv]["Ttl"];
 	local expCN = g4.JobExp;
 
-	local money = GET_TOTAL_MONEY();
+	local money = tonumber(GET_TOTAL_MONEY_STR());
 
 	if (g4.MapName ~= nil) then
 		--	差分計算
@@ -583,7 +583,7 @@ function g4.TPFARMED_TIMETABLE()
 	local expCT = g4.ExpTableC[clLv]["Ttl"];
 	local expCN = g4.JobExp;
 
-	local money = GET_TOTAL_MONEY();
+	local money = tonumber(GET_TOTAL_MONEY_STR());
 
 	if (g4.LastClock ~= nowTmP10) then	--	10秒に1回動く
 
