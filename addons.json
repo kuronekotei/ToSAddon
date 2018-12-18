@@ -70,6 +70,16 @@
         "tags" : [ "joystick","controller","shortcut","skill" ]
     },
     {
+        "name" : "tpAutoChat",
+        "file" : "tpautochat",
+        "extension" : "ipf",
+        "fileVersion" : "v0.0.1",
+        "releaseTag" : "tpautochat",
+        "unicode" : "✉",
+        "description" : "自動で発言します。",
+        "tags" : [ "chat" ]
+    },
+    {
         "name" : "tpWeAreMale",
         "file" : "tpwearemale",
         "extension" : "ipf",
