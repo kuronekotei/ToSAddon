@@ -80,6 +80,16 @@
         "tags" : [ "chat" ]
     },
     {
+        "name" : "tpWarp",
+        "file" : "tpwarp",
+        "extension" : "ipf",
+        "fileVersion" : "v0.0.1",
+        "releaseTag" : "tpwarp",
+        "unicode" : "✉",
+        "description" : "クエストワープが列挙されたり、PTリンクが保存されます。",
+        "tags" : [ "chat" ]
+    },
+    {
         "name" : "tpWeAreMale",
         "file" : "tpwearemale",
         "extension" : "ipf",
