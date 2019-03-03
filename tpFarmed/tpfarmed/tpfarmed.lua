@@ -29,7 +29,7 @@ function TPFARMED_ON_INIT(addon, frame)
 		g4.TPFARMED_OLD_CHAT_SYSTEM = CHAT_SYSTEM;
 		_G["CHAT_SYSTEM"] = TPFARMED_CHAT_SYSTEM;
 	end
-	addon:RegisterMsg("GAME_START", "TPFARMED_GAME_START")
+	addon:RegisterMsg("GAME_START", "TPFARMED_GAME_START");
 	addon:RegisterMsg("INV_ITEM_IN", "TPFARMED_INV_ITEM_IN");
 	addon:RegisterMsg("JOB_EXP_UPDATE", "TPFARMED_JOB_EXP_UPDATE");
 	addon:RegisterMsg("JOB_EXP_ADD", "TPFARMED_JOB_EXP_UPDATE");
@@ -127,6 +127,11 @@ function g4.TPFARMED_LOAD_SETTING()
 	s4.useUIChCh		= ((type(s4.useUIChCh		) == "boolean")	and s4.useUIChCh		)or (s4.useUIChCh		==nil);
 	s4.posX				= ((type(s4.posX			) == "number")	and s4.posX				)or 400;
 	s4.posY				= ((type(s4.posY			) == "number")	and s4.posY				)or 400;
+
+
+
+	s4.isShowGiveDmg	= false;
+	s4.isShowTakeDmg	= false;
 end
 
 function g4.TPFARMED_SAVE_SETTING()
@@ -137,8 +142,8 @@ function g4.TPFARMED_SAVE_SETTING()
 		filep:write(",\t\"isShowCube\":"	.. ((s4.isShowCube		and "true") or "false")	.."\n"	);
 		filep:write(",\t\"isShowSilver\":"	.. ((s4.isShowSilver	and "true") or "false")	.."\n"	);
 		filep:write(",\t\"isShowJournal\":"	.. ((s4.isShowJournal	and "true") or "false")	.."\n"	);
-		filep:write(",\t\"isShowGiveDmg\":"	.. ((s4.isShowGiveDmg	and "true") or "false")	.."\n"	);
-		filep:write(",\t\"isShowTakeDmg\":"	.. ((s4.isShowTakeDmg	and "true") or "false")	.."\n"	);
+--		filep:write(",\t\"isShowGiveDmg\":"	.. ((s4.isShowGiveDmg	and "true") or "false")	.."\n"	);
+--		filep:write(",\t\"isShowTakeDmg\":"	.. ((s4.isShowTakeDmg	and "true") or "false")	.."\n"	);
 		filep:write(",\t\"isShowTimeTbl\":"	.. ((s4.isShowTimeTbl	and "true") or "false")	.."\n"	);
 		filep:write(",\t\"isShowExpGain\":"	.. ((s4.isShowExpGain	and "true") or "false")	.."\n"	);
 		filep:write(",\t\"isShowPopCnt\":"	.. ((s4.isShowPopCnt	and "true") or "false")	.."\n"	);
@@ -185,12 +190,19 @@ function g4.TPFARMED_INIT()
 	local clsList, cnt = GetClassList("Xp_Job");	
 	
 	for i=1, 154 do
-		local classR	= math.floor((i-1)/14)+1;
-		local classL	= (i % 14 == 0) and 14 or (i % 14);
+		local classR	= 0;
+		local classL	= 0;
+		if (i < 15)  then
+			classR	= 1;
+			classL	= i;
+		else
+			classR	= math.floor((i-15)/44)+2;
+			classL	= ((i-14) % 44 == 0) and 44 or ((i-14) % 44);
+		end
 		local className	= "Job_" .. classR .. "_" ..  classL;
 		local classData	= GetClassByNameFromList(clsList, className);
 		if (classData ~= nil) then
-			if (i % 14 == 1) then
+			if (classL == 1) then
 				expCTX = expCT;
 				expC = classData.TotalXp;
 			else
@@ -200,7 +212,7 @@ function g4.TPFARMED_INIT()
 			if (expC == 0) then
 				break;
 			end
-			if (i % 14 == 1) then
+			if (classL == 1) then
 				expCT = expCT + classData.TotalXp;
 			else
 				expCT = classData.TotalXp + expCTX;
@@ -232,7 +244,11 @@ function g4.TPFARMED_EXP_DUMP()	--	未使用
 
 	local clsL  = g4.JobLvl;
 	local clsR  = session.GetPcTotalJobGrade()
-	i = (clsR-1) *14 + clsL;
+	if (clsR > 1) then
+		i = math.min((clsR-2) *44 + clsL + 14 ,g4.ExpTableCLen);
+	else
+		i = math.min((clsR-1) *44 + clsL ,g4.ExpTableCLen);
+	end
 	local expC  = g4.ExpTableC[i]["Req"];
 	local expCR = g4.ExpTableC[i]["TRq"];
 	local expCT = g4.ExpTableC[i]["Ttl"];
@@ -281,7 +297,12 @@ function g4.TPFARMED_MAPSTART()
 	--	現在クラス経験値の取得
 	local clsL  = g4.JobLvl;
 	local clsR  = session.GetPcTotalJobGrade()
-	local clLv = math.min((clsR-1) *14 + clsL ,g4.ExpTableCLen);
+	local clLv = 0;
+	if (clsR > 1) then
+		clLv = math.min((clsR-2) *44 + clsL + 14 ,g4.ExpTableCLen);
+	else
+		clLv = math.min((clsR-1) *44 + clsL ,g4.ExpTableCLen);
+	end
 	local expCT = g4.ExpTableC[clLv]["Ttl"];
 	local expCN = g4.JobExp;
 
@@ -293,9 +314,15 @@ function g4.TPFARMED_MAPSTART()
 
 	end
 	if (g4.MapName ~= nil) and (g4.CharName == charName) then
+		local lapClock	= os.clock() - g4.StartClock;	-- Windowsならシステム秒;
 		local expBX = expBT+expBN - g4.StartBExp;
 		local expCX = expCT+expCN - g4.StartCExp;
 		local moneyX = money - g4.StartMoney;
+		
+		CHAT_SYSTEM("{#FFFE80}{s14}{ol}　Time　：" .. g4.lpnts(math.floor(lapClock/3600),3) ..":"..g4.lpnts(math.floor(math.floor(lapClock/60)%60),2) ..":" ..g4.lpnts(math.floor(lapClock%60),2) .. "{/}{/}{/}");
+		
+		
+		
 		if (expBX > 0) then
 			CHAT_SYSTEM("{#FFFE80}{s14}{ol}　＋BExp：" .. g4.lpnts(expBX,15) .. "{/}{/}{/}");
 		end
@@ -340,6 +367,7 @@ function g4.TPFARMED_MAPSTART()
 	g4.TimeSec		= 0;
 	g4.FirstClock	= 0;
 	g4.LastClock	= 0;
+	g4.StartClock	= os.clock();	-- Windowsならシステム秒;
 	g4.MemPopCnt	= 0;
 	g4.PopMax		= 0;
 	g4.PopCnt		= 0;
@@ -377,23 +405,32 @@ function g4.TPFARMED_UI_GAME_START(frame, control)
 	if (frm == nil) then
 		return;
 	end
-	frm:MoveFrame(s4.posX		,s4.posY	);
-	if (s4.useUIExp ~= true) then
-		frm:Resize(	520	,60	);
-	end
-	local boxdps	= tolua.cast(frm:GetChild("boxdps"), "ui::CGroupBox");
-	if (boxdps ~= nil) then
-		boxdps:SetColorTone("C0000000");
-	end
 	local boxbex	= tolua.cast(frm:GetChild("boxbex"), "ui::CGroupBox");
+	local boxcex	= tolua.cast(frm:GetChild("boxcex"), "ui::CGroupBox");
+	local boxpop	= tolua.cast(frm:GetChild("boxpop"), "ui::CGroupBox");
+
+	local frH = frm:GetHeight();
+
+	frm:MoveFrame(s4.posX		,s4.posY	);
+	if (s4.useUIExp == true) then
+		if (boxbex ~= nil) then
+			boxbex:SetPos(boxbex:GetX(),frH+2);
+		end
+		if (boxcex ~= nil) then
+			boxcex:SetPos(boxcex:GetX(),frH+28);
+		end
+		frm:Resize(	520	,frH+52	);
+	end
+--	local boxdps	= tolua.cast(frm:GetChild("boxdps"), "ui::CGroupBox");
+--	if (boxdps ~= nil) then
+--		boxdps:SetColorTone("C0000000");
+--	end
 	if (boxbex ~= nil) then
 		boxbex:SetColorTone("C0000000");
 	end
-	local boxcex	= tolua.cast(frm:GetChild("boxcex"), "ui::CGroupBox");
 	if (boxcex ~= nil) then
 		boxcex:SetColorTone("C0000000");
 	end
-	local boxpop	= tolua.cast(frm:GetChild("boxpop"), "ui::CGroupBox");
 	if (boxpop ~= nil) then
 		boxpop:SetColorTone("C0000000");
 	end
@@ -416,14 +453,14 @@ function g4.TPFARMED_UI_UPDATE()
 	if (frm == nil) then
 		return;
 	end
-	local timdps = math.min(g4.LastClock - g4.FirstClock ,50)+g4.TimeSec;
-	local ttldps =0;
-	local i = 0;
-	for i=1, 6 do
-		ttldps = ttldps + (g4.TimeTable["X"..i].GiveDmg or 0);
-	end
-	local numdps = math.floor(ttldps/timdps);
-	local strdps ="{#FE8080}DPS :"..g4.lpnts(numdps,15).."{/}/sec in"..g4.lpnts(timdps,3).."sec   {#FEC080}MapTotal:"..g4.lpnts(g4.TtlGiveDmg,15).."{/}";
+--	local timdps = math.min(g4.LastClock - g4.FirstClock ,50)+g4.TimeSec;
+--	local ttldps =0;
+--	local i = 0;
+--	for i=1, 6 do
+--		ttldps = ttldps + (g4.TimeTable["X"..i].GiveDmg or 0);
+--	end
+--	local numdps = math.floor(ttldps/timdps);
+--	local strdps ="{#FE8080}DPS :"..g4.lpnts(numdps,15).."{/}/sec in"..g4.lpnts(timdps,3).."sec   {#FEC080}MapTotal:"..g4.lpnts(g4.TtlGiveDmg,15).."{/}";
 
 	--	キャラオブジェクトの取得
 	local pcObj = GetMyPCObject();
@@ -436,7 +473,12 @@ function g4.TPFARMED_UI_UPDATE()
 	--	現在クラス経験値の取得
 	local clsL  = g4.JobLvl;
 	local clsR  = session.GetPcTotalJobGrade()
-	local clLv = math.min((clsR-1) *14 + clsL ,g4.ExpTableCLen);
+	local clLv = 0;
+	if (clsR > 1) then
+		clLv = math.min((clsR-2) *44 + clsL + 14 ,g4.ExpTableCLen);
+	else
+		clLv = math.min((clsR-1) *44 + clsL ,g4.ExpTableCLen);
+	end
 	local expCR = g4.ExpTableC[clLv]["Req"] or 0;
 	local expCN = g4.JobExp;
 	local perbex = expBN*100/(expBR+1);
@@ -490,10 +532,10 @@ function g4.TPFARMED_UI_UPDATE()
 
 	local strpop ="POP:"..g4.lpnts(g4.PopCnt,3).."/"..g4.lpnts(g4.PopMax,3);
 
-	local txtdps	= GET_CHILD_RECURSIVELY(frm, "txtdps", "ui::CRichText");
-	if (txtdps ~= nil) then
-		txtdps:SetText(strdps);
-	end
+--	local txtdps	= GET_CHILD_RECURSIVELY(frm, "txtdps", "ui::CRichText");
+--	if (txtdps ~= nil) then
+--		txtdps:SetText(strdps);
+--	end
 
 	local txtbex	= GET_CHILD_RECURSIVELY(frm, "txtbex", "ui::CRichText");
 	if (txtbex ~= nil) then
@@ -579,7 +621,12 @@ function g4.TPFARMED_TIMETABLE()
 	--	現在クラス経験値の取得
 	local clsL  = g4.JobLvl;
 	local clsR  = session.GetPcTotalJobGrade()
-	local clLv = math.min((clsR-1) *14 + clsL ,g4.ExpTableCLen);
+	local clLv = 0;
+	if (clsR > 1) then
+		clLv = math.min((clsR-2) *44 + clsL + 14 ,g4.ExpTableCLen);
+	else
+		clLv = math.min((clsR-1) *44 + clsL ,g4.ExpTableCLen);
+	end
 	local expCT = g4.ExpTableC[clLv]["Ttl"];
 	local expCN = g4.JobExp;
 
