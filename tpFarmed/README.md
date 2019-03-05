@@ -18,12 +18,13 @@ v1.3.0で仕様変更により、集計ログが消えました・・・残念�
 | 名称 | 効果 |
 | ---- | ---- |
 | isShowCube	 | true/false　falseだとキューブ開封時の専用ログが出なくなります。	 |
-| isShowSilver	 | true/false　falseだとシルバー取得時のログが出なくなります。	 |
+| isShowSilver	 | true/false　falseだとシルバー取得時/10分ごとのログが出なくなります。	 |
 | isShowJournal	 | true/false　falseだと冒険日誌用のカウントが出なくなります。	 |
 | isShowExpGain	 | true/false　falseだと10分ごとの経験集計ログが出なくなります。	 |
+| isShowPickItem | true/false　falseだとアイテム取得ログが出なくなります。	 |
 | isShowPopCnt	 | true/false　falseだとCh人数変動時のログが出なくなります。	 |
 | isShowTimeTbl	 | true/false　falseだと10分ごとのログが全て出なくなります。	 |
-| ManyMoney		 | true/false　この価格を超えると、上記がfalseでも表示されます。	 |
+| ManyMoney		 | true/false　この価格を超えると、isShowSilverがfalseでも表示されます。	 |
 | useUI			 | true/false　falseだと表示ウィンドウが出なくなります。	 |
 | useUIExp		 | true/false　falseだと表示ウィンドウから経験値がなくなりコンパクトになります。	 |
 | useUIChCh		 | true/false　falseだと表示ウィンドウのチャンネルチェンジャーは表示されなくなります。	 |

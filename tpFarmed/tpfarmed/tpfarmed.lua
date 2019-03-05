@@ -114,6 +114,7 @@ function g4.TPFARMED_LOAD_SETTING()
 	-- 	値の存在確保と初期値設定
 	s4.isDebug			= ((type(s4.isDebug			) == "boolean")	and s4.isDebug			)or false;
 	s4.isShowCube		= ((type(s4.isShowCube		) == "boolean")	and s4.isShowCube		)or (s4.isShowCube		==nil);
+	s4.isShowPickItem	= ((type(s4.isShowPickItem	) == "boolean")	and s4.isShowPickItem	)or (s4.isShowPickItem	==nil);
 	s4.isShowSilver		= ((type(s4.isShowSilver	) == "boolean")	and s4.isShowSilver		)or false;
 	s4.isShowJournal	= ((type(s4.isShowJournal	) == "boolean")	and s4.isShowJournal	)or false;
 	s4.isShowGiveDmg	= ((type(s4.isShowGiveDmg	) == "boolean")	and s4.isShowGiveDmg	)or (s4.isShowGiveDmg	==nil);
@@ -141,6 +142,7 @@ function g4.TPFARMED_SAVE_SETTING()
 		filep:write("\t\"isDebug\":"		.. ((s4.isDebug			and "true") or "false")	.."\n"	);
 		filep:write(",\t\"isShowCube\":"	.. ((s4.isShowCube		and "true") or "false")	.."\n"	);
 		filep:write(",\t\"isShowSilver\":"	.. ((s4.isShowSilver	and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isShowPickItem\":".. ((s4.isShowPickItem	and "true") or "false")	.."\n"	);
 		filep:write(",\t\"isShowJournal\":"	.. ((s4.isShowJournal	and "true") or "false")	.."\n"	);
 --		filep:write(",\t\"isShowGiveDmg\":"	.. ((s4.isShowGiveDmg	and "true") or "false")	.."\n"	);
 --		filep:write(",\t\"isShowTakeDmg\":"	.. ((s4.isShowTakeDmg	and "true") or "false")	.."\n"	);
@@ -197,7 +199,7 @@ function g4.TPFARMED_INIT()
 			classL	= i;
 		else
 			classR	= math.floor((i-15)/44)+2;
-			classL	= ((i-14) % 44 == 0) and 44 or ((i-14) % 44);
+			classL	= (((i-14) % 44 == 0) and 44) or ((i-14) % 44);
 		end
 		local className	= "Job_" .. classR .. "_" ..  classL;
 		local classData	= GetClassByNameFromList(clsList, className);
@@ -654,10 +656,10 @@ function g4.TPFARMED_TIMETABLE()
 			g4.TimeTable["X2"].expBX  = g4.TimeTable["X1"].expBS  - g4.TimeTable["X2"].expBS;
 			g4.TimeTable["X2"].expCX  = g4.TimeTable["X1"].expCS  - g4.TimeTable["X2"].expCS;
 			g4.TimeTable["X2"].moneyX = g4.TimeTable["X1"].moneyS - g4.TimeTable["X2"].moneyS;
-			if (g4.isShowTimeTbl) and (g4.isShowExpGain) and (g4.LastClock ~= 0) and (g4.TimeTable["X2"].expBX > 0) or (g4.TimeTable["X2"].expCX > 0) then
+			if (s4.isShowTimeTbl) and (s4.isShowExpGain) and ((g4.TimeTable["X2"].expBX > 0) or (g4.TimeTable["X2"].expCX > 0)) then
 				CHAT_SYSTEM("{#80FE80}{s14}{ol}　Exp/10Sec:"..g4.lpnts(g4.TimeTable["X2"].expBX,15) .." /" ..g4.lpnts(g4.TimeTable["X2"].expCX,15) .." (@"..g4.lpnts(nowTime,7) .. "){/}{/}{/}");
 			end
-			if (g4.isShowTimeTbl) and (g4.isShowSilver) and (g4.LastClock ~= 0) and (g4.LastClock ~= 0) and (g4.TimeTable["X2"].moneyX > 0) then
+			if (s4.isShowTimeTbl) and (s4.isShowSilver) and (g4.TimeTable["X2"].moneyX > 0) then
 				CHAT_SYSTEM("{#80FE80}{s14}{ol}　Sil/10Sec:"..g4.lpnts(g4.TimeTable["X2"].moneyX,15) .." (@"..g4.lpnts(nowTime,7) .. "){/}{/}{/}");
 			end
 		end
@@ -848,7 +850,9 @@ function g4.TPFARMED_GETITEM(frame, msg, guid, num)
 		end;
 	--	CHAT_SYSTEM("{#80C0FF}{s14}{ol}　　"..diaryCnt .. "{/}{/}{/}");
 	end
-	CHAT_SYSTEM("{#80C0FF}{s14}{ol}　＋{img "..itemObj.Icon.." 14 14}"..itemObj.Name .. itemCnt .. diaryCnt .. "{/}{/}{/}");
+	if (s4.isShowPickItem) then
+		CHAT_SYSTEM("{#80C0FF}{s14}{ol}　＋{img "..itemObj.Icon.." 14 14}"..itemObj.Name .. itemCnt .. diaryCnt .. "{/}{/}{/}");
+	end
 end
 
 function g4.nts(num)
