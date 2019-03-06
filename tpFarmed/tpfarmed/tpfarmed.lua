@@ -850,7 +850,7 @@ function g4.TPFARMED_GETITEM(frame, msg, guid, num)
 		end;
 	--	CHAT_SYSTEM("{#80C0FF}{s14}{ol}　　"..diaryCnt .. "{/}{/}{/}");
 	end
-	if (s4.isShowPickItem) then
+	if (s4.isShowPickItem) or ((s4.isShowSilver == true) and (itemObj.ClassID == 900011)) then
 		CHAT_SYSTEM("{#80C0FF}{s14}{ol}　＋{img "..itemObj.Icon.." 14 14}"..itemObj.Name .. itemCnt .. diaryCnt .. "{/}{/}{/}");
 	end
 end
