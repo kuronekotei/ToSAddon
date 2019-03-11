@@ -155,19 +155,21 @@ function g9.GetQuest()
 				local questnpc_state = GET_QUEST_NPC_STATE(questIES, result);
 				local mapProp	= geMapTable.GetMapProp(questIES[questnpc_state..'Map']);
 				local npcProp	= mapProp:GetNPCPropByDialog(questIES[questnpc_state..'NPC']);
-				local qData ={};
-				qData.mCName	= mapProp:GetClassName();
-				local mClass	= GetClass("Map", qData.mCName);
-				qData.mLv		= mClass.QuestLevel or 0;
-				local mName		= mapProp:GetName();
-				qData.mName		= dictionary.ReplaceDicIDInCompStr(mName);
-				local nName		= npcProp:GetName();
-				qData.nName		= dictionary.ReplaceDicIDInCompStr(nName);
-				qData.nName		= qData.nName:gsub("{nl} *","");
-				qData.qName		= questIES.Name;
-				qData.qCName	= questIES.ClassName;
-				qData.qCId		= questIES.ClassID;
-				g9.qTable[#g9.qTable+1] = qData;
+				if (npcProp ~= nil) then
+					local qData ={};
+					qData.mCName	= mapProp:GetClassName();
+					local mClass	= GetClass("Map", qData.mCName);
+					qData.mLv		= mClass.QuestLevel or 0;
+					local mName		= mapProp:GetName();
+					qData.mName		= dictionary.ReplaceDicIDInCompStr(mName);
+					local nName		= npcProp:GetName();
+					qData.nName		= dictionary.ReplaceDicIDInCompStr(nName);
+					qData.nName		= qData.nName:gsub("{nl} *","");
+					qData.qName		= questIES.Name;
+					qData.qCName	= questIES.ClassName;
+					qData.qCId		= questIES.ClassID;
+					g9.qTable[#g9.qTable+1] = qData;
+				end
 			end
 		end
 	end
