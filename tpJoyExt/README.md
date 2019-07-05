@@ -10,4 +10,9 @@
 
 
 
-設定ありません。
+設定あります。  
+「/addons/tpjoyext/stg_tpjoyext.json」をテキストで編集してください。
+
+| 名称 | 効果 |
+| ---- | ---- |
+| isOverRide	 | true/false　trueにすると、L1+L2コンパニオン操作を無効化し、Li+L2+R1+R2+ Y or △で乗れるようになります。A or ×で降ります。	 |

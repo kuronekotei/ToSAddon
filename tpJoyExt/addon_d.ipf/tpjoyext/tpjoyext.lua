@@ -1,5 +1,66 @@
+--[[
+日本語
+--]]
+
+local acutil = require('acutil');
+
+_G['TPJOYEXT'] = _G['TPJOYEXT'] or {};
+local g7 = _G['TPJOYEXT'];
+g7.settingPath = g7.settingpath or "../addons/tpjoyext/stg_tpjoyext.json";
+g7.settings = g7.settings or {};
+local s7 = g7.settings;
+
 function TPJOYEXT_ON_INIT(addon, frame)
+	addon:RegisterMsg("GAME_START_3SEC", "TPJOYEXT_3SEC");
 end
+
+function TPJOYEXT_3SEC(frame)
+	local f,m = pcall(g7.TPJOYEXT_LOAD_SETTING);
+	if f ~= true then
+		CHAT_SYSTEM(m);
+	end
+	local f,m = pcall(g7.TPJOYEXT_SAVE_SETTING);
+	if f ~= true then
+		CHAT_SYSTEM(m);
+	end
+	local f,m = pcall(g7.TPJOYEXT_AUTOEXE);
+	if f ~= true then
+		CHAT_SYSTEM(m);
+	end
+end
+
+function g7.TPJOYEXT_LOAD_SETTING()
+	local t, err = acutil.loadJSON(g7.settingPath);
+	if t then
+		s7 = acutil.mergeLeft(s7, t);
+	end
+	-- 	値の存在確保と初期値設定
+	s7.isDebug			= ((type(s7.isDebug			) == "boolean")	and s7.isDebug			)or false;
+	s7.isOverRide		= ((type(s7.isOverRide		) == "boolean")	and s7.isOverRide		)or false;
+	s7.isAutoDis		= ((type(s7.isAutoDis		) == "boolean")	and s7.isAutoDis		)or false;
+	s7.isAutoOma		= ((type(s7.isAutoOma		) == "boolean")	and s7.isAutoOma		)or false;
+	s7.isAutoExpBin		= ((type(s7.isAutoExpBin	) == "boolean")	and s7.isAutoExpBin		)or false;
+end
+
+function g7.TPJOYEXT_SAVE_SETTING()
+	local filep = io.open(g7.settingPath,"w+");
+	if filep then
+		filep:write("{\n");
+		filep:write("\t\"isDebug\":"		.. ((s7.isDebug			and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isOverRide\":"	.. ((s7.isOverRide		and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isAutoDis\":"		.. ((s7.isAutoDis		and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isAutoOma\":"		.. ((s7.isAutoOma		and "true") or "false")	.."\n"	);
+		filep:write(",\t\"isAutoExpBin\":"	.. ((s7.isAutoExpBin	and "true") or "false")	.."\n"	);
+		filep:write("}\n");
+		filep:close();
+	end
+end
+
+
+
+
+
+
 
 function JOYSTICK_QUICKSLOT_EXECUTE(slotIndex)
 	local quickFrame = ui.GetFrame('joystickquickslot')
@@ -19,9 +80,21 @@ function JOYSTICK_QUICKSLOT_EXECUTE(slotIndex)
 		return;
 	end
 	
-	if input_L1 == 1 and input_R1 == 1 then
+	if (input_L1 == 1) and (input_R1 == 1) and (input_L1 == 1) and (input_L2 == 1) and (s7.isOverRide) then
 		--CHAT_SYSTEM("ON_L1R1");
-		if	slotIndex == 2	or slotIndex == 14 then
+		if	(slotIndex == 2)	or(slotIndex == 6)	or(slotIndex == 14)	or(slotIndex == 18) then	-- △
+			ON_RIDING_VEHICLE(1);
+		elseif(slotIndex == 0)	or(slotIndex == 4)	or(slotIndex == 12)	or(slotIndex == 16) then	-- □
+
+		elseif(slotIndex == 1)	or(slotIndex == 5)	or(slotIndex == 13)	or(slotIndex == 17) then	-- ○
+
+		elseif(slotIndex == 3)	or(slotIndex == 7)	or(slotIndex == 15)	or(slotIndex == 19) then	-- ×
+			ON_RIDING_VEHICLE(0);
+		end
+		return;
+	elseif input_L1 == 1 and input_R1 == 1 then
+		--CHAT_SYSTEM("ON_L1R1");
+		if	slotIndex == 2	or slotIndex == 14 then	-- △
 			slotIndex = 10
 		elseif	slotIndex == 0	or slotIndex == 12 then
 			slotIndex = 8
@@ -82,20 +155,14 @@ function UPDATE_JOYSTICK_INPUT(frame)
 	local input_R1 = joystick.IsKeyPressed("JOY_BTN_6")
 	local input_R2 = joystick.IsKeyPressed("JOY_BTN_8")
 
-	if joystick.IsKeyPressed("JOY_UP") == 1 and joystick.IsKeyPressed("JOY_L1L2") == 1	then
-		ON_RIDING_VEHICLE(1)
-	end
+	if(s7.isOverRide ~= true) then
+		if joystick.IsKeyPressed("JOY_UP") == 1 and joystick.IsKeyPressed("JOY_L1L2") == 1	then
+			ON_RIDING_VEHICLE(1)
+		end
 
-	if joystick.IsKeyPressed("JOY_DOWN") == 1 and joystick.IsKeyPressed("JOY_L1L2") == 1  then
-		ON_RIDING_VEHICLE(0)
-	end
-
-	if joystick.IsKeyPressed("JOY_LEFT") == 1 and joystick.IsKeyPressed("JOY_L1L2") == 1  then
-		COMPANION_INTERACTION(2)
-	end
-
-	if joystick.IsKeyPressed("JOY_RIGHT") == 1 and joystick.IsKeyPressed("JOY_L1L2") == 1  then
-		COMPANION_INTERACTION(1)
+		if joystick.IsKeyPressed("JOY_DOWN") == 1 and joystick.IsKeyPressed("JOY_L1L2") == 1  then
+			ON_RIDING_VEHICLE(0)
+		end
 	end
 
 	local gboxL1 = frame:GetChildRecursively("L1_slot_Set1");
@@ -172,6 +239,70 @@ function JOYSTICKQUICKSLOT_DRAW()
 	JOYSTICK_QUICKSLOT_REFRESH(40);
 end
 
+function CHECK_SLOT_ON_ACTIVEJOYSTICKSLOTSET(frame, slotNumber)
+	return true;
+end
 
 
+function g7.TPJOYEXT_AUTOEXE()
+	g7.fUseDisp	= s7.isAutoDis;
+	g7.fUseOma	= s7.isAutoOma;
+	g7.fUseBin	= s7.isAutoExpBin;
+	if(g7.fUseDisp ~= true) and (g7.fUseOma ~= true) and (g7.fUseBin ~= true) then
+		return;
+	end
+	local invItemList	= session.GetInvItemSortedList();
+	if(invItemList ~= nil) then
+		local invItemCnt	= invItemList:size();
+		for i = 0, invItemCnt - 1 do
+			local invItem = invItemList:at(i);
+			if(invItem ~= nil) then
+				local itmObj = GetIES(invItem:GetObject());
+				if(itmObj ~= nil) then
+					if(g7.fUseDisp) and(invItem.type == 641151) then
+						CHAT_SYSTEM("{#FFD0C0}{s14}{ol}　自動：" .. itmObj.Name .. " /" .. g7.nts(invItem.count) .. "{/}{/}{/}");
+						INV_ICON_USE(invItem);
+						g7.fUseDisp = false;
+					end
+					if(g7.fUseOma) and(invItem.type == 641153) then
+						CHAT_SYSTEM("{#FFD0C0}{s14}{ol}　自動：" .. itmObj.Name .. " /" .. g7.nts(invItem.count) .. "{/}{/}{/}");
+						INV_ICON_USE(invItem);
+						g7.fUseOma = false;
+					end
+					if(g7.fUseBin) and(invItem.type == 699011) then
+						local curExp, maxExp = GET_LEGENDEXPPOTION_EXP(itmObj)
+						if(curExp < maxExp) then
+							CHAT_SYSTEM("{#FFD0C0}{s14}{ol}　自動：" .. itmObj.Name .. " " .. g7.nts(curExp) .. " /" .. g7.nts(maxExp) .. "{/}{/}{/}");
+							INV_ICON_USE(invItem);
+							g7.fUseBin = false;
+						end
+					end
+				end
+			end
+		end
+	end
+end
+
+
+
+function g7.nts(num)
+	local numStr		= "";
+	if (num~=nil) then
+		numStr = numStr..num;
+	end
+	if (#numStr > 12) then
+		numStr = string.sub(numStr,0,#numStr-12)..","..string.sub(numStr,#numStr-11,#numStr-9)..","..string.sub(numStr,#numStr-8,#numStr-6)..","..string.sub(numStr,#numStr-5,#numStr-3)..","..string.sub(numStr,#numStr-2);
+	elseif (#numStr > 9) then
+		numStr = string.sub(numStr,0,#numStr-9)                                               ..","..string.sub(numStr,#numStr-8,#numStr-6)..","..string.sub(numStr,#numStr-5,#numStr-3)..","..string.sub(numStr,#numStr-2);
+	elseif (#numStr > 6) then
+		numStr = string.sub(numStr,0,#numStr-6)                                                                                            ..","..string.sub(numStr,#numStr-5,#numStr-3)..","..string.sub(numStr,#numStr-2);
+	elseif (#numStr > 3) then
+		numStr = string.sub(numStr,0,#numStr-3)                                                                                                                                         ..","..string.sub(numStr,#numStr-2);
+	end
+	return numStr;
+end
+function g7.lpnts(num,len)
+	local numStr		= g7.nts(num);
+	return string.rep(" ", len - #numStr) .. numStr;
+end
 
