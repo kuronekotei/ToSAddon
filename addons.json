@@ -98,5 +98,15 @@
         "unicode" : "✉",
         "description" : "みんなでオトコノコになろう。",
         "tags" : [ "voice" ]
+    },
+    {
+        "name" : "tpEventShopNoClose",
+        "file" : "tpeventshopnoclose",
+        "extension" : "ipf",
+        "fileVersion" : "v0.0.1",
+        "releaseTag" : "tpeventshopnoclose",
+        "unicode" : "✉",
+        "description" : "イベントショップが閉じない呪い。",
+        "tags" : [ "event", "shop" ]
     }
 ]
