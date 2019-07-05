@@ -103,7 +103,7 @@
         "name" : "tpEventShopNoClose",
         "file" : "tpeventshopnoclose",
         "extension" : "ipf",
-        "fileVersion" : "v0.0.1",
+        "fileVersion" : "v0.0.2",
         "releaseTag" : "tpeventshopnoclose",
         "unicode" : "✉",
         "description" : "イベントショップが閉じない呪い。",

@@ -2,6 +2,9 @@
 	日本語
 --]]
 
+_G['TPXXX'] = _G['TPXXX'] or {};
+local g0 = _G['TPXXX'];
+
 if(g0.EARTH_TOWER_SHOP_EXEC==nil) then
 	--	待避する関数がすでにいたら、やらない　(2度置き換えると無限ループ)
 	g0.EARTH_TOWER_SHOP_EXEC = EARTH_TOWER_SHOP_EXEC;
