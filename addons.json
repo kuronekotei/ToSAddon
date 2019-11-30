@@ -78,5 +78,15 @@
         "unicode" : "✉",
         "description" : "クエストワープが列挙されたり、PTリンクが保存されます。",
         "tags" : [ "chat" ]
+    },
+    {
+        "name" : "tpChannelDropFix",
+        "file" : "tpchanneldropfix",
+        "extension" : "ipf",
+        "fileVersion" : "v0.0.1",
+        "releaseTag" : "tpchanneldropfix",
+        "unicode" : "🐈",
+        "description" : "フォント変更時にチャンネルのドロップダウンが見えなくなっちゃった人用",
+        "tags" : [ "channel" ]
     }
 ]
