@@ -63,7 +63,7 @@
         "name" : "tpAutoChat",
         "file" : "tpautochat",
         "extension" : "ipf",
-        "fileVersion" : "v0.0.1",
+        "fileVersion" : "v0.0.2",
         "releaseTag" : "tpautochat",
         "unicode" : "✉",
         "description" : "自動で発言します。",
