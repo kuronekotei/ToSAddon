@@ -41,7 +41,7 @@
     },
     {
         "name" : "tpFarm2",
-        "file" : "tpfarm2",
+        "file" : "tpfarm",
         "extension" : "ipf",
         "fileVersion" : "v2.0.0",
         "releaseTag" : "tpfarm2",
