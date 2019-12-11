@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uiframe name="tputil_cmnwin" x="0" y="0" width="520" height="32">
+ 	<frame title="tputil_cmnwin" snapclient="true" snapframe="true" layout_gravity="left top" margin="600 300 0 0"/>
+	<draw drawframe="true" drawtitlebar="false"/>
+	<input hittest="true" moveable="true" moveintitlebar="false" hittestframe="true"/>
+	<option visible="false" hideable="false" useimageitem="true" closebutton="false" savelayout="false"/>
+	<skin frameskin="chat_window"/>
+	<layer layerlevel="31"/>
+	<controls>
+		<button name="btn_close" rect="0 0 30 30" margin="0 1 5 0"  layout_gravity="right top"
+			caption=" x " clicksound="button_click_big" oversound="button_over" hittest="true"
+			LBtnUpScp="TPUTIL_CMNWIN_ON_CLOSE"/>
+		<richtext name="title"                    rect="0 0 32 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left center" caption="{img icon_item_halloween_pistol 32 32}{/}" fixheight="true" fixwidth="true" resizebytext="false" hittest="false"/>
+		<groupbox name="lines" rect="1 1 518 90" margin="1 1 1 1" scrollbar="true" />
+	</controls>
+</uiframe>
