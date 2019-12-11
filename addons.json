@@ -33,10 +33,10 @@
         "name" : "tpFarmed",
         "file" : "tpfarmed",
         "extension" : "ipf",
-        "fileVersion" : "v1.3.3",
+        "fileVersion" : "v2.0.0",
         "releaseTag" : "tpfarmed",
-        "unicode" : "✉",
-        "description" : "手に入れた物に関するログが出ます。",
+        "unicode" : "🐈",
+        "description" : "ドロップおよび戦闘ダメージを集計します。　注意!!フィールドで金床をたたかないで下さい。",
         "tags" : [ "chat" ]
     },
     {
