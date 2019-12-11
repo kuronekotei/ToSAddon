@@ -18,6 +18,6 @@ v2.0.0でダメージ集計に対応しました。
 
 
 設定あります。  
-「/addons/tpfarmed/stg_tpfarm.lua」をテキストで編集してください。
+「/addons/tpfarm/stg_tpfarm.lua」をテキストで編集してください。
 
 中身はフィーリングで察してください。
