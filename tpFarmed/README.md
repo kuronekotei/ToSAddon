@@ -1,8 +1,6 @@
 # tpFarmed
 手に入れた物に関するログが出ます。  
-v1.0.0でダメージ集計に対応しました。  
-v1.2.0でチャンネル切り替え機能を追加しました。  
-v1.3.0で仕様変更により、集計ログが消えました・・・残念。  
+v2.0.0でダメージ集計に対応しました。  
 
 
 - マップ切り替え時に前マップの取得経験とシルバー表示(無い物は出ません)
@@ -10,24 +8,16 @@ v1.3.0で仕様変更により、集計ログが消えました・・・残念�
   重ならないものは個数が出ません
 - アイテム取得時に冒険日誌の進捗表示  
   カウントは疑似カウントです、本来カウントされない取得方法でも加算表示されます
+- ダメージ表示  
+  街中とPvPエリアでは計測できません
+
+- 1点だけ非常に危険な問題があります  
+  ダメージ表示が有効な状態でフィールドで金床をたたくと確定で落ちます  
+  IMCの用意した計測機能そのもので落ちるので回避不可能です  
+  街中では機能を止めているので大丈夫です
 
 
 設定あります。  
-「/addons/tpfarmed/stg_tpfarmed.json」をテキストで編集してください。
+「/addons/tpfarmed/stg_tpfarm.lua」をテキストで編集してください。
 
-| 名称 | 効果 |
-| ---- | ---- |
-| isShowCube	 | true/false　falseだとキューブ開封時の専用ログが出なくなります。	 |
-| isShowSilver	 | true/false　falseだとシルバー取得時/10分ごとのログが出なくなります。	 |
-| isShowJournal	 | true/false　falseだと冒険日誌用のカウントが出なくなります。	 |
-| isShowExpGain	 | true/false　falseだと10分ごとの経験集計ログが出なくなります。	 |
-| isShowPickItem | true/false　falseだとアイテム取得ログが出なくなります。	 |
-| isShowPopCnt	 | true/false　falseだとCh人数変動時のログが出なくなります。	 |
-| isShowTimeTbl	 | true/false　falseだと10分ごとのログが全て出なくなります。	 |
-| ManyMoney		 | true/false　この価格を超えると、isShowSilverがfalseでも表示されます。	 |
-| useUI			 | true/false　falseだと表示ウィンドウが出なくなります。	 |
-| useUIExp		 | true/false　falseだと表示ウィンドウから経験値がなくなりコンパクトになります。	 |
-| useUIChCh		 | true/false　falseだと表示ウィンドウのチャンネルチェンジャーは表示されなくなります。	 |
-
-
-
+中身はフィーリングで察してください。
