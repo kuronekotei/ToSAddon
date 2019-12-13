@@ -53,10 +53,10 @@
         "name" : "tpFarm2",
         "file" : "tpfarm",
         "extension" : "ipf",
-        "fileVersion" : "v2.0.1",
+        "fileVersion" : "v2.1.0",
         "releaseTag" : "tpfarm2",
         "unicode" : "🐈",
-        "description" : "ドロップおよび戦闘ダメージを集計します。tpFarmedはアンインストールしてください。　注意!!フィールドで金床をたたかないで下さい。",
+        "description" : "ドロップおよび戦闘ダメージを集計します。動作にtpUtilが必要です。　旧tpFarmedはアンインストールしてください。　注意!!フィールドで金床をたたかないで下さい。",
         "tags" : [ "chat,dps" ]
     },
     {
