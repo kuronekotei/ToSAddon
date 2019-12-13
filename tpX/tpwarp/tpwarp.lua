@@ -252,6 +252,26 @@ function g9.SetPartyLink()
 	local fPty = ((gPty.Now.PtId ~= nil) and (gPty.Now.PtId ~= ""));
 	local i = 0;
 	g9.ptH = 30;
+
+	local gb = frm:CreateOrGetControl("groupbox", "pgbo", 477, g9.frH + g9.qsH, 40, 28);
+	gb:SetSkinName("skin_white");
+	gb:SetColorTone("C0000000");
+	gb:EnableHitTest(1);
+	gb:SetEventScript(ui.LBUTTONUP, "TPWARP_BTN_PARTYOUT");
+	local rt = gb:CreateOrGetControl("richtext", "prto",2,0,36,28);
+	rt = tolua.cast(rt, "ui::CRichText");	-- ui::CObject を ui::CRichTextにキャスト
+	rt:SetFontName("white_12_ol");
+	rt:EnableResizeByText(0);	-- CRichTextでないと使えない
+	rt:SetTextFixWidth(0);		-- CRichTextでないと使えない
+	rt:EnableSplitBySpace(0);	-- CRichTextでないと使えない
+	rt:EnableHitTest(0);
+	rt:SetText("PT{nl}Out");
+	if(fPty and s9.MainUIShowPartyOut) then
+		gb:ShowWindow(1);
+	else
+		gb:ShowWindow(0);
+	end
+
 	for i = 1, 4 do
 		local ptId = s9["LastPtId"..i];
 		local ptNm = s9["LastPtNm"..i];
@@ -333,6 +353,11 @@ function g9.SetCampLink()
 			gb:ShowWindow(0);
 		end
 	end
+end
+
+
+function TPWARP_BTN_PARTYOUT(frame, ctrl, argStr, argNum)
+	OUT_PARTY();
 end
 
 
