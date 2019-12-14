@@ -3,7 +3,7 @@
         "name" : "tpUtil",
         "file" : "_tputil",
         "extension" : "ipf",
-        "fileVersion" : "v1.0.0",
+        "fileVersion" : "v1.0.1",
         "releaseTag" : "tputil",
         "unicode" : "🐈",
         "description" : "tpUtilは一部アドオンに必要な機能を提供します。",

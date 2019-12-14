@@ -7,7 +7,7 @@ local g0 = GetTpUtil();
 g0.LogL = g0.LogL or {};
 g0.LogL[#g0.LogL +1] = "__tputil_CmnWin";
 
-g0.CmnWin.settingPath = g0.CmnWin.settingpath or "../addons/tputil/stg_cmnwin.lua";
+g0.CmnWin.settingPath = g0.CmnWin.settingpath or "../addons/_tputil/stg_cmnwin.lua";
 g0.CmnWin.settings = g0.CmnWin.settings or {
 	Lst		= {},
 };
