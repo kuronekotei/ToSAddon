@@ -23,24 +23,26 @@ function gQst.GetQuest()
 			local result = SCR_QUEST_CHECK_C(pc, questIES.ClassName);
 			if ((result == 'POSSIBLE' and questIES.POSSI_WARP == 'YES') or (result == 'PROGRESS' and questIES.PROG_WARP == 'YES') or (result == 'SUCCESS' and questIES.SUCC_WARP == 'YES')) then
 				local questnpc_state = GET_QUEST_NPC_STATE(questIES, result);
-				local mapProp	= geMapTable.GetMapProp(questIES[questnpc_state..'Map']);
-				local npcProp	= mapProp:GetNPCPropByDialog(questIES[questnpc_state..'NPC']);
-				if (npcProp ~= nil) then
-					local qData ={};
-					qData.mCName	= mapProp:GetClassName();
-					local mClass	= GetClass("Map", qData.mCName);
-					qData.mLv		= mClass.QuestLevel or 0;
-					qData.mLv2		= (qData.mCName == "c_Klaipe" and 1) or (qData.mCName == "c_orsha" and 2) or (qData.mCName == "c_fedimian" and 3) or (qData.mCName == "c_nunnery" and 4) or 999;
-					local mName		= mapProp:GetName();
-					qData.mName		= dictionary.ReplaceDicIDInCompStr(mName);
-					local nName		= npcProp:GetName();
-					qData.nName		= dictionary.ReplaceDicIDInCompStr(nName);
-					qData.nName		= qData.nName:gsub("{nl} *","");
-					qData.qName		= questIES.Name;
-					qData.qCName	= questIES.ClassName;
-					qData.qCId		= questIES.ClassID;
-					qData.qMode		= questIES.QuestMode;
-					gQst.LstWarp[#gQst.LstWarp+1] = qData;
+				if(questnpc_state ~= nil) then
+					local mapProp	= geMapTable.GetMapProp(questIES[questnpc_state..'Map']);
+					local npcProp	= mapProp:GetNPCPropByDialog(questIES[questnpc_state..'NPC']);
+					if (npcProp ~= nil) then
+						local qData ={};
+						qData.mCName	= mapProp:GetClassName();
+						local mClass	= GetClass("Map", qData.mCName);
+						qData.mLv		= mClass.QuestLevel or 0;
+						qData.mLv2		= (qData.mCName == "c_Klaipe" and 1) or (qData.mCName == "c_orsha" and 2) or (qData.mCName == "c_fedimian" and 3) or (qData.mCName == "c_nunnery" and 4) or 999;
+						local mName		= mapProp:GetName();
+						qData.mName		= dictionary.ReplaceDicIDInCompStr(mName);
+						local nName		= npcProp:GetName();
+						qData.nName		= dictionary.ReplaceDicIDInCompStr(nName);
+						qData.nName		= qData.nName:gsub("{nl} *","");
+						qData.qName		= questIES.Name;
+						qData.qCName	= questIES.ClassName;
+						qData.qCId		= questIES.ClassID;
+						qData.qMode		= questIES.QuestMode;
+						gQst.LstWarp[#gQst.LstWarp+1] = qData;
+					end
 				end
 			end
 		end

@@ -52,7 +52,7 @@ function g0.FuncInit(tgtName) -- tgtName:string
 		for k, v in pairs(g0.FuncList[tgtName].AftF) do
 			local f,x1,x2,x3 = pcall(v.myFunc, ...);
 			if f ~= true then
-				CHAT_SYSTEM(m);
+				CHAT_SYSTEM(x1);
 				return;
 			end
 			if(g0.FuncList[tgtName].fEnd)then
@@ -410,28 +410,28 @@ end
 
 function g0.LoadMyFunc()
 	local fname = "";
-	fname = "../addons/tputil/myFunc1.lua";
+	fname = "../addons/_tputil/myFunc1.lua";
 	if(g0.FileExists(fname)) then
 		local f,m = pcall(dofile,fname);
 		if (f ~= true) and (CHAT_SYSTEM ~= nil) then
 			CHAT_SYSTEM(m);
 		end
 	end
-	fname = "../addons/tputil/myFunc2.lua";
+	fname = "../addons/_tputil/myFunc2.lua";
 	if(g0.FileExists(fname)) then
 		local f,m = pcall(dofile,fname);
 		if (f ~= true) and (CHAT_SYSTEM ~= nil) then
 			CHAT_SYSTEM(m);
 		end
 	end
-	fname = "../addons/tputil/myFunc3.lua";
+	fname = "../addons/_tputil/myFunc3.lua";
 	if(g0.FileExists(fname)) then
 		local f,m = pcall(dofile,fname);
 		if (f ~= true) and (CHAT_SYSTEM ~= nil) then
 			CHAT_SYSTEM(m);
 		end
 	end
-	fname = "../addons/tputil/myFunc4.lua";
+	fname = "../addons/_tputil/myFunc4.lua";
 	if(g0.FileExists(fname)) then
 		local f,m = pcall(dofile,fname);
 		if (f ~= true) and (CHAT_SYSTEM ~= nil) then

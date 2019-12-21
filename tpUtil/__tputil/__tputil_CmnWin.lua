@@ -7,7 +7,7 @@ local g0 = GetTpUtil();
 g0.LogL = g0.LogL or {};
 g0.LogL[#g0.LogL +1] = "__tputil_CmnWin";
 
-g0.CmnWin.settingPath = g0.CmnWin.settingpath or "../addons/tputil/stg_cmnwin.lua";
+g0.CmnWin.settingPath = g0.CmnWin.settingpath or "../addons/_tputil/stg_cmnwin.lua";
 g0.CmnWin.settings = g0.CmnWin.settings or {
 	Lst		= {},
 };
@@ -30,6 +30,7 @@ function g0.CmnWinCreate(name , lstStg)
 	--	local lstStg = {
 	--		Icon = "icon_item_halloween_pistol",
 	--		DefLine = 5,
+	--		CloseScp = func,
 	--		BackCol = "C0000010",
 	--		BtnStg ={
 	--			{name="/Mon",func=g0.testfunc},
@@ -42,6 +43,7 @@ function g0.CmnWinCreate(name , lstStg)
 	g0.CmnWin[name].BackCol = lstStg.BackCol or "C0000010";
 	g0.CmnWin[name].DefLine = lstStg.DefLine or 5;
 	g0.CmnWin[name].BtnStg = lstStg.BtnStg or {};
+	g0.CmnWin[name].CloseScp = lstStg.CloseScp;
 	g0.CmnWin.settings.Lst[name] = g0.CmnWin.settings.Lst[name] or {};
 	g0.CmnWin.settings.Lst[name].PosX = g0.CmnWin.settings.Lst[name].PosX or 500;
 	g0.CmnWin.settings.Lst[name].PosY = g0.CmnWin.settings.Lst[name].PosY or 300;
@@ -106,6 +108,9 @@ end
 function TPUTIL_CMNWIN_ON_CLOSE(frame, control, argStr)
 	if((g0.CmnWin ==nil) or (g0.CmnWin[argStr] ==nil)) then
 		return;
+	end
+	if(g0.CmnWin[argStr].CloseScp ~= nil) then
+		g0.CmnWin[argStr].CloseScp();
 	end
 	g0.CmnWin[argStr] =nil;
 	ui.CloseFrame(argStr);

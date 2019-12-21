@@ -591,6 +591,7 @@ function g4.OnBtnDps()
 		Icon = "hairacc_hat074",
 		DefLine = 10,
 		BackCol = "C0000010",
+		CloseScp = g4.SubDpsClose,
 		BtnStg ={
 			{name="/Mon",	func=g4.BtnDpsPerMon},
 			{name="/Skill",	func=g4.BtnDpsPerSkl},
@@ -599,6 +600,10 @@ function g4.OnBtnDps()
 	};
 	s4.SubDpsShow = true;
 	g0.CmnWinCreate("tpfarm_dps",lstStg);
+	g0.PCL(g0.SaveStg,_NAME_,g4.StgPath,s4,tblSort);
+end
+function g4.SubDpsClose()
+	s4.SubDpsShow = false;
 	g0.PCL(g0.SaveStg,_NAME_,g4.StgPath,s4,tblSort);
 end
 function g4.BtnDpsPerMon(frame, ctrl, argStr, argNum)
