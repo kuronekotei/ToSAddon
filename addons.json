@@ -108,5 +108,15 @@
         "unicode" : "🐈",
         "description" : "フォント変更時にチャンネルのドロップダウンが見えなくなっちゃった人用",
         "tags" : [ "channel" ]
+    },
+    {
+        "name" : "tpQuestFix",
+        "file" : "tpquestfix",
+        "extension" : "ipf",
+        "fileVersion" : "v0.0.1",
+        "releaseTag" : "tpquestfix",
+        "unicode" : "🐈",
+        "description" : "余計なクエストの自動追跡(右のリストに載る)を防止します",
+        "tags" : [ "quest" ]
     }
 ]
