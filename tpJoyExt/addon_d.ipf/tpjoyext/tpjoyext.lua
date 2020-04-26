@@ -251,6 +251,7 @@ function g7.TPJOYEXT_AUTOEXE()
 	if(g7.fUseDisp ~= true) and (g7.fUseOma ~= true) and (g7.fUseBin ~= true) then
 		return;
 	end
+	session.BuildInvItemSortedList();
 	local invItemList	= session.GetInvItemSortedList();
 	if(invItemList ~= nil) then
 		local invItemCnt	= invItemList:size();
