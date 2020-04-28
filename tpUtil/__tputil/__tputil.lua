@@ -1,4 +1,4 @@
---[[
+--[[__tputil
 	日本語
 	関数群を保存している
 	ゲーム機能を呼び出す関数群
@@ -51,22 +51,41 @@ function TPUTIL_GAME_START(frame, control)
 	g0.PCL(g0.GameStart);
 end
 function g0.GameStart(adn, frame)
+	g0.fFirst = true;
+	local frm = ui.GetFrame("__tputil");
+	frm:RunUpdateScript("TPUTIL_START",  0.1, 0.0, 0, 1);
+end
+function TPUTIL_START(frame)	--	RunUpdateScriptで1秒ごとに動く
+	if(g0.fFirst) then
+		g0.fFirst = false;
+		return 1;	--	RunUpdateScriptは1で継続
+	end
+
+	g0.PCL(g0.TpUtilStart);
+	return 0;	--	RunUpdateScriptは1で継続
+end
+function g0.TpUtilStart()
 	local mapCode = session.GetMapName();
 	local mapProp = geMapTable.GetMapProp(mapCode);
 	--	キャラ名の取得
 	local charName = GetMyName();
-    local mapCls = GetClass("Map", mapCode);
+	local mapCls = GetClass("Map", mapCode);
 	local mapType = TryGetProp(mapCls, "MapType", "None");
 	g0.MapIsCity	= (mapType == "City");
 	g0.MapIsPvp		= world.IsPVPMap();
+	g0.MapIsMatch	= session.world.IsIntegrateServer();
 	g0.MapIsIndun	= session.world.IsDungeon();
 	g0.MapId		= session.GetMapID();
+	g0.MapLv		= mapCls.QuestLevel;
 	gDps.MapInit();
 	gPop.MapInit();
+	gInv.MakeLst();
+	gQst.GetUniq();
 	gQst.GetQuest();
 	gPty.GetParty();
 	if (g0.MapCode == mapCode) and (g0.CharName == charName) then
 		--	マップもキャラも一緒の時・・・イベントだけ登録
+		g0.Event("TPUTIL_START", g0.MapCode ,0);
 		local frm = ui.GetFrame("__tputil");
 		frm:RunUpdateScript("TPUTIL_CLOCK_WORK",  1, 0.0, 0, 1);
 		return;
@@ -94,9 +113,11 @@ function g0.GameStart(adn, frame)
 	gClk.LastClock	= -1;
 	gClk.NowClock	= 0;
 	gClk.StartClock	= os.clock();	-- Windowsならシステム秒;
+	g0.Event("TPUTIL_START", g0.MapCode ,0);
+	g0.Event("TPUTIL_MAPSTART", g0.MapCode ,0);
 	local frm = ui.GetFrame("__tputil");
 	frm:RunUpdateScript("TPUTIL_CLOCK_WORK",  1, 0.0, 0, 1);
-	g0.Event("TPUTIL_MAPSTART", g0.MapCode ,0);
+	return;
 end
 function TPUTIL_CLOCK_WORK(frame)	--	RunUpdateScriptで1秒ごとに動く
 	g0.PCL(g0.ClockWork);

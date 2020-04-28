@@ -1,4 +1,4 @@
---[[
+--[[__tputil_Party.lua
 	日本語
 	関数群を保存している
 --]]
@@ -15,8 +15,9 @@ end
 function gPty.GetParty()
 	gPty.Now = {}
 	gPty.LstCmp = {}
-	g0.MapIsIndun = session.world.IsIntegrateServer();
-	g0.MapIsPvp = world.IsPVPMap();
+	g0.MapIsMatch	= session.world.IsIntegrateServer();
+	g0.MapIsIndun	= session.world.IsDungeon();
+	g0.MapIsPvp		= world.IsPVPMap();
 	if g0.MapIsPvp then
 		return;
 	end
@@ -76,6 +77,7 @@ function gPty.GetParty()
 		gPty.Now.LdNm = ptLd;
 		local memLst = session.party.GetPartyMemberList(PARTY_NORMAL);
 		local memCnt = memLst:Count();
+		gPty.Now.MmCt = memCnt;
 		for i = 0 , memCnt - 1 do
 			local memInf = memLst:Element(i);
 			if(memInf.campMapID ~=0) then

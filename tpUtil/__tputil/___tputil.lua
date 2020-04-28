@@ -1,4 +1,4 @@
---[[
+--[[___tputil.lua
 	日本語
 	関数群を保存している
 	ゲーム機能を呼び出さない、純粋なLua関数はここに置く
@@ -279,6 +279,9 @@ function g0.DumpObj(obj,name,lvl)
 		return ret;
 	end
 	return tab1..name..tab2.."=("..typ..")"..nl;
+end
+function g0.d(obj)
+	CHAT_SYSTEM(g0.DumpObj(obj));
 end
 
 

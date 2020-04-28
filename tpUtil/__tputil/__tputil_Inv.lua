@@ -1,4 +1,4 @@
---[[
+--[[__tputil_Inv.lua
 	日本語
 	関数群を保存している
 --]]
@@ -9,13 +9,16 @@ g0.LogL[#g0.LogL +1] = "__tputil_Inv";
 
 local gInv = g0.Inv;
 
-function gInv.MapInit()
-	gInv.MakeLst();
-end
+gInv.MyLst ={};
+gInv.SearchTgt ={};
+gInv.SearchTgt["EscapeStone_Orsha"] = 1;
+gInv.SearchTgt["EscapeStone_Klaipeda"] = 1;
+gInv.SearchTgt["Escape_Orb"] = 1;
+
 
 function gInv.MakeLst()
-	gInv.MyLst ={};
 	local myLst ={};
+	session.BuildInvItemSortedList();
 	local invLst	= session.GetInvItemList();
 	local guidLst	= invLst:GetGuidList();
 	local guidCnt	= guidLst:Count();
@@ -30,20 +33,18 @@ function gInv.MakeLst()
 			if(itmXXX ~= nil) then
 				local itmObj = GetIES(itmXXX);
 				if(itmObj ~= nil) then
-					if (itmObj.ClassName == "EscapeStone_Orsha") 
-					or (itmObj.ClassName == "EscapeStone_Klaipeda")
-					or (itmObj.ClassName == "Escape_Orb")
-					then
-						gInv.SubCount = (gInv.SubCount or 0) +1;
-						local oldData	=gInv.MyLst[itmObj.ClassName];
-						local itmData	={};
+					if(gInv.SearchTgt[itmObj.ClassName] == 1) then
+						gInv.SubCount	= (gInv.SubCount or 0) +1;
+						local oldData	= gInv.MyLst[itmObj.ClassName];
+						local itmData	= {};
 						itmData.Guid	= guid;
 						itmData.Obj		= itmObj;
 						itmData.Name	= itmObj.Name;
 						itmData.Count	= invItm.count;
 						itmData.Icon	= itmObj.Icon;
-						myLst[itmObj.ClassName] =itmData;
-						myLstCnt = myLstCnt + 1;
+
+						myLst[itmObj.ClassName]	= itmData;
+						myLstCnt				= myLstCnt + 1;
 						fUpd = (fUpd or (oldData == nil) or (oldData.Guid ~= itmData.Guid) or (oldData.Count ~= itmData.Count));
 					end
 				end
