@@ -1,4 +1,4 @@
---[[
+--[[tpwarp
 	日本語
 --]]
 local g0 = GetTpUtil();
@@ -19,6 +19,7 @@ g9.Stg = g9.Stg or {
 	MainUIShowPartyOut	= true,
 	MainUIShowQuest		= true,
 	MainUIShowEscItm	= true,
+	MainUIShowUnique	= true,
 	MainUIShowBack		= false,
 	MainUIShowShop		= false,
 
@@ -45,6 +46,7 @@ g9.tblSort = g9.tblSort or {
 	{name="MainUIShowParty",	comm="メインUIのパーティー履歴を表示する"},
 	{name="MainUIShowPartyOut",	comm="メインUIのパーティー脱退を表示する"},
 	{name="MainUIShowQuest",	comm="メインUIのクエストワープを表示する"},
+	{name="MainUIShowUnique",	comm="メインUIのユニークレイドを表示する"},
 	{name="MainUIShowEscItm",	comm="メインUIの帰還石を表示する"},
 	{name="MainUIShowBack",		comm="メインUIの戻るを表示する"},
 	{name="MainUIShowShop",		comm="メインUIにTPショップを表示する　(マップの下に置く時用)"},
@@ -66,7 +68,7 @@ g9.tblSort = g9.tblSort or {
 local tblSort = g9.tblSort;
 
 function TPWARP_ON_INIT(adn, frame)
-	adn:RegisterMsg("GAME_START", "TPWARP_GAME_START");
+	adn:RegisterMsg("TPUTIL_START", "TPWARP_GAME_START");
 	adn:RegisterMsg("TPUTIL_PTYUPD", "TPWARP_PTYUPD");
 	adn:RegisterMsg("TPUTIL_QSTUPD", "TPWARP_QSTUPD");
 	frame:SetEventScript(ui.LBUTTONUP, "TPWARP_LBUTTONUP");
@@ -75,6 +77,7 @@ function TPWARP_ON_INIT(adn, frame)
 	g9.frH = 32;
 	g9.qsH = 0;
 	g9.ptH = 0;
+	g9.exH = 0;
 end
 
 function TPWARP_LBUTTONUP()
@@ -102,11 +105,46 @@ function g9.UiStart(frame, control)
 	g9.frH = frm:GetHeight();
 	g9.qsH = 0;
 	g9.ptH = 0;
+	g9.exH = 0;
+
+	if(g0.MapIsIndun) then
+		local gb = frm:CreateOrGetControl("groupbox", "gbback", 430, 2, 40, 28);
+		gb:SetSkinName("skin_white");
+		gb:SetColorTone("C0000000");
+		gb:EnableHitTest(1);
+		gb:SetEventScript(ui.LBUTTONUP, "TPWARP_BTN_BACK");
+		local rt = gb:CreateOrGetControl("richtext", "rtback",2,0,36,28);
+		rt = tolua.cast(rt, "ui::CRichText");	-- ui::CObject を ui::CRichTextにキャスト
+		rt:SetFontName("white_16_ol");
+		rt:EnableResizeByText(0);	-- CRichTextでないと使えない
+		rt:SetTextFixWidth(0);		-- CRichTextでないと使えない
+		rt:EnableSplitBySpace(0);	-- CRichTextでないと使えない
+		rt:EnableHitTest(0);
+		rt:SetText("Back");
+		if(s9.MainUIShowBack) then
+			gb:ShowWindow(1);
+		else
+			gb:ShowWindow(0);
+		end
+	end
+	if(g0.MapIsCity) then
+		local btn = frm:CreateOrGetControl("button", "btnshop", 430, 2, 30, 28);
+		btn = tolua.cast(btn, "ui::CButton");
+		btn:SetImage("steam_shop2_btn");
+		btn:SetEventScript(ui.LBUTTONUP, "MINIMIZED_TP_BUTTON_CLICK");
+		btn:Resize(30, 28);
+		if(s9.MainUIShowShop) then
+			btn:ShowWindow(1);
+		else
+			btn:ShowWindow(0);
+		end
+	end
 
 	frm:MoveFrame(s9.MainUIPosX	,s9.MainUIPosY);
-	g9.SetQuestWarp();
-	g9.SetPartyLink();
-	frm:Resize(frm:GetWidth(),g9.frH + g9.qsH + g9.ptH );
+	g0.PCL(g9.SetUnqNItm);
+	g0.PCL(g9.SetQuestWarp);
+	g0.PCL(g9.SetPartyLink);
+	frm:Resize(frm:GetWidth(),g9.frH + g9.qsH + g9.ptH + g9.exH);
 end
 
 function TPWARP_QSTUPD(frame, msg, str, num)
@@ -134,7 +172,7 @@ function g9.SetQuestWarp()
 		end
 		
 		local posL = 3 + (qsCol *42) +(math.floor(qsCol/3)*5);
-		local posH = g9.frH + (qsRow *30);
+		local posH = g9.frH + g9.exH + (qsRow *30);
 		
 		local gb = frm:CreateOrGetControl("groupbox", "qgb"..i, posL, posH, 40, 28);
 		gb:SetSkinName("skin_white");
@@ -202,27 +240,82 @@ function g9.PtyUpd(frame, msg, str, num)
 	--CHAT_SYSTEM("g9.PtyUpd 2");
 
 	if (gPty.Now.PtId == s9.LastPtId1) then
-		s9.LastPtId1 = gPty.Now.PtId;
-		s9.LastPtNm1 = gPty.Now.PtNm;
-		s9.LastPtLd1 = gPty.Now.LdNm;
+		if (gPty.Now.MmCt>1) then
+			s9.LastPtId1 = gPty.Now.PtId;
+			s9.LastPtNm1 = gPty.Now.PtNm;
+			s9.LastPtLd1 = gPty.Now.LdNm;
+		else
+			s9.LastPtId1 = s9.LastPtId2;
+			s9.LastPtNm1 = s9.LastPtNm2;
+			s9.LastPtLd1 = s9.LastPtLd2;
+			s9.LastPtId2 = s9.LastPtId3;
+			s9.LastPtNm2 = s9.LastPtNm3;
+			s9.LastPtLd2 = s9.LastPtLd3;
+			s9.LastPtId3 = s9.LastPtId4;
+			s9.LastPtNm3 = s9.LastPtNm4;
+			s9.LastPtLd3 = s9.LastPtLd4;
+			s9.LastPtId4 = "";
+			s9.LastPtNm4 = "";
+			s9.LastPtLd4 = "";
+		end
 	elseif (gPty.Now.PtId == s9.LastPtId2) then
-		s9.LastPtId2 = s9.LastPtId1;
-		s9.LastPtNm2 = s9.LastPtNm1;
-		s9.LastPtLd2 = s9.LastPtLd1;
-		s9.LastPtId1 = gPty.Now.PtId;
-		s9.LastPtNm1 = gPty.Now.PtNm;
-		s9.LastPtLd1 = gPty.Now.LdNm;
+		if (gPty.Now.MmCt>1) then
+			s9.LastPtId2 = s9.LastPtId1;
+			s9.LastPtNm2 = s9.LastPtNm1;
+			s9.LastPtLd2 = s9.LastPtLd1;
+			s9.LastPtId1 = gPty.Now.PtId;
+			s9.LastPtNm1 = gPty.Now.PtNm;
+			s9.LastPtLd1 = gPty.Now.LdNm;
+		else
+			s9.LastPtId2 = s9.LastPtId3;
+			s9.LastPtNm2 = s9.LastPtNm3;
+			s9.LastPtLd2 = s9.LastPtLd3;
+			s9.LastPtId3 = s9.LastPtId4;
+			s9.LastPtNm3 = s9.LastPtNm4;
+			s9.LastPtLd3 = s9.LastPtLd4;
+			s9.LastPtId4 = "";
+			s9.LastPtNm4 = "";
+			s9.LastPtLd4 = "";
+		end
 	elseif (gPty.Now.PtId == s9.LastPtId3) then
-		s9.LastPtId3 = s9.LastPtId2;
-		s9.LastPtNm3 = s9.LastPtNm2;
-		s9.LastPtLd3 = s9.LastPtLd2;
-		s9.LastPtId2 = s9.LastPtId1;
-		s9.LastPtNm2 = s9.LastPtNm1;
-		s9.LastPtLd2 = s9.LastPtLd1;
-		s9.LastPtId1 = gPty.Now.PtId;
-		s9.LastPtNm1 = gPty.Now.PtNm;
-		s9.LastPtLd1 = gPty.Now.LdNm;
-	else
+		if (gPty.Now.MmCt>1) then
+			s9.LastPtId3 = s9.LastPtId2;
+			s9.LastPtNm3 = s9.LastPtNm2;
+			s9.LastPtLd3 = s9.LastPtLd2;
+			s9.LastPtId2 = s9.LastPtId1;
+			s9.LastPtNm2 = s9.LastPtNm1;
+			s9.LastPtLd2 = s9.LastPtLd1;
+			s9.LastPtId1 = gPty.Now.PtId;
+			s9.LastPtNm1 = gPty.Now.PtNm;
+			s9.LastPtLd1 = gPty.Now.LdNm;
+		else
+			s9.LastPtId3 = s9.LastPtId4;
+			s9.LastPtNm3 = s9.LastPtNm4;
+			s9.LastPtLd3 = s9.LastPtLd4;
+			s9.LastPtId4 = "";
+			s9.LastPtNm4 = "";
+			s9.LastPtLd4 = "";
+		end
+	elseif (gPty.Now.PtId == s9.LastPtId4) then
+		if (gPty.Now.MmCt>1) then
+			s9.LastPtId4 = s9.LastPtId3;
+			s9.LastPtNm4 = s9.LastPtNm3;
+			s9.LastPtLd4 = s9.LastPtLd3;
+			s9.LastPtId3 = s9.LastPtId2;
+			s9.LastPtNm3 = s9.LastPtNm2;
+			s9.LastPtLd3 = s9.LastPtLd2;
+			s9.LastPtId2 = s9.LastPtId1;
+			s9.LastPtNm2 = s9.LastPtNm1;
+			s9.LastPtLd2 = s9.LastPtLd1;
+			s9.LastPtId1 = gPty.Now.PtId;
+			s9.LastPtNm1 = gPty.Now.PtNm;
+			s9.LastPtLd1 = gPty.Now.LdNm;
+		else
+			s9.LastPtId4 = "";
+			s9.LastPtNm4 = "";
+			s9.LastPtLd4 = "";
+		end
+	elseif (gPty.Now.MmCt>1) then
 		s9.LastPtId4 = s9.LastPtId3;
 		s9.LastPtNm4 = s9.LastPtNm3;
 		s9.LastPtLd4 = s9.LastPtLd3;
@@ -253,7 +346,7 @@ function g9.SetPartyLink()
 	local i = 0;
 	g9.ptH = 30;
 
-	local gb = frm:CreateOrGetControl("groupbox", "pgbo", 477, g9.frH + g9.qsH, 40, 28);
+	local gb = frm:CreateOrGetControl("groupbox", "pgbo", 477, g9.frH + g9.qsH + g9.exH, 40, 28);
 	gb:SetSkinName("skin_white");
 	gb:SetColorTone("C0000000");
 	gb:EnableHitTest(1);
@@ -277,7 +370,7 @@ function g9.SetPartyLink()
 		local ptNm = s9["LastPtNm"..i];
 		local ptLd = s9["LastPtLd"..i];
 		local posL = 3 + ((i-1) *110);
-		local posH = g9.frH + g9.qsH;
+		local posH = g9.frH + g9.qsH + g9.exH;
 
 		local gb = frm:CreateOrGetControl("groupbox", "pgb"..i, posL, posH, 105, 28);
 		gb:SetSkinName("skin_white");
@@ -292,7 +385,7 @@ function g9.SetPartyLink()
 			gb:EnableHitTest(1);
 			gb:SetEventScript(ui.LBUTTONUP, "TPWARP_BTN_PARTY");
 		end
-		
+
 		local rt = gb:CreateOrGetControl("richtext", "prt"..i,2,0,100,28);
 		rt = tolua.cast(rt, "ui::CRichText");	-- ui::CObject を ui::CRichTextにキャスト
 		rt:SetFontName("white_12_ol");
@@ -356,12 +449,147 @@ function g9.SetCampLink()
 end
 
 
-function TPWARP_BTN_PARTYOUT(frame, ctrl, argStr, argNum)
-	OUT_PARTY();
+function g9.SetUnqNItm()
+	if (s9.MainUIShowUnique ~= true) and (s9.MainUIShowEscItm ~= true) then
+		return;
+	end
+	local frm	= ui.GetFrame("tpwarp");
+	if (frm == nil) then
+		return;
+	end
+	g9.exH = 30;
+	local posH = g9.frH;
+	if (s9.MainUIShowUnique == true) then
+		local i = 0;
+		for i = 1, #gQst.LstUniq do
+			local uniq = gQst.LstUniq[i];
+			local posL = 2 + ((i-1) *42);
+
+			local gb = frm:CreateOrGetControl("groupbox", "ugb"..i, posL, posH, 40, 28);
+			gb:SetSkinName("skin_white");
+			gb:SetColorTone("C0000000");
+			gb:EnableHitTest(1);
+			gb:SetEventScript(ui.LBUTTONUP, "TPWARP_BTN_UNIQUE");
+
+			local rt = gb:CreateOrGetControl("richtext", "urt"..i,2,0,36,28);
+			rt = tolua.cast(rt, "ui::CRichText");	-- ui::CObject を ui::CRichTextにキャスト
+			rt:SetFontName("white_12_ol");
+			rt:EnableResizeByText(0);	-- CRichTextでないと使えない
+			rt:SetTextFixWidth(0);		-- CRichTextでないと使えない
+			rt:EnableSplitBySpace(0);	-- CRichTextでないと使えない
+			rt:EnableHitTest(0);
+			rt:SetText(uniq.mName.."{nl}"..uniq.Name);
+
+			gb:ShowWindow(1);
+		end
+	end
+	if (s9.MainUIShowEscItm == true) then
+		local posL = 422;
+		g9.SetItem2Slot(frm, posL, posH,"Escape_Orb", "sltitm1", "TPWARP_BTN_ITM1")
+		local posL = 422+32;
+		g9.SetItem2Slot(frm, posL, posH,"EscapeStone_Klaipeda", "sltitm2", "TPWARP_BTN_ITM2")
+		local posL = 422+64;
+		g9.SetItem2Slot(frm, posL, posH,"EscapeStone_Orsha", "sltitm3", "TPWARP_BTN_ITM3")
+	end
 end
 
+function g9.SetItem2Slot(parent, posL, posH, itmName, sltName, fncName)
+	local slt = parent:CreateOrGetControl("slot", sltName, posL, posH, 30, 28);
+	slt = tolua.cast(slt, "ui::CSlot");
+	local itm = gInv.MyLst[itmName];
+	if(itm~=nil) then
+		local icn = CreateIcon(slt);
+		local invItem = session.GetInvItemByGuid(itm.Guid) or session.GetInvItemByType(itm.Name);
+		if(invItem~=nil) then
+			SET_SLOT_ITEM_IMAGE(slt, invItem);
+			SET_SLOT_ITEM_TEXT(slt, invItem, GetClassByType("Item",invItem.type));
+			CreateIcon(slt):SetColorTone("FFFFFFFF");
+			slt:EnableDrag(0);
+			slt:EnableDrop(0);
+			slt:SetEventScript(ui.LBUTTONUP, fncName);
+			slt:SetEventScript(ui.RBUTTONUP, fncName);
+			ICON_SET_ITEM_COOLDOWN(icn, invItem.type);
+			slt:ShowWindow(1);
+		else
+			slt:ShowWindow(0);
+		end
+	else
+		slt:ShowWindow(0);
+	end
+end
+
+function TPWARP_BTN_UNIQUE(frame, ctrl, argStr, argNum)
+	if(g0.IsRightShow()) then
+		return;
+	end
+	if(os.clock()<(g9.lastclck or 0)+3) then
+		return;
+	end
+	g9.lastclck = os.clock();
+	local i = tonumber(string.sub(ctrl:GetName(), 4));
+	local uniq = gQst.LstUniq[i];
+	control.CustomCommand('MOVE_TO_ENTER_NPC', uniq.ClsID, 0, 0);
+end
+
+function TPWARP_BTN_ITM1(frame, ctrl, argStr, argNum)
+	if(g0.IsRightShow()) then
+		return;
+	end
+	if(os.clock()<(g9.lastclck or 0)+3) then
+		return;
+	end
+	g9.lastclck = os.clock();
+	local itm = gInv.MyLst["Escape_Orb"];
+	if(itm~=nil) then
+		local invItem = GET_PC_ITEM_BY_GUID(itm.Guid);
+		if(invItem~=nil) then
+			INV_ICON_USE(invItem);
+		end
+	end
+end
+
+function TPWARP_BTN_ITM2(frame, ctrl, argStr, argNum)
+	if(g0.IsRightShow()) then
+		return;
+	end
+	if(os.clock()<(g9.lastclck or 0)+3) then
+		return;
+	end
+	g9.lastclck = os.clock();
+	local itm = gInv.MyLst["EscapeStone_Klaipeda"];
+	if(itm~=nil) then
+		local invItem = GET_PC_ITEM_BY_GUID(itm.Guid);
+		if(invItem~=nil) then
+			INV_ICON_USE(invItem);
+		end
+	end
+end
+
+function TPWARP_BTN_ITM3(frame, ctrl, argStr, argNum)
+	if(g0.IsRightShow()) then
+		return;
+	end
+	if(os.clock()<(g9.lastclck or 0)+3) then
+		return;
+	end
+	g9.lastclck = os.clock();
+	local itm = gInv.MyLst["EscapeStone_Orsha"];
+	if(itm~=nil) then
+		local invItem = GET_PC_ITEM_BY_GUID(itm.Guid);
+		if(invItem~=nil) then
+			INV_ICON_USE(invItem);
+		end
+	end
+end
 
 function TPWARP_BTN_CAMP(frame, ctrl, argStr, argNum)
+	if(g0.IsRightShow()) then
+		return;
+	end
+	if(os.clock()<(g9.lastclck or 0)+3) then
+		return;
+	end
+	g9.lastclck = os.clock();
 	--	CHAT_SYSTEM("TPWARP_BTN_CAMP"..ctrl:GetName());
 	if (IS_IN_EVENT_MAP() == true)
 	or (session.colonywar.GetIsColonyWarMap() == true)
@@ -373,7 +601,15 @@ function TPWARP_BTN_CAMP(frame, ctrl, argStr, argNum)
 	local camp = gPty.LstCmp[i];
 	session.party.RequestMoveToCamp(camp.OnrId);
 end
+
 function TPWARP_BTN_PARTY(frame, ctrl, argStr, argNum)
+	if(g0.IsRightShow()) then
+		return;
+	end
+	if(os.clock()<(g9.lastclck or 0)+3) then
+		return;
+	end
+	g9.lastclck = os.clock();
 	--	CHAT_SYSTEM("TPWARP_BTN_PARTY"..ctrl:GetName());
 	local i = tonumber(string.sub(ctrl:GetName(), 4));
 	local ptId = s9["LastPtId"..i];
@@ -385,9 +621,39 @@ function TPWARP_BTN_PARTY(frame, ctrl, argStr, argNum)
 		party.JoinPartyByLink(0, ptId);
 	end
 end
+
+function TPWARP_BTN_PARTYOUT(frame, ctrl, argStr, argNum)
+	if(g0.IsRightShow()) then
+		return;
+	end
+	if(os.clock()<(g9.lastclck or 0)+3) then
+		return;
+	end
+	OUT_PARTY();
+end
+
 function TPWARP_BTN_QUEST(frame, ctrl, argStr, argNum)
+	if(g0.IsRightShow()) then
+		return;
+	end
+	if(os.clock()<(g9.lastclck or 0)+3) then
+		return;
+	end
+	g9.lastclck = os.clock();
 	--	CHAT_SYSTEM("TPWARP_BTN_QUEST"..ctrl:GetName());
 	local i = tonumber(string.sub(ctrl:GetName(), 4));
 	local qData = gQst.LstWarp[i];
 	QUESTION_QUEST_WARP(frame, ctrl, argStr, qData.qCId);
+end
+
+function TPWARP_BTN_BACK(frame, ctrl, argStr, argNum)
+	if(g0.IsRightShow()) then
+		return;
+	end
+	if(os.clock()<(g9.lastclck or 0)+3) then
+		return;
+	end
+	g9.lastclck = os.clock();
+	--	CHAT_SYSTEM("TPWARP_BTN_BACK"..ctrl:GetName());
+	packet.ReqReturnOriginServer();
 end

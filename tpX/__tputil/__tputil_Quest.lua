@@ -1,4 +1,4 @@
---[[
+--[[__tputil_Quest.lua
 	日本語
 	関数群を保存している
 --]]
@@ -11,6 +11,26 @@ local gQst = g0.Quest;
 
 function TPUTIL_QUEST_UPDATE(frame, msg, argStr, questID)
 	g0.PCL(gQst.GetQuest);
+end
+function gQst.GetUniq()
+	gQst.LstUniq ={
+		{CName="Indun_whitetrees"},
+		{CName="M_Past_FantasyLibrary_1"},
+		{CName="Indun_Nicopolis_uniqe_raid"},
+		{CName="Indun_Bracken_uniqe_raid"},
+		{CName="Indun_StarTower_uniqe_raid"},
+		{CName="Unique_Raid_boss_Skiaclipse"},
+		{CName="Unique_Raid_boss_Moringponia"},
+	};
+	for k, v in pairs(gQst.LstUniq) do
+		local indunCls	= GetClass("Indun", v.CName);
+		v.ClsID			= indunCls.ClassID;
+		v.Name			= indunCls.Name;
+		v.mCName		= indunCls.StartMap;
+		local mapProp	= geMapTable.GetMapProp(v.mCName);
+		local mName		= mapProp:GetName();
+		v.mName			= dictionary.ReplaceDicIDInCompStr(mName);
+	end
 end
 function gQst.GetQuest()
 	local clsList, cnt = GetClassList("QuestProgressCheck");

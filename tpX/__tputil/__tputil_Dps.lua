@@ -1,4 +1,4 @@
---[[
+--[[__tputil_Dps.lua
 	日本語
 	関数群を保存している
 --]]
@@ -15,7 +15,7 @@ gDps.fEnb = false;
 function gDps.MapInit()
 	gDps.fUse = (gDps.fEnb and (g0.MapIsCity==false) and (g0.MapIsPvp==false));
 	if(gDps.fUse) then
-		session.dps.SendStartDpsMsg();
+		session.dps.ReqStartDpsPacket();
 	end;
 end
 function gDps.MapEnd()
@@ -31,7 +31,7 @@ function gDps.MapEnd()
 	gDps.InfoLast		= 0;
 	gDps.fUse = ((g0.MapIsCity==false) and (g0.MapIsPvp==false));
 	if(gDps.fUse) then
-		session.dps.SendStartDpsMsg();
+		session.dps.ReqStartDpsPacket();
 	end;
 end
 
