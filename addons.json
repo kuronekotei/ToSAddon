@@ -56,7 +56,7 @@
         "fileVersion" : "v2.1.1",
         "releaseTag" : "tpfarm2",
         "unicode" : "🐈",
-        "description" : "ドロップおよび戦闘ダメージを集計します。動作にtpUtilが必要です。　旧tpFarmedはアンインストールしてください。　注意!!フィールドで金床をたたかないで下さい。",
+        "description" : "ドロップおよび戦闘ダメージを集計します。動作にtpUtilが必要です。　旧tpFarmedはアンインストールしてください。",
         "tags" : [ "chat,dps" ]
     },
     {
@@ -98,6 +98,16 @@
         "unicode" : "✉",
         "description" : "クエストワープが列挙されたり、PTリンクが保存されます。",
         "tags" : [ "chat" ]
+    },
+    {
+        "name" : "tpWarp2",
+        "file" : "tpwarp",
+        "extension" : "ipf",
+        "fileVersion" : "v2.0.0",
+        "releaseTag" : "tpwarp2",
+        "unicode" : "🐈",
+        "description" : "クエストワープが列挙されたり、PTリンクが保存されます。動作にtpUtilが必要です。　旧tpWarpはアンインストールしてください。",
+        "tags" : [ "quest","party" ]
     },
     {
         "name" : "tpChannelDropFix",
