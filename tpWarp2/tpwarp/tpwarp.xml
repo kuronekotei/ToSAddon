@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uiframe name="tpwarp" x="0" y="0" width="520" height="32">
+<uiframe name="tpwarp" x="0" y="0" width="520" height="34">
  	<frame title="tpwarp" snapclient="true" snapframe="true" layout_gravity="left top" margin="400 400 0 0"/>
 	<draw drawframe="true" drawtitlebar="false" blend="95"/>
 	<input hittest="true" moveable="true" moveintitlebar="false" hittestframe="true"/>
