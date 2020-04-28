@@ -101,7 +101,7 @@
     },
     {
         "name" : "tpWarp2",
-        "file" : "tpwarp",
+        "file" : "tpwarp2",
         "extension" : "ipf",
         "fileVersion" : "v2.0.0",
         "releaseTag" : "tpwarp2",
