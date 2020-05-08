@@ -43,7 +43,7 @@ function g7.TPJOYEXT_LOAD_SETTING()
 end
 
 function g7.TPJOYEXT_SAVE_SETTING()
-	local filep = io.open(g7.settingPath,"w+");
+    local filep = io.open(g7.settingPath, "w+");
 	if filep then
 		filep:write("{\n");
 		filep:write("\t\"isDebug\":"		.. ((s7.isDebug			and "true") or "false")	.."\n"	);
@@ -80,68 +80,59 @@ function JOYSTICK_QUICKSLOT_EXECUTE(slotIndex)
 		return;
 	end
 	
-	if (input_L1 == 1) and (input_R1 == 1) and (input_L1 == 1) and (input_L2 == 1) and (s7.isOverRide) then
-		--CHAT_SYSTEM("ON_L1R1");
-		if	(slotIndex == 2)	or(slotIndex == 6)	or(slotIndex == 14)	or(slotIndex == 18) then	-- △
-			ON_RIDING_VEHICLE(1);
-		elseif(slotIndex == 0)	or(slotIndex == 4)	or(slotIndex == 12)	or(slotIndex == 16) then	-- □
 
-		elseif(slotIndex == 1)	or(slotIndex == 5)	or(slotIndex == 13)	or(slotIndex == 17) then	-- ○
 
-		elseif(slotIndex == 3)	or(slotIndex == 7)	or(slotIndex == 15)	or(slotIndex == 19) then	-- ×
-			ON_RIDING_VEHICLE(0);
-		end
-		return;
-	elseif input_L1 == 1 and input_R1 == 1 then
-		--CHAT_SYSTEM("ON_L1R1");
-		if	slotIndex == 2	or slotIndex == 14 then	-- △
+	local offset=0
+	if input_L1 == 1 and input_L2 ==0 and input_R1 == 1 and input_R2 ==0 then
+			
+		if	slotIndex == 2  or slotIndex == 14 then
 			slotIndex = 10
-		elseif	slotIndex == 0	or slotIndex == 12 then
+		elseif	slotIndex == 0  or slotIndex == 12 then
 			slotIndex = 8
-		elseif	slotIndex == 1	or slotIndex == 13 then
+		elseif	slotIndex == 1  or slotIndex == 13 then
 			slotIndex = 9
-		elseif	slotIndex == 3	or slotIndex == 15 then
+		elseif	slotIndex == 3  or slotIndex == 15 then
 			slotIndex = 11
 		end
-	elseif input_L1 == 1 and input_L2 == 1 then
-		--CHAT_SYSTEM("ON_L1L2");
-		if	slotIndex == 2	or slotIndex == 6 then
-			slotIndex = 22
-		elseif	slotIndex == 0	or slotIndex == 4 then
-			slotIndex = 20
-		elseif	slotIndex == 1	or slotIndex == 5 then
-			slotIndex = 21
-		elseif	slotIndex == 3	or slotIndex == 7 then
-			slotIndex = 23
+	end
+	if input_L1 == 0 and input_L2 ==1 and input_R1 == 0 and input_R2 == 1 then
+		if	slotIndex == 2  or slotIndex == 14 then
+			slotIndex = 10
+		elseif	slotIndex == 0  or slotIndex == 12 then
+			slotIndex = 8
+		elseif	slotIndex == 1  or slotIndex == 13 then
+			slotIndex = 9
+		elseif	slotIndex == 3  or slotIndex == 15 then
+			slotIndex = 11
 		end
-	elseif input_L2 == 1 and input_R2 == 1 then
-		--CHAT_SYSTEM("ON_L2R2");
-		if	slotIndex == 6	or slotIndex == 18 then
-			slotIndex = 30
-		elseif	slotIndex == 4	or slotIndex == 16 then
-			slotIndex = 28
-		elseif	slotIndex == 5	or slotIndex == 17 then
-			slotIndex = 29
-		elseif	slotIndex == 7	or slotIndex == 19 then
-			slotIndex = 31
+		offset=20+4
 		end
-	elseif input_R1 == 1 and input_R2 == 1 then
-		--CHAT_SYSTEM("ON_R1R2");
-		if	slotIndex == 14	or slotIndex == 18 then
-			slotIndex = 34
-		elseif	slotIndex == 12	or slotIndex == 16 then
-			slotIndex = 32
-		elseif	slotIndex == 13	or slotIndex == 17 then
-			slotIndex = 33
-		elseif	slotIndex == 15	or slotIndex == 19 then
-			slotIndex = 35
+
+	if input_L1 == 0 and input_L2 == 1 and input_R1 == 1 and input_R2 == 0 then
+		offset=20
 		end
+
+	if input_L1 == 1 and input_L2 == 0 and input_R1 == 0 and input_R2 == 1 then
+		offset=20+12
+		end
+
+	if input_L1 == 0 and input_L2 == 0 and input_R1 == 1 and input_R2 == 1 then
+		offset=20+4
+		end
+	--stp=stp+4
+	if input_L1 == 1 and input_L2 == 1 and input_R1 == 0 and input_R2 == 0 then
+		offset=20
 
 	end
 	 
+    slotIndex=slotIndex+offset
+
+    local slot = quickSlotFrame:GetChildRecursively("slot" .. slotIndex + 1);
 	local quickslotFrame = ui.GetFrame('joystickquickslot');
-	local slot = quickslotFrame:GetChildRecursively("slot"..slotIndex+1);
-	QUICKSLOTNEXPBAR_SLOT_USE(quickSlotFrame, slot, 'None', 0);	
+
+
+	QUICKSLOTNEXPBAR_SLOT_USE(quickslotFrame, slot, 'None', 0);
+
 end
 
 function UPDATE_JOYSTICK_INPUT(frame)
@@ -169,52 +160,64 @@ function UPDATE_JOYSTICK_INPUT(frame)
 	local gboxR1 = frame:GetChildRecursively("R1_slot_Set1");
 	local gboxL2 = frame:GetChildRecursively("L2_slot_Set1");
 	local gboxR2 = frame:GetChildRecursively("R2_slot_Set1");
-	local gboxL1L2 = frame:GetChildRecursively("L1_slot_Set2");
-	local gboxR1R2 = frame:GetChildRecursively("R1_slot_Set2");
+    local gboxL1L2 = frame:GetChildRecursively("L1L2_slot_Set2");
+    local gboxL2R1 = frame:GetChildRecursively("L2R1_slot_Set2");
+    local gboxL2R2 = frame:GetChildRecursively("L2R2_slot_Set2");
+    local gboxL1R2 = frame:GetChildRecursively("L1R2_slot_Set2");
+    local gboxR1R2 = frame:GetChildRecursively("R1R2_slot_Set2");
 	local gboxL1R1 = frame:GetChildRecursively("L1R1_slot_Set1");
-	local gboxL2R2 = frame:GetChildRecursively("L1R1_slot_Set2");
 
-	if input_L1 == 1 and input_R1 == 0 and input_L2 == 0 then
+    if input_L1 == 1 and input_R1 == 0 and input_L2 == 0 and input_R2 == 0 then
 		gboxL1:SetSkinName(padslot_onskin);
 	else
 		gboxL1:SetSkinName(padslot_offskin);
 	end
-	if input_R1 == 1 and input_L1 == 0 and input_R2 == 0 then
+    if input_L1 == 0 and input_R1 == 1 and input_L2 == 0 and input_R2 == 0 then
 		gboxR1:SetSkinName(padslot_onskin);
 	else
 		gboxR1:SetSkinName(padslot_offskin);
 	end
-	if input_L2 == 1 and input_R2 == 0 and input_L1 == 0 then
+    if input_L1 == 0 and input_R2 == 0 and input_L2 == 1 and input_R1 == 0 then
 		gboxL2:SetSkinName(padslot_onskin);
 	else
 		gboxL2:SetSkinName(padslot_offskin);
 	end
-	if input_R2 == 1 and input_L2 == 0 and input_R1 == 0 then
+    if input_L1 == 0 and input_L2 == 0 and input_R1 == 0 and input_R2 == 1 then
 		gboxR2:SetSkinName(padslot_onskin);
 	else
 		gboxR2:SetSkinName(padslot_offskin);
 	end
-	if input_L1 == 1 and input_L2 == 1 and input_R1 == 0 and input_R2 == 0 then
+    if input_L1 == 0 and input_L2 == 1 and input_R1 == 1 and input_R2 == 0 then
+        gboxL2R1:SetSkinName(padslot_onskin);
+    else
+        gboxL2R1:SetSkinName(padslot_offskin);
+    end
+    
+    if input_L1 == 1 and input_R1 == 0 and input_L2 == 0 and input_R2 == 1 then
+        gboxL1R2:SetSkinName(padslot_onskin);
+    else
+        gboxL1R2:SetSkinName(padslot_offskin);
+    end
+    if input_L2 == 1 and input_R2 == 1 and input_L1 == 0 and input_R1 == 0 then
+        gboxL2R2:SetSkinName(padslot_onskin);
+    else
+        gboxL2R2:SetSkinName(padslot_offskin);
+    end
+    if input_L2 == 1 and input_R2 == 0 and input_L1 == 1 and input_R1 == 0 then
 		gboxL1L2:SetSkinName(padslot_onskin);
 	else
 		gboxL1L2:SetSkinName(padslot_offskin);
 	end
-	if input_R1 == 1 and input_R2 == 1 and input_L1 == 0 and input_L2 == 0 then
-		gboxR1R2:SetSkinName(padslot_onskin);
-	else
-		gboxR1R2:SetSkinName(padslot_offskin);
-	end
-	if input_L1 == 1 and input_R1 == 1 and input_L2 == 0 and input_R2 == 0 then
+    if input_L2 == 0 and input_R2 == 0 and input_L1 == 1 and input_R1 == 1 then
 		gboxL1R1:SetSkinName(padslot_onskin);
 	else
 		gboxL1R1:SetSkinName(padslot_offskin);
 	end
-	if input_L2 == 1 and input_R2 == 1 and input_L1 == 0 and input_R1 == 0 then
-		gboxL2R2:SetSkinName(padslot_onskin);
+    if input_R1 == 1 and input_R2 == 1 and input_L1 == 0 and input_L2 == 0 then
+        gboxR1R2:SetSkinName(padslot_onskin);
 	else
-		gboxL2R2:SetSkinName(padslot_offskin);
+        gboxR1R2:SetSkinName(padslot_offskin);
 	end
-
 end
 
 function JOYSTICK_QUICKSLOT_SWAP(test)
