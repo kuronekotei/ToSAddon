@@ -46,7 +46,7 @@ function __TPUTIL_ON_INIT(adn, frame)
 		g0.PCL(gExp.Init);
 	end
 	g0.PCL(g0.CmnWinInit);
-	gMBx.Init();
+	g0.PCL(gMBx.Init);
 	g0.fInit = true;
 end
 function TPUTIL_GAME_START(frame, control)
@@ -94,8 +94,8 @@ function g0.TpUtilStart()
 	end
 	--	マップ名の取得
 	local mapName = mapProp:GetName();
-	g0.PCL(gExp.MapEnd,(g0.CharName == charName);
-	g0.PCL(gPck.MapEnd,(g0.CharName == charName);
+	g0.PCL(gExp.MapEnd,(g0.CharName == charName));
+	g0.PCL(gPck.MapEnd,(g0.CharName == charName));
 	g0.PCL(gDps.MapEnd);
 	if (g0.CharName ~= charName)then
 		--	キャラ変更時
