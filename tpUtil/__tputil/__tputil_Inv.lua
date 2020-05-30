@@ -11,6 +11,8 @@ local gInv = g0.Inv;
 
 gInv.MyLst ={};
 gInv.SearchTgt ={};
+gInv.SearchTgt["Dispeller_1"] = 1;
+gInv.SearchTgt["Bujeok_1"] = 1;
 gInv.SearchTgt["EscapeStone_Orsha"] = 1;
 gInv.SearchTgt["EscapeStone_Klaipeda"] = 1;
 gInv.SearchTgt["Escape_Orb"] = 1;
