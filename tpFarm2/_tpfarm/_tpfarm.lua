@@ -1,4 +1,4 @@
---[[
+--[[_tpfarm
 	日本語
 --]]
 local g0 = GetTpUtil();
