@@ -19,6 +19,7 @@ g0.Quest	= g0.Quest	or {};
 g0.Char		= g0.Char	or {};
 g0.Party	= g0.Party	or {};
 g0.Inv		= g0.Inv	or {};
+g0.MBox		= g0.MBox	or {};
 
 local gExp = g0.Exp;
 local gPop = g0.Pop;
@@ -29,7 +30,7 @@ local gQst = g0.Quest;
 local gChr = g0.Char;
 local gPty = g0.Party;
 local gInv = g0.Inv;
-
+local gMBx = g0.MBox;
 
 function __TPUTIL_ON_INIT(adn, frame)
 	adn:RegisterMsg("GAME_START", "TPUTIL_GAME_START");
@@ -45,6 +46,7 @@ function __TPUTIL_ON_INIT(adn, frame)
 		g0.PCL(gExp.Init);
 	end
 	g0.PCL(g0.CmnWinInit);
+	g0.PCL(gMBx.Init);
 	g0.fInit = true;
 end
 function TPUTIL_GAME_START(frame, control)
@@ -77,12 +79,12 @@ function g0.TpUtilStart()
 	g0.MapIsIndun	= session.world.IsDungeon();
 	g0.MapId		= session.GetMapID();
 	g0.MapLv		= mapCls.QuestLevel;
-	gDps.MapInit();
-	gPop.MapInit();
-	gInv.MakeLst();
-	gQst.GetUniq();
-	gQst.GetQuest();
-	gPty.GetParty();
+	g0.PCL(gDps.MapInit);
+	g0.PCL(gPop.MapInit);
+	g0.PCL(gInv.MakeLst);
+	g0.PCL(gQst.GetUniq);
+	g0.PCL(gQst.GetQuest);
+	g0.PCL(gPty.GetParty);
 	if (g0.MapCode == mapCode) and (g0.CharName == charName) then
 		--	マップもキャラも一緒の時・・・イベントだけ登録
 		g0.Event("TPUTIL_START", g0.MapCode ,0);
@@ -92,9 +94,9 @@ function g0.TpUtilStart()
 	end
 	--	マップ名の取得
 	local mapName = mapProp:GetName();
-	gExp.MapEnd(g0.CharName == charName);
-	gPck.MapEnd(g0.CharName == charName);
-	gDps.MapEnd();
+	g0.PCL(gExp.MapEnd,(g0.CharName == charName));
+	g0.PCL(gPck.MapEnd,(g0.CharName == charName));
+	g0.PCL(gDps.MapEnd);
 	if (g0.CharName ~= charName)then
 		--	キャラ変更時
 		g0.Event("TPUTIL_CHARCHANGE", charName ,0);
@@ -140,10 +142,10 @@ function g0.ClockWork()
 		end
 		gClk.Table["X1"] = {};
 	end
-	gExp.Clock(f10);
-	gPck.Clock(f10);
-	gPop.Clock(f10);
-	gDps.Clock(f10);
+	g0.PCL(gExp.Clock,f10);
+	g0.PCL(gPck.Clock,f10);
+	g0.PCL(gPop.Clock,f10);
+	g0.PCL(gDps.Clock,f10);
 	if (f10) then
 		g0.Event("TPUTIL_CLOCKWORK", "", gClk.LastClock);
 	end

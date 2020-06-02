@@ -225,6 +225,17 @@ end
 
 
 
+
+
+
+function tbn(tbl)
+	local n = 0;
+	for _ in pairs (tbl) do
+		n = n + 1;
+	end
+	return n;
+end
+
 function g0.DumpObj(obj,name,lvl)
 	lvl = lvl or 0;
 	if(lvl>3)then

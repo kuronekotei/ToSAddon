@@ -64,18 +64,21 @@ function gDps.Clock(f10)
 			dps.Name	= dictionary.ReplaceDicIDInCompStr(dps.Name);
 			if(dps.Name:find("!@#")~=nil)then
 				dps.Name	= dictionary.ReplaceDicIDInCompStr(dps.Name);
+				if(dps.Name:find("!@#")~=nil)then
+					dps.Name	= dictionary.ReplaceDicIDInCompStr(dps.Name);
+				end
 			end
 		end
 		dps.Time	= g0.lpn2s(time.wMonth,2).."/"..g0.lpn2s(time.wDay,2).." "..g0.lpn2s(time.wHour,2)..":"..g0.zpn2s(time.wMinute,2)..":"..g0.zpn2s(time.wSecond,2).."."..g0.zpn2s(time.wMilliseconds,3);
-		dps.Dmg		= tonumber(info:GetStrDamage());
+		dps.Dmg		= tonumber(info:GetStrDamage()) +0.0;
 		local skl	= GetClassByType('Skill', info:GetSkillID()) or {};
 		dps.Skill	= dictionary.ReplaceDicIDInCompStr(skl.Name or "");
-		gDps.MapDmg				= (gDps.MapDmg or 0) + dps.Dmg;
-		gClk.Table["X1"].Dmg	= (gClk.Table["X1"].Dmg or 0) + dps.Dmg;
-		gDps.PerMns[dps.Name]		= (gDps.PerMns[dps.Name] or 0) + dps.Dmg;
-		gDps.PerSkl[dps.Skill]		= (gDps.PerSkl[dps.Skill] or 0) + dps.Dmg;
+		gDps.MapDmg				= (gDps.MapDmg or 0.0) +0.0 + dps.Dmg;
+		gClk.Table["X1"].Dmg	= (gClk.Table["X1"].Dmg or 0.0) +0.0 + dps.Dmg;
+		gDps.PerMns[dps.Name]		= (gDps.PerMns[dps.Name] or 0.0) +0.0 + dps.Dmg;
+		gDps.PerSkl[dps.Skill]		= (gDps.PerSkl[dps.Skill] or 0.0) +0.0 + dps.Dmg;
 		gDps.PerCrs[dps.Name]		= gDps.PerCrs[dps.Name] or {};
-		gDps.PerCrs[dps.Name][dps.Skill]	= (gDps.PerCrs[dps.Name][dps.Skill] or 0) + dps.Dmg;
+		gDps.PerCrs[dps.Name][dps.Skill]	= (gDps.PerCrs[dps.Name][dps.Skill] or 0.0) +0.0 + dps.Dmg;
 		--CHAT_SYSTEM("D ".. g0.lpn2s(i,3).." "..g0.rpmb(dps.Name,24).." "..g0.lpn2s(dps.Dmg,8).." "..g0.rpmb(dps.Skill,24).." "..dps.Time);
 	end
 	gDps.InfoLen = session.dps.Get_allDpsInfoSize();
