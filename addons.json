@@ -73,10 +73,10 @@
         "name" : "tpJoyExt",
         "file" : "tpjoyext",
         "extension" : "ipf",
-        "fileVersion" : "v0.2.0",
+        "fileVersion" : "v0.2.1",
         "releaseTag" : "tpjoyext",
         "unicode" : "✉",
-        "description" : "ジョイスティックの入力を拡張します。",
+        "description" : "ジョイスティックの入力を拡張します。動作にtpUtilが必要です。",
         "tags" : [ "joystick","controller","shortcut","skill" ]
     },
     {

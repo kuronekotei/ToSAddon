@@ -34,6 +34,9 @@ function TPJOYEXT_ON_INIT(adn, frame)
 	adn:RegisterMsg("TPUTIL_START", "TPJOYEXT_GAME_START");
 	g0.PCL(g0.LoadStg,_NAME_,s7.StgPath,s7);
 	g0.PCL(g0.SaveStg,_NAME_,s7.StgPath,s7,StgTbl);
+	if (s7.MsgBoxOK2) then
+		s7.MsgBoxOK2 = false;
+	end
 end
 
 function TPJOYEXT_GAME_START(frame)
@@ -71,7 +74,11 @@ function JOYSTICK_QUICKSLOT_EXECUTE(slotIndex)
 
 	local fourkey=slotIndex % 4;
 	local offset=slotIndex - fourkey;
-	if (input_L1 == 1) and (input_R1 == 1) and (input_L1 == 1) and (input_L2 == 1) then	-- L1R1L2R2
+
+	local keyset=(input_L1*1) +(input_R1*2) +(input_L2*4) +(input_R2*8);
+
+
+	if (keyset == 15) then	-- L1R1L2R2
 		--CHAT_SYSTEM("ON_L1R1");
 		if	(fourkey == 2) then	-- △
 			if (s7.RideOverRide) then
@@ -83,38 +90,45 @@ function JOYSTICK_QUICKSLOT_EXECUTE(slotIndex)
 				ON_RIDING_VEHICLE(0);
 			end
 		elseif(fourkey == 3) then	-- 〇
+			if (s7.MsgBoxOK2) and gMBx.CheckMsg() then
+				gMBx.BtnOK();
+			end
 		end
 		return;
 	end
-
-	if s7.MsgBoxOK2 and input_L1 == 1 and input_L2 == 1 and input_R1 == 1 and input_R2 == 1 and fourkey == 3 then	-- R1R2〇
-		if gMBx.CheckMsg() then	-- R1R2〇
-			gMBx.BtnOK();
-			return;
-		end
-	elseif s7.MsgBoxOK1 and input_L1 == 0 and input_L2 == 0 and input_R1 == 1 and input_R2 == 1 and fourkey == 3 then	-- R1R2〇
-		if gMBx.CheckMsg() then	-- R1R2〇
-			gMBx.BtnOK();
-			return;
-		end
+	if (keyset == 7) then	-- L1R1L2
+		return;
+	end
+	if (keyset == 11) then	-- L1R1R2
+		return;
+	end
+	if (keyset == 13) then	-- L1L2R2
+		return;
+	end
+	if (keyset == 14) then	-- R1L2R2
+		return;
 	end
 
-	if input_L1 == 1 and input_L2 == 0 and input_R1 == 1 and input_R2 == 0 then	-- L1R1
+	if (keyset == 3) then	-- L1R1
 		offset = 8;
 	end
-	if input_L1 == 1 and input_L2 == 1 and input_R1 == 0 and input_R2 == 0 then	-- L1L2
+	if (keyset == 5) then	-- L1L2
 		offset = 20;
 	end
-	if input_L1 == 0 and input_L2 == 1 and input_R1 == 1 and input_R2 == 0 then	-- L2R1
+	if (keyset == 6) then	-- L2R1
 		offset = 20+4;
 	end
-	if input_L1 == 0 and input_L2 == 1 and input_R1 == 0 and input_R2 == 1 then	-- L2R2
+	if (keyset == 12) then	-- L2R2
 		offset = 20+8;
 	end
-	if input_L1 == 0 and input_L2 == 0 and input_R1 == 1 and input_R2 == 1 then	-- R1R2
+	if (keyset == 10) then	-- R1R2
+		if (s7.MsgBoxOK1) and gMBx.CheckMsg() then
+			gMBx.BtnOK();
+			return;
+		end
 		offset = 20+12;
 	end
-	if input_L1 == 1 and input_L2 == 0 and input_R1 == 0 and input_R2 == 1 then	-- L1R2
+	if (keyset == 9) then	-- L1R2
 		offset = 20+16;
 	end
 
@@ -147,68 +161,30 @@ function UPDATE_JOYSTICK_INPUT(frame)
 			ON_RIDING_VEHICLE(0)
 		end
 	end
+	local keyset=(input_L1*1) +(input_R1*2) +(input_L2*4) +(input_R2*8);
 
 	local gboxL1 = frame:GetChildRecursively("L1_slot_Set1");
 	local gboxR1 = frame:GetChildRecursively("R1_slot_Set1");
 	local gboxL2 = frame:GetChildRecursively("L2_slot_Set1");
 	local gboxR2 = frame:GetChildRecursively("R2_slot_Set1");
+	local gboxL1R1 = frame:GetChildRecursively("L1R1_slot_Set1");
 	local gboxL1L2 = frame:GetChildRecursively("L1L2_slot_Set2");
 	local gboxL2R1 = frame:GetChildRecursively("L2R1_slot_Set2");
 	local gboxL2R2 = frame:GetChildRecursively("L2R2_slot_Set2");
 	local gboxL1R2 = frame:GetChildRecursively("L1R2_slot_Set2");
 	local gboxR1R2 = frame:GetChildRecursively("R1R2_slot_Set2");
-	local gboxL1R1 = frame:GetChildRecursively("L1R1_slot_Set1");
 
-	if input_L1 == 1 and input_R1 == 0 and input_L2 == 0 and input_R2 == 0 then
-		gboxL1:SetSkinName(padslot_onskin);
-	else
-		gboxL1:SetSkinName(padslot_offskin);
-	end
-	if input_L1 == 0 and input_R1 == 1 and input_L2 == 0 and input_R2 == 0 then
-		gboxR1:SetSkinName(padslot_onskin);
-	else
-		gboxR1:SetSkinName(padslot_offskin);
-	end
-	if input_L1 == 0 and input_R2 == 0 and input_L2 == 1 and input_R1 == 0 then
-		gboxL2:SetSkinName(padslot_onskin);
-	else
-		gboxL2:SetSkinName(padslot_offskin);
-	end
-	if input_L1 == 0 and input_L2 == 0 and input_R1 == 0 and input_R2 == 1 then
-		gboxR2:SetSkinName(padslot_onskin);
-	else
-		gboxR2:SetSkinName(padslot_offskin);
-	end
-	if input_L1 == 0 and input_L2 == 1 and input_R1 == 1 and input_R2 == 0 then
-		gboxL2R1:SetSkinName(padslot_onskin);
-	else
-		gboxL2R1:SetSkinName(padslot_offskin);
-	end
-	if input_L1 == 1 and input_R1 == 0 and input_L2 == 0 and input_R2 == 1 then
-		gboxL1R2:SetSkinName(padslot_onskin);
-	else
-		gboxL1R2:SetSkinName(padslot_offskin);
-	end
-	if input_L2 == 1 and input_R2 == 1 and input_L1 == 0 and input_R1 == 0 then
-		gboxL2R2:SetSkinName(padslot_onskin);
-	else
-		gboxL2R2:SetSkinName(padslot_offskin);
-	end
-	if input_L2 == 1 and input_R2 == 0 and input_L1 == 1 and input_R1 == 0 then
-		gboxL1L2:SetSkinName(padslot_onskin);
-	else
-		gboxL1L2:SetSkinName(padslot_offskin);
-	end
-	if input_L2 == 0 and input_R2 == 0 and input_L1 == 1 and input_R1 == 1 then
-		gboxL1R1:SetSkinName(padslot_onskin);
-	else
-		gboxL1R1:SetSkinName(padslot_offskin);
-	end
-	if input_R1 == 1 and input_R2 == 1 and input_L1 == 0 and input_L2 == 0 then
-		gboxR1R2:SetSkinName(padslot_onskin);
-	else
-		gboxR1R2:SetSkinName(padslot_offskin);
-	end
+	gboxL1  :SetSkinName(((keyset== 1) and padslot_onskin) or padslot_offskin);	--	L1
+	gboxL2  :SetSkinName(((keyset== 4) and padslot_onskin) or padslot_offskin);	--	L2
+	gboxL1R1:SetSkinName(((keyset== 3) and padslot_onskin) or padslot_offskin);	--	L1R1
+	gboxR1  :SetSkinName(((keyset== 2) and padslot_onskin) or padslot_offskin);	--	R1
+	gboxR2  :SetSkinName(((keyset== 8) and padslot_onskin) or padslot_offskin);	--	R2
+	gboxL1L2:SetSkinName(((keyset== 5) and padslot_onskin) or padslot_offskin);	--	L1L2
+	gboxL2R1:SetSkinName(((keyset== 6) and padslot_onskin) or padslot_offskin);	--	L2R1
+	gboxL2R2:SetSkinName(((keyset==12) and padslot_onskin) or padslot_offskin);	--	L2R2
+	gboxL1R2:SetSkinName(((keyset== 9) and padslot_onskin) or padslot_offskin);	--	L1R2
+	gboxR1R2:SetSkinName(((keyset==10) and padslot_onskin) or padslot_offskin);	--	R1R2
+
 end
 
 function JOYSTICK_QUICKSLOT_SWAP(test)
