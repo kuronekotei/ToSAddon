@@ -38,6 +38,8 @@ function gPck.Clock(f10)	--	f10:bool 10秒に1回true;
 	
 	end
 	gClk.Table["X1"].MoneyX = gPck.NowMoney - gClk.Table["X1"].MoneyS;
+	gClk.Table["Z1"].MoneyX = gPck.NowMoney - (gPck.LstMoney or gPck.StartMoney);
+	gPck.LstMoney	= gPck.NowMoney;
 end
 
 function TPUTIL_ITEM_IN(frame, msg, guid, num)

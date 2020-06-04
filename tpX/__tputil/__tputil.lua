@@ -142,6 +142,13 @@ function g0.ClockWork()
 		end
 		gClk.Table["X1"] = {};
 	end
+	if (1==1) then
+		local i = 0;
+		for i=1, 29 do
+			gClk.Table["Z"..(31-i)] = (gClk.Table["Z"..(30-i)] or {});
+		end
+		gClk.Table["Z1"] = {};
+	end
 	g0.PCL(gExp.Clock,f10);
 	g0.PCL(gPck.Clock,f10);
 	g0.PCL(gPop.Clock,f10);

@@ -200,6 +200,8 @@ function gExp.Clock(f10)	--	f10:bool 10秒に1回true;
 		end
 	
 	end
-	gClk.Table["X1"].expBX  = gExp.NowBExp - gClk.Table["X1"].expBS;
-	gClk.Table["X1"].expCX  = gExp.NowCExp - gClk.Table["X1"].expCS;
+	gClk.Table["X1"].expBX	= gExp.NowBExp - gClk.Table["X1"].expBS;
+	gClk.Table["X1"].expCX	= gExp.NowCExp - gClk.Table["X1"].expCS;
+	gClk.Table["Z1"].expBX	= gExp.NowBExp - (gClk.Table["Z2"].expBX or gExp.NowBExp);
+	gClk.Table["Z1"].expCX	= gExp.NowCExp - (gClk.Table["Z2"].expCX or gExp.NowCExp);
 end

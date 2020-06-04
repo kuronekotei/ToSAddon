@@ -73,13 +73,19 @@ function gDps.Clock(f10)
 		dps.Dmg		= tonumber(info:GetStrDamage()) +0.0;
 		local skl	= GetClassByType('Skill', info:GetSkillID()) or {};
 		dps.Skill	= dictionary.ReplaceDicIDInCompStr(skl.Name or "");
-		gDps.MapDmg				= (gDps.MapDmg or 0.0) +0.0 + dps.Dmg;
-		gClk.Table["X1"].Dmg	= (gClk.Table["X1"].Dmg or 0.0) +0.0 + dps.Dmg;
-		gDps.PerMns[dps.Name]		= (gDps.PerMns[dps.Name] or 0.0) +0.0 + dps.Dmg;
-		gDps.PerSkl[dps.Skill]		= (gDps.PerSkl[dps.Skill] or 0.0) +0.0 + dps.Dmg;
-		gDps.PerCrs[dps.Name]		= gDps.PerCrs[dps.Name] or {};
-		gDps.PerCrs[dps.Name][dps.Skill]	= (gDps.PerCrs[dps.Name][dps.Skill] or 0.0) +0.0 + dps.Dmg;
-		--CHAT_SYSTEM("D ".. g0.lpn2s(i,3).." "..g0.rpmb(dps.Name,24).." "..g0.lpn2s(dps.Dmg,8).." "..g0.rpmb(dps.Skill,24).." "..dps.Time);
+		if(skl.ClassName ~= nil) and((dps.Skill=="攻撃") or (dps.Skill=="基本") or (dps.Skill=="基本攻撃")) then
+			dps.Skill = dps.Skill.." ["..(skl.ClassName:gsub("Mon_pc_summon_boss_","XX_")).."]";
+		end
+		if(dps.Dmg ~= 0) then
+			gDps.MapDmg					= (gDps.MapDmg or 0.0) +0.0 + dps.Dmg;
+			gClk.Table["X1"].Dmg		= (gClk.Table["X1"].Dmg or 0.0) +0.0 + dps.Dmg;
+			gClk.Table["Z1"].Dmg		= (gClk.Table["Z1"].Dmg or 0.0) +0.0 + dps.Dmg;
+			gDps.PerMns[dps.Name]		= (gDps.PerMns[dps.Name] or 0.0) +0.0 + dps.Dmg;
+			gDps.PerSkl[dps.Skill]		= (gDps.PerSkl[dps.Skill] or 0.0) +0.0 + dps.Dmg;
+			gDps.PerCrs[dps.Name]		= gDps.PerCrs[dps.Name] or {};
+			gDps.PerCrs[dps.Name][dps.Skill]	= (gDps.PerCrs[dps.Name][dps.Skill] or 0.0) +0.0 + dps.Dmg;
+			--CHAT_SYSTEM("D ".. g0.lpn2s(i,3).." "..g0.rpmb(dps.Name,24).." "..g0.lpn2s(dps.Dmg,8).." "..g0.rpmb(dps.Skill,24).." "..dps.Time);
+		end
 	end
 	gDps.InfoLen = session.dps.Get_allDpsInfoSize();
 	if(gDps.InfoLast ~= 0) and(gDps.InfoLast == gDps.InfoLen) then
