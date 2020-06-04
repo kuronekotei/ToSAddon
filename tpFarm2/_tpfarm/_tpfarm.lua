@@ -199,13 +199,33 @@ function g4.MapEnd(frame, msg, argStr, argNum)
 		CHAT_SYSTEM(s4.MsgMapEndSlv:format(g0.lpn2s(gPck.MapMoney,15)));
 	end 
 	if(s4.FlgMapEndDpsM) then
+		local lstSrt = {};
 		for k,v in pairs(gDps.MapPerMns) do
-			CHAT_SYSTEM(s4.MsgMapEndDpsM:format(g0.rpmb(k,32),g0.lpn2s(v,15)));
+			local xItm ={};
+			xItm.nam = k;
+			xItm.val = v;
+			lstSrt[#lstSrt +1] =xItm;
+		end
+		table.sort(lstSrt, function(a,b) return (a.val > b.val) end );
+		local lstTxt = {};
+		for k,v in pairs(lstSrt) do
+			lstTxt[#lstTxt +1] = "{#FFFFC0}"..g0.rpmb(v.nam,32)..":"..g0.lpn2s(v.val,15).."{/}";
+			CHAT_SYSTEM(s4.MsgMapEndDpsM:format(g0.rpmb(v.nam,32),g0.lpn2s(v.val,15)));
 		end
 	end 
 	if(s4.FlgMapEndDpsS) then
+		local lstSrt = {};
 		for k,v in pairs(gDps.MapPerSkl) do
-			CHAT_SYSTEM(s4.MsgMapEndDpsS:format(g0.rpmb(k,32),g0.lpn2s(v,15)));
+			local xItm ={};
+			xItm.nam = k;
+			xItm.val = v;
+			lstSrt[#lstSrt +1] =xItm;
+		end
+		table.sort(lstSrt, function(a,b) return (a.val > b.val) end );
+		local lstTxt = {};
+		for k,v in pairs(lstSrt) do
+			lstTxt[#lstTxt +1] = "{#FFFFC0}"..g0.rpmb(v.nam,32)..":"..g0.lpn2s(v.val,15).."{/}";
+			CHAT_SYSTEM(s4.MsgMapEndDpsS:format(g0.rpmb(v.nam,32),g0.lpn2s(v.val,15)));
 		end
 	end 
 end
@@ -305,16 +325,13 @@ function g4.UiUpd(frame, msg, argStr, argNum)
 	end
 	local strpop ="POP:"..g0.lpn2s(gPop.NowPop,3).."/"..g0.lpn2s(gPop.MaxPop,3);
 
-	local tim = math.min(gClk.LastClock ,50)+gClk.TimeSec;
-	if(tim<01) then
-		tim = 1;
-	end
+	local tim = 10;
 	local dmg =0;
 	local slv =0;
 	local i = 0;
-	for i=1, 6 do
-		dmg = dmg + (gClk.Table["X"..i].Dmg or 0);
-		slv = slv + (gClk.Table["X"..i].MoneyX or 0);
+	for i=1, tim do
+		dmg = dmg + (gClk.Table["Z"..i].Dmg or 0);
+		slv = slv + (gClk.Table["Z"..i].MoneyX or 0);
 	end
 	local d_1 = g0.n2sk(dmg/tim,11);
 	local s_1 = g0.n2sk(slv/tim,11);
@@ -409,26 +426,59 @@ function g4.UiUpd(frame, msg, argStr, argNum)
 	end
 
 	if(s4.SubDpsShow and gDps.fUse ) then
-		if(s4.SubDpsMode == "Mon") then
-			local lstTxt = {};
+		if(s4.SubDpsMode == "Mon") and (gDps.PerMns~=nil) then
+			local lstSrt = {};
 			for k,v in pairs(gDps.PerMns) do
-				lstTxt[#lstTxt +1] = "{#FFFFC0}"..g0.rpmb(k,40)..":"..g0.lpn2s(v,15).."{/}";
+				local xItm ={};
+				xItm.nam = k;
+				xItm.val = v;
+				lstSrt[#lstSrt +1] =xItm;
+			end
+			table.sort(lstSrt, function(a,b) return (a.val > b.val) end );
+			local lstTxt = {};
+			for k,v in pairs(lstSrt) do
+				lstTxt[#lstTxt +1] = "{#FFFFC0}"..g0.rpmb(v.nam,40)..":"..g0.lpn2s(v.val,15).."{/}";
 			end
 			g0.CmnWinUpdate("tpfarm_dps" , lstTxt);
 		end
-		if(s4.SubDpsMode == "Skl") then
-			local lstTxt = {};
+		if(s4.SubDpsMode == "Skl") and (gDps.PerSkl~=nil) then
+			local lstSrt = {};
 			for k,v in pairs(gDps.PerSkl) do
-				lstTxt[#lstTxt +1] = "{#FFFFC0}"..g0.rpmb(k,32)..":"..g0.lpn2s(v,15).."{/}";
+				local xItm ={};
+				xItm.nam = k;
+				xItm.val = v;
+				lstSrt[#lstSrt +1] =xItm;
+			end
+			table.sort(lstSrt, function(a,b) return (a.val > b.val) end );
+			local lstTxt = {};
+			for k,v in pairs(lstSrt) do
+				lstTxt[#lstTxt +1] = "{#FFFFC0}"..g0.rpmb(v.nam,32)..":"..g0.lpn2s(v.val,15).."{/}";
 			end
 			g0.CmnWinUpdate("tpfarm_dps" , lstTxt);
 		end
-		if(s4.SubDpsMode == "Crs") then
-			local lstTxt = {};
+		if(s4.SubDpsMode == "Crs") and (gDps.PerCrs~=nil) then
+			local lstSrt = {};
+			local monnum = 0;
 			for k,v in pairs(gDps.PerCrs) do
+				monnum = monnum +1;
 				for k2,v2 in pairs(v) do
-					lstTxt[#lstTxt +1] = "{#FFFFC0}{s10}"..g0.rpmb(k,40).." > "..g0.rpmb(k2,32)..":"..g0.lpn2s(v2,15).."{/}{/}";
+					local xItm ={};
+					xItm.num = monnum;
+					xItm.mon = k;
+					xItm.skl = k2;
+					xItm.val = v2;
+					lstSrt[#lstSrt +1] =xItm;
 				end
+			end
+			table.sort(lstSrt,
+					function(a,b)
+						if(a.num ~= b.num) then return (a.num < b.num) end
+						return (a.val > b.val);
+					end
+				);
+			local lstTxt = {};
+			for k,v in pairs(lstSrt) do
+				lstTxt[#lstTxt +1] = "{#FFFFC0}{s10}"..g0.rpmb(v.mon,40).." > "..g0.rpmb(v.skl,32)..":"..g0.lpn2s(v.val,15).."{/}{/}";
 			end
 			g0.CmnWinUpdate("tpfarm_dps" , lstTxt);
 		end
