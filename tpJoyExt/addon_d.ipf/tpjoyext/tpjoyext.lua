@@ -50,10 +50,13 @@ end
 
 function JOYSTICK_QUICKSLOT_EXECUTE(slotIndex)
 	local quickFrame = ui.GetFrame('joystickquickslot')
-	if quickFrame ~= nil and quickFrame:IsVisible() == 0 then
+	if (quickFrame ~= nil) and (quickFrame:IsVisible() == 0) then
 		local monsterquickslot = ui.GetFrame('monsterquickslot');
-		if monsterquickslot ~= nil and monsterquickslot:IsVisible() == 1 then
-			quickFrame = monsterquickslot;
+		if (monsterquickslot ~= nil) and (monsterquickslot:IsVisible() == 1) then
+			local slot = monsterquickslot:GetChildRecursively("slot" .. slotIndex + 1);
+			QUICKSLOTNEXPBAR_SLOT_USE(monsterquickslot, slot, "None", 0);
+			CHAT_SYSTEM("QUICKSLOTNEXPBAR_SLOT_USE  ".."slot" .. (slotIndex + 1));
+			return;
 		end
 	end
 
