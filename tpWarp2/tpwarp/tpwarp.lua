@@ -35,6 +35,12 @@ g9.Stg = g9.Stg or {
 	LastPtId4		= "";
 	LastPtNm4		= "";
 	LastPtLd4		= "";
+	LastPtId5		= "";
+	LastPtNm5		= "";
+	LastPtLd5		= "";
+	LastPtId6		= "";
+	LastPtNm6		= "";
+	LastPtLd6		= "";
 };
 local s9 = g9.Stg;
 g9.tblSort = g9.tblSort or {
@@ -64,6 +70,12 @@ g9.tblSort = g9.tblSort or {
 	{name="LastPtId4",			comm=""},
 	{name="LastPtNm4",			comm=""},
 	{name="LastPtLd4",			comm=""},
+	{name="LastPtId5",			comm=""},
+	{name="LastPtNm5",			comm=""},
+	{name="LastPtLd5",			comm=""},
+	{name="LastPtId6",			comm=""},
+	{name="LastPtNm6",			comm=""},
+	{name="LastPtLd6",			comm=""},
 }
 local tblSort = g9.tblSort;
 
@@ -152,6 +164,9 @@ function TPWARP_QSTUPD(frame, msg, str, num)
 end
 
 function g9.SetQuestWarp()
+	if (s9.MainUIShowQuest ~= true) then
+		return;
+	end
 	local frm	= ui.GetFrame("tpwarp");
 	if (frm == nil) then
 		return;
@@ -170,10 +185,10 @@ function g9.SetQuestWarp()
 			qsCol = 0;
 			qsRow = qsRow + 1;
 		end
-		
+
 		local posL = 3 + (qsCol *42) +(math.floor(qsCol/3)*5);
 		local posH = g9.frH + g9.exH + (qsRow *30);
-		
+
 		local gb = frm:CreateOrGetControl("groupbox", "qgb"..i, posL, posH, 40, 28);
 		gb:SetSkinName("skin_white");
 		if(qData.mCName == "c_Klaipe") then
@@ -204,7 +219,7 @@ function g9.SetQuestWarp()
 			clr ="{#80FF80}";
 		end
 		rt:SetText(clr..qData.mName.."{nl}"..qData.nName);
-		
+
 		--	CHAT_SYSTEM(qData.mName.." /"..qData.nName.." /"..qData.mLv.." /"..qData.qCId);
 	end
 	g9.qsH = (qsRow+1) *30;
@@ -225,111 +240,41 @@ function TPWARP_PTYUPD(frame, msg, str, num)
 	g0.PCL(g9.SetCampLink, frame, msg, str, num);
 end
 function g9.PtyUpd(frame, msg, str, num)
-	if (gPty.Now.PtId == nil) or (gPty.Now.PtId == "") then
+	if (gPty.PtId == nil) or (gPty.PtId == "") or (gPty.MmCt<1) then
 		return;
 	end
 	--CHAT_SYSTEM("g9.PtyUpd 1");
-	if g0.MapIsPvp then
-		--CHAT_SYSTEM("g9.PtyUpd g0.MapIsPvp");
-		return;
-	end
-	if g0.MapIsIndun then
-		--CHAT_SYSTEM("g9.PtyUpd g0.MapIsIndun");
+	if g0.MapIsPvp or g0.MapIsIndun or g0.MapIsMatch then
 		return;
 	end
 	--CHAT_SYSTEM("g9.PtyUpd 2");
 
-	if (gPty.Now.PtId == s9.LastPtId1) then
-		if (gPty.Now.MmCt>1) then
-			s9.LastPtId1 = gPty.Now.PtId;
-			s9.LastPtNm1 = gPty.Now.PtNm;
-			s9.LastPtLd1 = gPty.Now.LdNm;
-		else
-			s9.LastPtId1 = s9.LastPtId2;
-			s9.LastPtNm1 = s9.LastPtNm2;
-			s9.LastPtLd1 = s9.LastPtLd2;
-			s9.LastPtId2 = s9.LastPtId3;
-			s9.LastPtNm2 = s9.LastPtNm3;
-			s9.LastPtLd2 = s9.LastPtLd3;
-			s9.LastPtId3 = s9.LastPtId4;
-			s9.LastPtNm3 = s9.LastPtNm4;
-			s9.LastPtLd3 = s9.LastPtLd4;
-			s9.LastPtId4 = "";
-			s9.LastPtNm4 = "";
-			s9.LastPtLd4 = "";
+	for i = 1, 6 do
+		if (gPty.PtId == s9["LastPtId"..i]) then
+			if (gPty.MmCt>1) then
+				if(i>1)then
+					for j = i, 2, -1 do
+						s9["LastPtId"..j] = s9["LastPtId"..(j-1)];
+						s9["LastPtNm"..j] = s9["LastPtNm"..(j-1)];
+						s9["LastPtLd"..j] = s9["LastPtLd"..(j-1)];
+					end
+				end
+				s9.LastPtId1 = gPty.PtId;
+				s9.LastPtNm1 = gPty.PtNm;
+				s9.LastPtLd1 = gPty.LdNm;
+			else
+				for j = i, 5 do
+					s9["LastPtId"..j] = s9["LastPtId"..(j+1)];
+					s9["LastPtNm"..j] = s9["LastPtNm"..(j+1)];
+					s9["LastPtLd"..j] = s9["LastPtLd"..(j+1)];
+				end
+				s9.LastPtId6 = "";
+				s9.LastPtNm6 = "";
+				s9.LastPtLd6 = "";
+			end
+			break;
 		end
-	elseif (gPty.Now.PtId == s9.LastPtId2) then
-		if (gPty.Now.MmCt>1) then
-			s9.LastPtId2 = s9.LastPtId1;
-			s9.LastPtNm2 = s9.LastPtNm1;
-			s9.LastPtLd2 = s9.LastPtLd1;
-			s9.LastPtId1 = gPty.Now.PtId;
-			s9.LastPtNm1 = gPty.Now.PtNm;
-			s9.LastPtLd1 = gPty.Now.LdNm;
-		else
-			s9.LastPtId2 = s9.LastPtId3;
-			s9.LastPtNm2 = s9.LastPtNm3;
-			s9.LastPtLd2 = s9.LastPtLd3;
-			s9.LastPtId3 = s9.LastPtId4;
-			s9.LastPtNm3 = s9.LastPtNm4;
-			s9.LastPtLd3 = s9.LastPtLd4;
-			s9.LastPtId4 = "";
-			s9.LastPtNm4 = "";
-			s9.LastPtLd4 = "";
-		end
-	elseif (gPty.Now.PtId == s9.LastPtId3) then
-		if (gPty.Now.MmCt>1) then
-			s9.LastPtId3 = s9.LastPtId2;
-			s9.LastPtNm3 = s9.LastPtNm2;
-			s9.LastPtLd3 = s9.LastPtLd2;
-			s9.LastPtId2 = s9.LastPtId1;
-			s9.LastPtNm2 = s9.LastPtNm1;
-			s9.LastPtLd2 = s9.LastPtLd1;
-			s9.LastPtId1 = gPty.Now.PtId;
-			s9.LastPtNm1 = gPty.Now.PtNm;
-			s9.LastPtLd1 = gPty.Now.LdNm;
-		else
-			s9.LastPtId3 = s9.LastPtId4;
-			s9.LastPtNm3 = s9.LastPtNm4;
-			s9.LastPtLd3 = s9.LastPtLd4;
-			s9.LastPtId4 = "";
-			s9.LastPtNm4 = "";
-			s9.LastPtLd4 = "";
-		end
-	elseif (gPty.Now.PtId == s9.LastPtId4) then
-		if (gPty.Now.MmCt>1) then
-			s9.LastPtId4 = s9.LastPtId3;
-			s9.LastPtNm4 = s9.LastPtNm3;
-			s9.LastPtLd4 = s9.LastPtLd3;
-			s9.LastPtId3 = s9.LastPtId2;
-			s9.LastPtNm3 = s9.LastPtNm2;
-			s9.LastPtLd3 = s9.LastPtLd2;
-			s9.LastPtId2 = s9.LastPtId1;
-			s9.LastPtNm2 = s9.LastPtNm1;
-			s9.LastPtLd2 = s9.LastPtLd1;
-			s9.LastPtId1 = gPty.Now.PtId;
-			s9.LastPtNm1 = gPty.Now.PtNm;
-			s9.LastPtLd1 = gPty.Now.LdNm;
-		else
-			s9.LastPtId4 = "";
-			s9.LastPtNm4 = "";
-			s9.LastPtLd4 = "";
-		end
-	elseif (gPty.Now.MmCt>1) then
-		s9.LastPtId4 = s9.LastPtId3;
-		s9.LastPtNm4 = s9.LastPtNm3;
-		s9.LastPtLd4 = s9.LastPtLd3;
-		s9.LastPtId3 = s9.LastPtId2;
-		s9.LastPtNm3 = s9.LastPtNm2;
-		s9.LastPtLd3 = s9.LastPtLd2;
-		s9.LastPtId2 = s9.LastPtId1;
-		s9.LastPtNm2 = s9.LastPtNm1;
-		s9.LastPtLd2 = s9.LastPtLd1;
-		s9.LastPtId1 = gPty.Now.PtId;
-		s9.LastPtNm1 = gPty.Now.PtNm;
-		s9.LastPtLd1 = gPty.Now.LdNm;
 	end
-
 	g0.PCL(g0.SaveStg,_NAME_,g9.StgPath,s9,tblSort);
 end
 
@@ -341,8 +286,10 @@ function g9.SetPartyLink()
 	if (frm == nil) then
 		return;
 	end
-	gPty.Now = gPty.Now or {};
-	local fPty = ((gPty.Now.PtId ~= nil) and (gPty.Now.PtId ~= ""));
+	local fPty = ((gPty.PtId ~= nil) and (gPty.PtId ~= ""));
+	if g0.MapIsPvp or g0.MapIsIndun or g0.MapIsMatch then
+		fPty = false;
+	end
 	local i = 0;
 	g9.ptH = 30;
 
@@ -374,7 +321,7 @@ function g9.SetPartyLink()
 
 		local gb = frm:CreateOrGetControl("groupbox", "pgb"..i, posL, posH, 105, 28);
 		gb:SetSkinName("skin_white");
-		if(ptId == gPty.Now.PtId) then
+		if(ptId == gPty.PtId) then
 			gb:SetColorTone("60FFFFFF");
 			gb:EnableHitTest(0);
 		elseif(fPty) then
@@ -528,7 +475,7 @@ function TPWARP_BTN_UNIQUE(frame, ctrl, argStr, argNum)
 	g9.lastclck = os.clock();
 	local i = tonumber(string.sub(ctrl:GetName(), 4));
 	local uniq = gQst.LstUniq[i];
-	control.CustomCommand('MOVE_TO_ENTER_NPC', uniq.ClsID, 0, 0);
+	control.CustomCommand('MOVE_TO_ENTER_NPC', uniq.ClsID, uniq.ClsTyp, 0);
 end
 
 function TPWARP_BTN_ITM1(frame, ctrl, argStr, argNum)
