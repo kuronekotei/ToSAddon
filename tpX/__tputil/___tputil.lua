@@ -316,22 +316,22 @@ function g0.s(obj)
 		return "";
 	end
 	local typ	= type(obj);
-	if (typ == "string" ) then 
+	if (typ == "string" ) then
 		return obj;
 	end
-	if (typ == "boolean") then 
+	if (typ == "boolean") then
 		return((obj and "true") or "false");
 	end
-	if (typ == "number") then 
+	if (typ == "number") then
 		return ""..obj;
 	end
-	if (typ == "table") then 
+	if (typ == "table") then
 		return "_["..#obj.."]";
 	end
-	if (typ == "function") then 
+	if (typ == "function") then
 		return "_function_";
 	end
-	if (typ == "userdata") then 
+	if (typ == "userdata") then
 		return "_userdata_";
 	end
 end
@@ -414,9 +414,24 @@ function g0.sec2hms(sec)	--	秒を半角9文字に成型		__0:00:00
 end
 
 
-function g0.FileExists(name)
-	local f=io.open(name,"r")
+function g0.FileExists(path)
+	local f=io.open(path,"r")
 	if f~=nil then io.close(f) return true else return false end
+end
+function g0.FileSave(path,str)
+	local filep = io.open(path,"w+");
+	if filep then
+		filep:write(str);
+		filep:close();
+	end
+end
+function g0.FileExec(path)
+	local f,m = pcall(dofile,path);
+	if (f ~= true) then
+		CHAT_SYSTEM(m);
+		return;
+	end
+	return m;
 end
 
 

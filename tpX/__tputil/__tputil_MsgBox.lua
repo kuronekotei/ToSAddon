@@ -15,7 +15,11 @@ end
 function ui.MsgBox(msgStr, yesScp,noScp)
 	gMBx.LstMsg = gMBx.LstMsg or {};
 
-	if(yesScp ~= nil and yesScp ~= "None" and yesScp:match("^.+%(.*%)$")==nil)then
+	if (yesScp == nil) or (yesScp == "") or (yesScp == "None") then
+		local msgbox = gMBx.MsgBox(msgStr, yesScp, noScp);
+		return msgbox;
+	end
+	if (yesScp:match("^.+%(.*%)$")==nil) then
 		yesScp = yesScp .."()"
 	end
 	gMBx.LastId = (gMBx.LastId or 0)+1;

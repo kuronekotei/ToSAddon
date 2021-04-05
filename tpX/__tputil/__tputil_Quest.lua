@@ -21,15 +21,31 @@ function gQst.GetUniq()
 		{CName="Indun_StarTower_uniqe_raid"},
 		{CName="Unique_Raid_boss_Skiaclipse"},
 		{CName="Unique_Raid_boss_Moringponia"},
+		{CName="Unique_Raid_Glacier"},
+		{CName="GM_BorutosKapas_1"},
+		{CName="GM_Giltine_1"},
 	};
 	for k, v in pairs(gQst.LstUniq) do
 		local indunCls	= GetClass("Indun", v.CName);
-		v.ClsID			= indunCls.ClassID;
-		v.Name			= indunCls.Name;
-		v.mCName		= indunCls.StartMap;
-		local mapProp	= geMapTable.GetMapProp(v.mCName);
-		local mName		= mapProp:GetName();
-		v.mName			= dictionary.ReplaceDicIDInCompStr(mName);
+		if (indunCls ~= nil) then
+			v.ClsTyp		= 0;
+			v.ClsID			= indunCls.ClassID;
+			v.Name			= indunCls.Name;
+			v.mCName		= indunCls.StartMap;
+			local mapProp	= geMapTable.GetMapProp(v.mCName);
+			local mName		= mapProp:GetName();
+			v.mName			= dictionary.ReplaceDicIDInCompStr(mName);
+		end
+		local gmCls	= GetClass("GuildEvent", v.CName);
+		if (gmCls ~= nil) then
+			v.ClsTyp		= 1;
+			v.ClsID			= gmCls.ClassID;
+			v.Name			= gmCls.Name;
+			v.mCName		= gmCls.StartMap;
+			local mapProp	= geMapTable.GetMapProp(v.mCName);
+			local mName		= mapProp:GetName();
+			v.mName			= dictionary.ReplaceDicIDInCompStr(mName);
+		end
 	end
 end
 function gQst.GetQuest()

@@ -20,6 +20,7 @@ g0.Char		= g0.Char	or {};
 g0.Party	= g0.Party	or {};
 g0.Inv		= g0.Inv	or {};
 g0.MBox		= g0.MBox	or {};
+g0.Map		= g0.Map	or {};
 
 local gExp = g0.Exp;
 local gPop = g0.Pop;
@@ -31,17 +32,19 @@ local gChr = g0.Char;
 local gPty = g0.Party;
 local gInv = g0.Inv;
 local gMBx = g0.MBox;
+local gMap = g0.Map;
 
 function __TPUTIL_ON_INIT(adn, frame)
-	adn:RegisterMsg("GAME_START", "TPUTIL_GAME_START");
-	adn:RegisterMsg("JOB_EXP_UPDATE",	"TPUTIL_JOB_EXP_UPDATE");
-	adn:RegisterMsg("JOB_EXP_ADD",	"TPUTIL_JOB_EXP_UPDATE");
-	adn:RegisterMsg("EXP_UPDATE",	"TPUTIL_EXP_UPDATE");
-	adn:RegisterMsg("INV_ITEM_IN",	"TPUTIL_ITEM_IN");
-	adn:RegisterMsg("CAMP_UPDATE",	"TPUTIL_PARTY_UPDATE");
-	adn:RegisterMsg("PARTY_UPDATE",	"TPUTIL_PARTY_UPDATE");
-	adn:RegisterMsg("QUEST_UPDATE", "TPUTIL_QUEST_UPDATE");
-	adn:RegisterMsg("S_OBJ_UPDATE",	"TPUTIL_QUEST_UPDATE");
+	adn:RegisterMsg("GAME_START",			"TPUTIL_GAME_START");
+	adn:RegisterMsg("JOB_EXP_UPDATE",		"TPUTIL_JOB_EXP_UPDATE");
+	adn:RegisterMsg("JOB_EXP_ADD",			"TPUTIL_JOB_EXP_UPDATE");
+	adn:RegisterMsg("EXP_UPDATE",			"TPUTIL_EXP_UPDATE");
+	adn:RegisterMsg("INV_ITEM_IN",			"TPUTIL_ITEM_IN");
+	adn:RegisterMsg("CAMP_UPDATE",			"TPUTIL_PARTY_UPDATE");
+	adn:RegisterMsg("PARTY_UPDATE",			"TPUTIL_PARTY_UPDATE");
+	adn:RegisterMsg("PARTY_INST_UPDATE",	"TPUTIL_PT_INST_UPDATE");
+	adn:RegisterMsg("QUEST_UPDATE",			"TPUTIL_QUEST_UPDATE");
+	adn:RegisterMsg("S_OBJ_UPDATE",			"TPUTIL_QUEST_UPDATE");
 	if(g0.fInit ~= true) then
 		g0.PCL(gExp.Init);
 	end
@@ -85,6 +88,7 @@ function g0.TpUtilStart()
 	g0.PCL(gQst.GetUniq);
 	g0.PCL(gQst.GetQuest);
 	g0.PCL(gPty.GetParty);
+	g0.PCL(gMap.Init);
 	if (g0.MapCode == mapCode) and (g0.CharName == charName) then
 		--	マップもキャラも一緒の時・・・イベントだけ登録
 		g0.Event("TPUTIL_START", g0.MapCode ,0);
@@ -113,23 +117,39 @@ function g0.TpUtilStart()
 	gClk.TimeSec	= 0;
 	gClk.FirstClock	= 0;
 	gClk.LastClock	= -1;
+	gClk.LastChat	= -1;
 	gClk.NowClock	= 0;
 	gClk.StartClock	= os.clock();	-- Windowsならシステム秒;
+	gClk.ChatQue	= {};
 	g0.Event("TPUTIL_START", g0.MapCode ,0);
 	g0.Event("TPUTIL_MAPSTART", g0.MapCode ,0);
 	local frm = ui.GetFrame("__tputil");
-	frm:RunUpdateScript("TPUTIL_CLOCK_WORK",  1, 0.0, 0, 1);
+	frm:RunUpdateScript("TPUTIL_CLOCK_WORK",  0.1, 0.0, 0, 1);
 	return;
 end
-function TPUTIL_CLOCK_WORK(frame)	--	RunUpdateScriptで1秒ごとに動く
-	g0.PCL(g0.ClockWork);
+function TPUTIL_CLOCK_WORK(frame)	--	RunUpdateScriptで0.1秒ごとに動く
+	g0.PCL(gClk.ClockWork);	--	RunUpdateScriptで1秒ごとに動く
 	return 1;	--	RunUpdateScriptは1で継続
 end
 
-function g0.ClockWork()
+function gClk.OverClock()
+	g0.PCL(gMap.ClockEx);
+end
+
+function gClk.ClockWork()
+	local nowTimeEx	= math.floor(os.clock()*10)/10;	-- Windowsならシステム秒(ただし小数があるので0.1で落とす)
 	local nowTime	= math.floor(os.clock());	-- Windowsならシステム秒(ただし小数があるので落とす)
 	if (gClk.FirstClock == 0) then
 		gClk.FirstClock	= nowTime;
+	end
+	gClk.NowClockEx = nowTimeEx - gClk.FirstClock;
+	g0.PCL(gClk.OverClock);
+	if ((#gClk.ChatQue > 0) and gClk.ChatQue[1] and (gClk.NowClockEx - gClk.LastChat > 0.5)) then
+		gClk.LastChat = gClk.NowClockEx;
+		ui.Chat(table.remove(gClk.ChatQue, 1));
+	end
+	if (gClk.NowClock == nowTime - gClk.FirstClock) then
+		return;
 	end
 	gClk.NowClock = nowTime - gClk.FirstClock;
 	local nowTmP10	= math.floor(gClk.NowClock /10)*10;	-- 10秒単位
@@ -153,12 +173,18 @@ function g0.ClockWork()
 	g0.PCL(gPck.Clock,f10);
 	g0.PCL(gPop.Clock,f10);
 	g0.PCL(gDps.Clock,f10);
+	g0.PCL(gPty.UpdPartyDtl);
 	if (f10) then
 		g0.Event("TPUTIL_CLOCKWORK", "", gClk.LastClock);
 	end
 	g0.Event("TPUTIL_REALTIME", "", gClk.NowClock);
 	gClk.LastClock = nowTmP10;
 	gClk.TimeSec = nowTmM10;
+
+	if ((#gClk.ChatQue > 0) and gClk.ChatQue[1] and (gClk.NowClockEx - gClk.LastChat > 0.5)) then
+		gClk.LastChat = gClk.NowClockEx;
+		ui.Chat(table.remove(gClk.ChatQue, 1));
+	end
 end
 
 
