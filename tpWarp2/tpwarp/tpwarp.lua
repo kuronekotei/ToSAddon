@@ -250,7 +250,7 @@ function g9.PtyUpd(frame, msg, str, num)
 	--CHAT_SYSTEM("g9.PtyUpd 2");
 
 	for i = 1, 6 do
-		if (gPty.PtId == s9["LastPtId"..i]) then
+		if (gPty.PtId == s9["LastPtId"..i]) or (i==6) then
 			if (gPty.MmCt>1) then
 				if(i>1)then
 					for j = i, 2, -1 do
