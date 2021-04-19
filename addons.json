@@ -40,17 +40,7 @@
         "tags" : [ "chat" ]
     },
     {
-        "name" : "tpFarmed",
-        "file" : "tpfarmed",
-        "extension" : "ipf",
-        "fileVersion" : "v1.3.3",
-        "releaseTag" : "tpfarmed",
-        "unicode" : "🐈",
-        "description" : "手に入れた物に関するログが出ます。",
-        "tags" : [ "chat" ]
-    },
-    {
-        "name" : "tpFarm2",
+        "name" : "tpFarm",
         "file" : "tpfarm",
         "extension" : "ipf",
         "fileVersion" : "v2.2.0",
@@ -90,7 +80,7 @@
         "tags" : [ "chat" ]
     },
     {
-        "name" : "tpWarp2",
+        "name" : "tpWarp",
         "file" : "tpwarp",
         "extension" : "ipf",
         "fileVersion" : "v2.0.2",
