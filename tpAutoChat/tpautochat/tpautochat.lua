@@ -1,124 +1,110 @@
---[[
+--[[tpautochat
 	日本語
 --]]
+local g0 = GetTpUtil();
+local gPty = g0.Party;
 
-local acutil = require('acutil');
 
-_G['TPAUTOCHAT'] = _G['TPAUTOCHAT'] or {};
-local g8 = _G['TPAUTOCHAT'];
-g8.settingPath = g8.settingpath or "../addons/tpautochat/stg_tpautochat.json";
-g8.settings = g8.settings or {};
-local s8 = g8.settings;
+local _NAME_ = 'TPAUTOCHAT';
+_G[_NAME_] = _G[_NAME_] or {};
+local g8 = _G[_NAME_];
 
-function TPAUTOCHAT_ON_INIT(addon, frame)
-	local f,m = pcall(g8.TPAUTOCHAT_LOAD_SETTING);
-	if f ~= true then
-		CHAT_SYSTEM(m);
-		return;
-	end
-	f,m = pcall(g8.TPAUTOCHAT_SAVE_SETTING);
-	if f ~= true then
-		CHAT_SYSTEM(m);
-		return;
-	end
- 	addon:RegisterMsg("GAME_START", "TPAUTOCHAT_GAME_START")
-	addon:RegisterMsg('INDUN_REWARD_RESULT', 'TPAUTOCHAT_LEVEL_END')
-	addon:RegisterMsg('OPEN_INDUN_REWARD_HUD', 'TPAUTOCHAT_LEVEL_UPD')
+g8.StgPath = g8.StgPath or "../addons/tpautochat/stg_tpautochat.lua";
+g8.Stg = g8.Stg or {
+	MatchingOnly		= true,
+	AutoExt				= false,
+	MsgStart			= "/p よろしくお願いします",
+	MsgEnd				= "/p お疲れ様でした{img emoticon_0001 24 24}{/}",
+	MsgLevelID100p		= "/p 達成率100％!!　ボス行けます!!",
+};
+local s8 = g8.Stg;
+g8.tblSort = g8.tblSort or {
+	{name="_",					comm="【ユーザーインターフェースの設定】"},
+	{name="AutoExt",			comm="自動退出"},
+	{name="MsgStart",			comm="入場後の発言"},
+	{name="MsgEnd",				comm="終了時の発言"},
+}
+local tblSort = g8.tblSort;
+
+
+function TPAUTOCHAT_ON_INIT(adn, frame)
+	adn:RegisterMsg("GAME_START", "TPAUTOCHAT_GAME_START")
+	adn:RegisterMsg('OPEN_INDUN_REWARD_HUD', 'TPAUTOCHAT_LEVEL_UPD')
+	adn:RegisterMsg('TPUTIL_CLOCKWORK', 'TPAUTOCHAT_CLOCKWORK')
+	adn:RegisterMsg('INDUN_REWARD_RESULT', 'TPAUTOCHAT_LEVEL_END')
+	adn:RegisterMsg('REFRESH_MYTHIC_DUNGEON_HUD', 'TPAUTOCHAT_LEVEL_END2')
+	adn:RegisterMsg('ENABLE_RETURN_BUTTON', 'TPAUTOCHAT_RETURN')
+
+	g0.PCL(g0.LoadStg,_NAME_,g8.StgPath,s8);
+	g0.PCL(g0.SaveStg,_NAME_,g8.StgPath,s8,tblSort);
 end
 function TPAUTOCHAT_GAME_START()
 	g8.lvlCount = 0;
 	g8.lvlScore = 0;
-	g8.lvlStart = false;
-	g8.lvlEnd = false;
+	g8.lvlRet = false;
+	g8.lvlStart = (session.world.IsIntegrateServer() == true);
+	g8.lvlEnd = (session.world.IsIntegrateServer() == true);
+end
+function TPAUTOCHAT_CLOCKWORK(frame, msg, argStr, argNum)
+	g0.PCL(g8.TPAUTOCHAT_LEVEL_START);
+	if(g8.lvlRet)then
+		g0.PCL(g8.TPAUTOCHAT_RETURN);
+	end
 end
 function TPAUTOCHAT_LEVEL_UPD(frame, msg, argStr, argNum)
-	local f,m = pcall(g8.TPAUTOCHAT_LEVEL_UPD, frame, msg, argStr, argNum);
-	if f ~= true then
-		CHAT_SYSTEM(m);
-	end
+	g0.PCL(g8.TPAUTOCHAT_LEVEL_UPD);
 end
 function TPAUTOCHAT_LEVEL_END(frame, msg, argStr, argNum)
-	local f,m = pcall(g8.TPAUTOCHAT_LEVEL_END, frame, msg, argStr, argNum);
-	if f ~= true then
-		CHAT_SYSTEM(m);
-	end
+	g0.PCL(g8.TPAUTOCHAT_LEVEL_END);
+end
+function TPAUTOCHAT_LEVEL_END2(frame, msg, argStr, argNum)
+	g0.PCL(g8.TPAUTOCHAT_LEVEL_END2);
+end
+function TPAUTOCHAT_RETURN(frame, msg, argStr, argNum)
+	g0.PCL(g8.TPAUTOCHAT_RETURN);
 end
 
-function g8.TPAUTOCHAT_LOAD_SETTING()
-	local t, err = acutil.loadJSON(g8.settingPath);
-	if t then
-		s8 = acutil.mergeLeft(s8, t);
-	end
-	-- 	値の存在確保と初期値設定
-	s8.isDebug		= ((type(s8.isDebug			) == "boolean")	and s8.isDebug		)or false;
-	s8.LevelIDStart	= ((type(s8.LevelIDStart	) == "string")	and s8.LevelIDStart	)or "$p よろしくお願いします";
-	s8.LevelID20p	= ((type(s8.LevelID20p		) == "string")	and s8.LevelID20p	)or "$p 達成率20％";
-	s8.LevelID40p	= ((type(s8.LevelID40p		) == "string")	and s8.LevelID40p	)or "$p 達成率40％";
-	s8.LevelID60p	= ((type(s8.LevelID60p		) == "string")	and s8.LevelID60p	)or "$p 達成率60％";
-	s8.LevelID80p	= ((type(s8.LevelID80p		) == "string")	and s8.LevelID80p	)or "$p 達成率80％";
-	s8.LevelID100p	= ((type(s8.LevelID100p		) == "string")	and s8.LevelID100p	)or "$p 達成率100％!!ボス戦行けます!!";
-	s8.LevelIDEnd	= ((type(s8.LevelIDEnd		) == "string")	and s8.LevelIDEnd	)or "$p お疲れ様でした{img emoticon_0001 24 24}{$}";
-	s8.LevelIDExit	= ((type(s8.LevelIDExit		) == "boolean")	and s8.LevelIDExit	)or false;
-	g8.LevelIDStart	= string.gsub(s8.LevelIDStart	,"%$","/");
-	g8.LevelID20p	= string.gsub(s8.LevelID20p		,"%$","/");
-	g8.LevelID40p	= string.gsub(s8.LevelID40p		,"%$","/");
-	g8.LevelID60p	= string.gsub(s8.LevelID60p		,"%$","/");
-	g8.LevelID80p	= string.gsub(s8.LevelID80p		,"%$","/");
-	g8.LevelID100p	= string.gsub(s8.LevelID100p	,"%$","/");
-	g8.LevelIDEnd	= string.gsub(s8.LevelIDEnd		,"%$","/");
-end
-
-function g8.TPAUTOCHAT_SAVE_SETTING()
-	local filep = io.open(g8.settingPath,"w+");
-	if filep then
-		filep:write("{\n");
-		filep:write("\t\"isDebug\":"			.. ((s8.isDebug			and "true") or "false")	.."\n"	);
-		filep:write(",\t\"LevelIDStart\":\""	.. s8.LevelIDStart		.."\"\n"		);
-		filep:write(",\t\"LevelID20p\":\""		.. s8.LevelID20p		.."\"\n"		);
-		filep:write(",\t\"LevelID40p\":\""		.. s8.LevelID40p		.."\"\n"		);
-		filep:write(",\t\"LevelID60p\":\""		.. s8.LevelID60p		.."\"\n"		);
-		filep:write(",\t\"LevelID80p\":\""		.. s8.LevelID80p		.."\"\n"		);
-		filep:write(",\t\"LevelID100p\":\""		.. s8.LevelID100p		.."\"\n"		);
-		filep:write(",\t\"LevelIDEnd\":\""		.. s8.LevelIDEnd		.."\"\n"		);
-		filep:write(",\t\"LevelIDExit\":"		.. ((s8.LevelIDExit		and "true") or "false")	.."\n"	);
-		filep:write("}\n");
-		filep:close();
+function g8.TPAUTOCHAT_LEVEL_START(frame, msg, argStr, argNum)
+	if (#gPty.LstMem>1) and (g8.lvlStart) then
+		g8.lvlStart = false;
+		if ((s8.MsgStart ~= nil) and (s8.MsgStart ~= "") ) then
+			ui.Chat(s8.MsgStart)
+		end
 	end
 end
 
 function g8.TPAUTOCHAT_LEVEL_UPD(frame, msg, argStr, argNum)
---	CHAT_SYSTEM((msg or "").."//"..(argStr or "").."//"..(argNum or "").."//");
-	g8.lvlCount = g8.lvlCount +1;
-	if (g8.lvlStart~=true and g8.lvlCount>3) then
-		g8.lvlStart = true;
-		if ((g8.LevelIDStart ~= nil) and (g8.LevelIDStart ~= "")) then
-			ui.Chat(g8.LevelIDStart);
+	CHAT_SYSTEM(g0.s(msg).." "..g0.s(argStr).." "..g0.s(argNum));
+	if (#gPty.LstMem>1) and (argNum) then
+		if ((g8.lvlScore<100) and (argNum==100) and (s8.MsgLevelID100p ~= nil) and (s8.MsgLevelID100p ~= "")) then
+			ui.Chat(s8.MsgLevelID100p);
 		end
-		return;
-	end
-	if ((g8.lvlScore<100) and (argNum==100) and (g8.LevelID100p ~= nil) and (g8.LevelID100p ~= "")) then
-		ui.Chat(g8.LevelID100p);
-	elseif ((g8.lvlScore<80) and (argNum>=80) and (g8.LevelID80p ~= nil) and (g8.LevelID80p ~= "")) then
-		ui.Chat(g8.LevelID80p);
-	elseif ((g8.lvlScore<60) and (argNum>=60) and (g8.LevelID60p ~= nil) and (g8.LevelID60p ~= "")) then
-		ui.Chat(g8.LevelID60p);
-	elseif ((g8.lvlScore<40) and (argNum>=40) and (g8.LevelID40p ~= nil) and (g8.LevelID40p ~= "")) then
-		ui.Chat(g8.LevelID40p);
-	elseif ((g8.lvlScore<20) and (argNum>=20) and (g8.LevelID20p ~= nil) and (g8.LevelID20p ~= "")) then
-		ui.Chat(g8.LevelID20p);
 	end
 	g8.lvlScore = argNum;
 end
 
 function g8.TPAUTOCHAT_LEVEL_END(frame, msg, argStr, argNum)
---	CHAT_SYSTEM((msg or "").."//"..(argStr or "").."//"..(argNum or ""));
-	if (g8.lvlEnd~=true) then
-		g8.lvlEnd = true;
-		if ((g8.LevelIDEnd ~= nil) and (g8.LevelIDEnd ~= "")) then
-			ui.Chat(g8.LevelIDEnd)
+	if (#gPty.LstMem>1) and (g8.lvlEnd) then
+		g8.lvlEnd = false;
+		if ((s8.MsgEnd ~= nil) and (s8.MsgEnd ~= "") ) then
+			ui.Chat(s8.MsgEnd)
 		end
-		if (s8.LevelIDExit) then
-			packet.ReqReturnOriginServer();
+	end
+end
+
+function g8.TPAUTOCHAT_LEVEL_END2(frame, msg, argStr, argNum)
+	CHAT_SYSTEM(g0.s(msg).." "..g0.s(argStr).." "..g0.s(argNum));
+	if (#gPty.LstMem>1) and (argNum) and (argNum>=100) and (g8.lvlEnd) then
+		g8.lvlEnd = false;
+		if ((s8.MsgEnd ~= nil) and (s8.MsgEnd ~= "") ) then
+			ui.Chat(s8.MsgEnd)
 		end
+		g8.lvlRet = true;
+	end
+end
+
+function g8.TPAUTOCHAT_RETURN(frame, msg, argStr, argNum)
+	if (s8.LevelIDExit) then
+		restart.ReqReturn();
 	end
 end
