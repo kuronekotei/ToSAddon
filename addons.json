@@ -83,7 +83,7 @@
         "name" : "tpWarp",
         "file" : "tpwarp",
         "extension" : "ipf",
-        "fileVersion" : "v2.0.2",
+        "fileVersion" : "v2.1.0",
         "releaseTag" : "tpwarp2",
         "unicode" : "🐈",
         "description" : "クエストワープが列挙されたり、PTリンクが保存されます。動作にtpUtilが必要です。",

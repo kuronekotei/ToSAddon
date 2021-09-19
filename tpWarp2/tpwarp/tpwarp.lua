@@ -80,6 +80,20 @@ g9.tblSort = g9.tblSort or {
 local tblSort = g9.tblSort;
 
 function TPWARP_ON_INIT(adn, frame)
+	local mapprop = session.GetCurrentMapProp()
+	local mapCls = GetClassByType("Map", mapprop.type)
+	if mapCls.Type == "MISSION"
+		or GetClass("Housing_Place", mapCls.ClassName)
+		or mapCls.Keyword == "WeeklyBossMap"
+		or string.find(mapCls.Keyword, "MythicMap") ~= nil
+		or session.IsAutoChallengeMap() == true
+		or session.IsSoloChallengeMap() == true
+		or session.IsWarpDisabledRaidMap() == true
+	then
+		frame:ShowWindow(0);
+		return;
+	end
+
 	adn:RegisterMsg("TPUTIL_START", "TPWARP_GAME_START");
 	adn:RegisterMsg("TPUTIL_PTYUPD", "TPWARP_PTYUPD");
 	adn:RegisterMsg("TPUTIL_QSTUPD", "TPWARP_QSTUPD");
@@ -119,44 +133,52 @@ function g9.UiStart(frame, control)
 	g9.ptH = 0;
 	g9.exH = 0;
 
-	if(g0.MapIsIndun) then
-		local gb = frm:CreateOrGetControl("groupbox", "gbback", 430, 2, 40, 28);
-		gb:SetSkinName("skin_white");
-		gb:SetColorTone("C0000000");
-		gb:EnableHitTest(1);
-		gb:SetEventScript(ui.LBUTTONUP, "TPWARP_BTN_BACK");
-		local rt = gb:CreateOrGetControl("richtext", "rtback",2,0,36,28);
-		rt = tolua.cast(rt, "ui::CRichText");	-- ui::CObject を ui::CRichTextにキャスト
-		rt:SetFontName("white_16_ol");
-		rt:EnableResizeByText(0);	-- CRichTextでないと使えない
-		rt:SetTextFixWidth(0);		-- CRichTextでないと使えない
-		rt:EnableSplitBySpace(0);	-- CRichTextでないと使えない
-		rt:EnableHitTest(0);
-		rt:SetText("Back");
-		if(s9.MainUIShowBack) then
-			gb:ShowWindow(1);
-		else
-			gb:ShowWindow(0);
-		end
-	end
-	if(g0.MapIsCity) then
-		local btn = frm:CreateOrGetControl("button", "btnshop", 430, 2, 30, 28);
-		btn = tolua.cast(btn, "ui::CButton");
-		btn:SetImage("steam_shop2_btn");
-		btn:SetEventScript(ui.LBUTTONUP, "MINIMIZED_TP_BUTTON_CLICK");
-		btn:Resize(30, 28);
-		if(s9.MainUIShowShop) then
-			btn:ShowWindow(1);
-		else
-			btn:ShowWindow(0);
-		end
-	end
+	g9.SetUtilButton(frm, g0.MapIsCity);
 
 	frm:MoveFrame(s9.MainUIPosX	,s9.MainUIPosY);
 	g0.PCL(g9.SetUnqNItm);
 	g0.PCL(g9.SetQuestWarp);
 	g0.PCL(g9.SetPartyLink);
 	frm:Resize(frm:GetWidth(),g9.frH + g9.qsH + g9.ptH + g9.exH);
+end
+
+function g9.SetUtilButton(frm,fCity)
+
+	--	x
+	local btnCoin = frm:CreateOrGetControl("button", "btnCoin", 362, 2, 30, 28);
+	btnCoin = tolua.cast(btnCoin, "ui::CButton");
+	btnCoin:SetImage("pvpmine_shop_btn_total");
+	btnCoin:SetEventScript(ui.LBUTTONUP, "MINIMIZED_PVPMINE_SHOP_BUTTON_CLICK");
+	btnCoin:Resize(30, 28);
+	if(s9.MainUIShowShop) then
+		btnCoin:ShowWindow(1);
+	else
+		btnCoin:ShowWindow(0);
+	end
+
+	--	x
+	local btn = frm:CreateOrGetControl("button", "btnGabija", 396, 2, 30, 28);
+	btn = tolua.cast(btn, "ui::CButton");
+	btn:SetImage("goddess_shop_btn");
+	btn:SetEventScript(ui.LBUTTONUP, "MINIMIZED_CERTIFICATE_SHOP_BUTTON_CLICK");
+	btn:Resize(30, 28);
+	if(s9.MainUIShowShop) then
+		btn:ShowWindow(1);
+	else
+		btn:ShowWindow(0);
+	end
+
+	--	x
+	local btn = frm:CreateOrGetControl("button", "btnShop", 430, 2, 30, 28);
+	btn = tolua.cast(btn, "ui::CButton");
+	btn:SetImage("steam_shop2_btn");
+	btn:SetEventScript(ui.LBUTTONUP, "MINIMIZED_TP_BUTTON_CLICK");
+	btn:Resize(30, 28);
+	if(s9.MainUIShowShop and fCity) then
+		btn:ShowWindow(1);
+	else
+		btn:ShowWindow(0);
+	end
 end
 
 function TPWARP_QSTUPD(frame, msg, str, num)
@@ -602,5 +624,5 @@ function TPWARP_BTN_BACK(frame, ctrl, argStr, argNum)
 	end
 	g9.lastclck = os.clock();
 	--	CHAT_SYSTEM("TPWARP_BTN_BACK"..ctrl:GetName());
-	packet.ReqReturnOriginServer();
+	restart.ReqReturn();
 end

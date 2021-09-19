@@ -5,7 +5,7 @@
 	<input hittest="true" moveable="true" moveintitlebar="false" hittestframe="true"/>
 	<option visible="true" hideable="false" useimageitem="true" closebutton="false" savelayout="false"/>
 	<skin frameskin="chat_window"/>
-	<layer layerlevel="31"/>
+	<layer layerlevel="79"/>
 	<controls>
 		<richtext name="title"                    rect="0 0 32 32"  margin="3 0 0 0"   layout_gravity="left top" textalign="left center" caption="{@st42}{img icon_item_halloween_pistol 32 32}{/}{/}" fixheight="true" fixwidth="true" resizebytext="false" hittest="false"/>
 	</controls>
