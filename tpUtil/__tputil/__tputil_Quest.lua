@@ -14,16 +14,14 @@ function TPUTIL_QUEST_UPDATE(frame, msg, argStr, questID)
 end
 function gQst.GetUniq()
 	gQst.LstUniq ={
-		{CName="Indun_whitetrees"},
-		{CName="M_Past_FantasyLibrary_1"},
-		{CName="Indun_Nicopolis_uniqe_raid"},
-		{CName="Indun_Bracken_uniqe_raid"},
-		{CName="Indun_StarTower_uniqe_raid"},
-		{CName="Unique_Raid_boss_Skiaclipse"},
-		{CName="Unique_Raid_boss_Moringponia"},
-		{CName="Unique_Raid_Glacier"},
+		{CName="M_GTOWER_1_1"},
+		{CName="Raid_Velcoffer_guard"},
+		{CName="Raid_boss_Skiaclipse"},
+		{CName="Legend_Raid_boss_Moringponia_Hard"},
+		{CName="Legend_Raid_Glacier_Hard"},
 		{CName="GM_BorutosKapas_1"},
 		{CName="GM_Giltine_1"},
+		{CName="Goddess_Raid_Vasilissa"},
 	};
 	for k, v in pairs(gQst.LstUniq) do
 		local indunCls	= GetClass("Indun", v.CName);
