@@ -108,5 +108,15 @@
         "unicode" : "🐈",
         "description" : "余計なクエストの自動追跡(右のリストに載る)を防止します",
         "tags" : [ "quest" ]
+    },
+    {
+        "name" : "tpComboReplace",
+        "file" : "tpcomboreplace",
+        "extension" : "ipf",
+        "fileVersion" : "v0.0.1",
+        "releaseTag" : "tpcomboreplace",
+        "unicode" : "🐈",
+        "description" : "WASD表記を矢印に置き換えます",
+        "tags" : [ "mouse","ui"]
     }
 ]
