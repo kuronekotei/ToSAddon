@@ -418,49 +418,6 @@ function g9.SetCampLink()
 end
 
 
-function g9.SetUnqNItm()
-	if (s9.MainUIShowUnique ~= true) and (s9.MainUIShowEscItm ~= true) then
-		return;
-	end
-	local frm	= ui.GetFrame("tpwarp");
-	if (frm == nil) then
-		return;
-	end
-	g9.exH = 30;
-	local posH = g9.frH;
-	if (s9.MainUIShowUnique == true) then
-		local i = 0;
-		for i = 1, #gQst.LstUniq do
-			local uniq = gQst.LstUniq[i];
-			local posL = 2 + ((i-1) *42);
-
-			local gb = frm:CreateOrGetControl("groupbox", "ugb"..i, posL, posH, 40, 28);
-			gb:SetSkinName("skin_white");
-			gb:SetColorTone("C0000000");
-			gb:EnableHitTest(1);
-			gb:SetEventScript(ui.LBUTTONUP, "TPWARP_BTN_UNIQUE");
-
-			local rt = gb:CreateOrGetControl("richtext", "urt"..i,2,0,36,28);
-			rt = tolua.cast(rt, "ui::CRichText");	-- ui::CObject を ui::CRichTextにキャスト
-			rt:SetFontName("white_12_ol");
-			rt:EnableResizeByText(0);	-- CRichTextでないと使えない
-			rt:SetTextFixWidth(0);		-- CRichTextでないと使えない
-			rt:EnableSplitBySpace(0);	-- CRichTextでないと使えない
-			rt:EnableHitTest(0);
-			rt:SetText(uniq.mName.."{nl}"..uniq.Name);
-
-			gb:ShowWindow(1);
-		end
-	end
-	if (s9.MainUIShowEscItm == true) then
-		local posL = 422;
-		g9.SetItem2Slot(frm, posL, posH,"Escape_Orb", "sltitm1", "TPWARP_BTN_ITM1")
-		local posL = 422+32;
-		g9.SetItem2Slot(frm, posL, posH,"EscapeStone_Klaipeda", "sltitm2", "TPWARP_BTN_ITM2")
-		local posL = 422+64;
-		g9.SetItem2Slot(frm, posL, posH,"EscapeStone_Orsha", "sltitm3", "TPWARP_BTN_ITM3")
-	end
-end
 
 function g9.SetItem2Slot(parent, posL, posH, itmName, sltName, fncName)
 	local slt = parent:CreateOrGetControl("slot", sltName, posL, posH, 30, 28);
