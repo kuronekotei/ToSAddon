@@ -38,7 +38,7 @@ function gExp.Init()
 	local expCT		=0;
 	local expCTX	=0;
 	local i = 0;
-	for i=1, 500 do
+	for i=1, 600 do
 		local expData  = GetClassByType("Xp", i);
 		if (expData ~= nil) then
 			expB = expData.TotalXp - expBT;
@@ -140,6 +140,9 @@ function gExp.Dump()
 end
 
 function gExp.Culc()	--	retrun expBTotal 現在のベース経験総量	expCTotal 現在のクラス経験総量
+	if(gExp.TableB==nil) then
+		gExp.Init();
+	end
 
 	--	キャラオブジェクトの取得
 	local pcObj = GetMyPCObject();

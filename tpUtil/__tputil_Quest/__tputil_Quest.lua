@@ -22,6 +22,7 @@ function gQst.GetUniq()
 		{CName="GM_BorutosKapas_1"},
 		{CName="GM_Giltine_1"},
 		{CName="Goddess_Raid_Vasilissa"},
+		{CName="Goddess_Raid_Delmore_Party"},
 	};
 	for k, v in pairs(gQst.LstUniq) do
 		local indunCls	= GetClass("Indun", v.CName);
